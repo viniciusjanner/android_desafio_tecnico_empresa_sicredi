@@ -1,4 +1,4 @@
-package com.viniciusjanner.desafio.sicredi.ui
+package com.viniciusjanner.desafio.sicredi.presentation
 
 import android.os.Build
 import android.os.Bundle
