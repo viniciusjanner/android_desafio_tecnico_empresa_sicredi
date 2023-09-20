@@ -24,6 +24,8 @@ android {
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", "\"https://5f5a8f24d44d640016169133.mockapi.io/api/\"")
     }
 
     buildTypes {
@@ -51,6 +53,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
