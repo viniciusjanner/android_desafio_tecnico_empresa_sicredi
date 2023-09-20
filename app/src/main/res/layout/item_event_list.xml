@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="8dp"
+    app:elevation="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/eventImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_placeholder_image" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventImage"
+            tools:text="Event title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventDateHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:drawableStart="@drawable/ic_calendar"
+            android:drawablePadding="8dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textColor="@color/colorGrayDark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/eventTitle"
+            app:layout_constraintStart_toStartOf="@+id/eventTitle"
+            app:layout_constraintTop_toBottomOf="@+id/eventTitle"
+            tools:text="00 de setembro de 0000 às 00:00" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="14dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textColor="@color/colorGrayDark"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/eventTitle"
+            app:layout_constraintStart_toStartOf="@+id/eventDateHour"
+            app:layout_constraintTop_toBottomOf="@+id/eventDateHour"
+            tools:text="Event subtitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
