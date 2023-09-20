@@ -1,0 +1,7 @@
+<resources>
+    <style name="Base.Theme.EventosWoop" parent="Theme.Material3.DayNight.NoActionBar">
+
+    </style>
+
+    <style name="Theme.EventosWoop" parent="Base.Theme.EventosWoop" />
+</resources>
