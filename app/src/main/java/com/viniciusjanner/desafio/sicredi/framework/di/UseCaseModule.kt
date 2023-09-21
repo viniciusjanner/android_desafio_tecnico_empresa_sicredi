@@ -1,5 +1,7 @@
 package com.viniciusjanner.desafio.sicredi.framework.di
 
+import com.viniciusjanner.desafio.core.usecase.EventCheckinUseCase
+import com.viniciusjanner.desafio.core.usecase.EventCheckinUseCaseImpl
 import com.viniciusjanner.desafio.core.usecase.EventDetailUseCase
 import com.viniciusjanner.desafio.core.usecase.EventDetailUseCaseImpl
 import com.viniciusjanner.desafio.core.usecase.EventsUseCase
@@ -19,4 +21,7 @@ interface UseCaseModule {
 
     @Binds
     fun bindEventDetailUseCase(useCase: EventDetailUseCaseImpl): EventDetailUseCase
+
+    @Binds
+    fun bindEventCheckinUseCase(useCase: EventCheckinUseCaseImpl): EventCheckinUseCase
 }

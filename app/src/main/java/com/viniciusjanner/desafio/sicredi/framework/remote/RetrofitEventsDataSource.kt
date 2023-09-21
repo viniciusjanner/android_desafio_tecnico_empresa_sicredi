@@ -2,6 +2,8 @@ package com.viniciusjanner.desafio.sicredi.framework.remote
 
 import com.viniciusjanner.desafio.core.data.repository.EventsRemoteDataSource
 import com.viniciusjanner.desafio.core.domain.model.Event
+import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.sicredi.framework.network.EventApi
 import com.viniciusjanner.desafio.sicredi.framework.network.response.toEventModel
 import javax.inject.Inject
@@ -18,6 +20,10 @@ class RetrofitEventsDataSource @Inject constructor(
     }
 
     override suspend fun fetchEvent(eventId: String): Event {
-        return  eventApi.getEvent(eventId).toEventModel()
+        return eventApi.getEvent(eventId).toEventModel()
+    }
+
+    override suspend fun sendCheckin(checkIn: EventCheckInSend): EventCheckinResponse {
+        return eventApi.postCheckIn(checkIn)
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -46,11 +47,12 @@ class EventDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initObservers()
+        initObserverUI()
+        initObserverCheckin()
         initListeners()
     }
 
-    private fun initObservers() {
+    private fun initObserverUI() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
             // ViewFlipper
             binding.flipperEvents.displayedChild =
@@ -86,6 +88,24 @@ class EventDetailFragment : Fragment() {
         getEventItem()
     }
 
+    private fun initObserverCheckin() {
+        viewModel.stateCheckin.observe(viewLifecycleOwner) { checkinState ->
+            when (checkinState) {
+                EventDetailViewModel.CheckinState.Loading -> {
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+
+                is EventDetailViewModel.CheckinState.Success -> {
+                    Toast.makeText(requireContext(), "Sucesso", Toast.LENGTH_SHORT).show()
+                }
+
+                EventDetailViewModel.CheckinState.Error -> {
+                    Toast.makeText(requireContext(), "Erro", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     private fun initListeners() {
         binding.eventLocal.setOnClickListener {
             openLocalization()
@@ -96,7 +116,7 @@ class EventDetailFragment : Fragment() {
         }
 
         binding.buttonCheckin.setOnClickListener {
-
+            sendCheckin()
         }
 
         binding.includeViewError.buttonRetry.setOnClickListener {
@@ -106,7 +126,11 @@ class EventDetailFragment : Fragment() {
 
     private fun getEventItem() {
         val eventId = args.eventDetailViewArg.eventId
-        viewModel.actionLoad(eventId)
+        viewModel.actionLoadEvent(eventId)
+    }
+
+    private fun sendCheckin() {
+
     }
 
     private fun setShimmerVisibility(visibility: Boolean) {
