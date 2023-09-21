@@ -94,8 +94,17 @@ dependencies {
 
     // Others
     implementation(Dependencies.Develop.Others.facebookShimmer)
+
+    implementation(Dependencies.Develop.Others.glideAnnotations)
     kapt(Dependencies.Develop.Others.glideCompiler)
     implementation(Dependencies.Develop.Others.glideGlide)
+    implementation(Dependencies.Develop.Others.glideOkhttp)
+    
+//    implementation("com.github.bumptech.glide:annotations:4.16.0")
+//    kapt("com.github.bumptech.glide:compiler:4.16.0")
+//    implementation("com.github.bumptech.glide:glide:4.16.0")
+//    implementation("com.github.bumptech.glide:okhttp3-integration:4.13.0")
+    // kapt(Dependencies.Develop.Others.glideCompiler)
 }
 
 // Hilt required
