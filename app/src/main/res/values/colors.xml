@@ -18,7 +18,7 @@
     <!--Others Colors-->
     <color name="colorBlack">#000000</color>
     <color name="colorGrayDark">#333333</color>
-    <color name="colorGrayMedium">#D1D1D1</color>
+    <color name="colorGrayLight">#D1D1D1</color>
     <color name="colorGreenLight">#00A980</color>
     <color name="colorWhite">#FFFFFF</color>
 </resources>
