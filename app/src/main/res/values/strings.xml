@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Eventos Woop</string>
+
+    <string name="screen_event_list_title">Eventos</string>
+
+    <string name="error_loading_data">Erro ao carregar dados.</string>
+
+    <string name="common_no_internet_connection">Sem conexão com internet.</string>
+    <string name="common_no_results_found">Nenhum resultado</string>
+    <string name="common_try_again">Tente novamente</string>
+    <string name="common_offline_try_again">Você está offline. Verifique sua conexão com a Internet e tente novamente.</string>
 </resources>

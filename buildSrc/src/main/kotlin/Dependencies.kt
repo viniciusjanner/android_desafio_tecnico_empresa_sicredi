@@ -52,9 +52,10 @@ object Dependencies {
         }
 
         object Squareup {
-            val okhttp = "com.squareup.okhttp3:okhttp"
-            val okhttpBom = "com.squareup.okhttp3:okhttp-bom:4.9.0"
-            val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor"
+            const val versionOkhttp = "3.12.12" // Support API 19
+            val okhttp = "com.squareup.okhttp3:okhttp:$versionOkhttp"
+            val okhttpBom = "com.squareup.okhttp3:okhttp-bom:$versionOkhttp"
+            val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$versionOkhttp"
 
             const val versionRetrofit    = "2.9.0"
             val retrofit = "com.squareup.retrofit2:retrofit:$versionRetrofit"
