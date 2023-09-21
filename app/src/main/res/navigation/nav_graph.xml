@@ -32,6 +32,10 @@
         android:id="@+id/EventCheckinFragment"
         android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinFragment"
         android:label="EventCheckinFragment"
-        tools:layout="@layout/fragment_event_checkin" />
+        tools:layout="@layout/fragment_event_checkin">
+        <argument
+            android:name="eventCheckinViewArg"
+            app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinViewArg" />
+    </dialog>
 
 </navigation>

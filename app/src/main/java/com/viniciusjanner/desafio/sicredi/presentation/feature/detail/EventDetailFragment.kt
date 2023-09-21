@@ -19,6 +19,7 @@ import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventDetailBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinFragment
+import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinViewArg
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoney
 import dagger.hilt.android.AndroidEntryPoint
@@ -115,7 +116,15 @@ class EventDetailFragment : Fragment() {
     }
 
     private fun sendCheckin() {
-        findNavController().navigate(R.id.action_EventDetailFragment_to_EventCheckinFragment)
+        // findNavController().navigate(R.id.action_EventDetailFragment_to_EventCheckinFragment)
+
+        val directions = EventDetailFragmentDirections
+            .actionEventDetailFragmentToEventCheckinFragment(
+                EventCheckinViewArg(
+                    eventId = args.eventDetailViewArg.eventId,
+                )
+            )
+        findNavController().navigate(directions)
     }
 
     private fun setShimmerVisibility(visibility: Boolean) {

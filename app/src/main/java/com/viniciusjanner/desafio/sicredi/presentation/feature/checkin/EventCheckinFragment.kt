@@ -4,11 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventCheckinBinding
+import com.viniciusjanner.desafio.sicredi.util.validation.PatternValidation
+import com.viniciusjanner.desafio.sicredi.util.validation.ValidaEmail
+import com.viniciusjanner.desafio.sicredi.util.validation.Validator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +24,9 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
     private val viewModel: EventCheckinViewModel by viewModels()
 
-    // private val args by navArgs<EventCheckinFragmentArgs>()
+    private val args by navArgs<EventCheckinFragmentArgs>()
+
+    private val validators = mutableListOf<Validator>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +42,8 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
         initObserverCheckin()
         initListeners()
+        validateFieldName()
+        validateFieldEmail()
     }
 
     private fun initObserverCheckin() {
@@ -66,7 +75,10 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
     private fun initListeners() {
         binding.buttonSend.setOnClickListener {
-            sendCheckin()
+            val formIsValid: Boolean = validAllFields()
+            if (formIsValid) {
+                sendCheckin()
+            }
         }
 
         binding.includeViewError.buttonRetry.setOnClickListener {
@@ -77,11 +89,43 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     private fun sendCheckin() {
         viewModel.actionSendCheckin(
             EventCheckInSend(
-                "1",
-                "Janner",
-                "viniciusjanner@gmail.com"
+                args.eventCheckinViewArg.eventId,
+                binding.tietName.text.toString().trim(),
+                binding.tietEmail.text.toString().trim(),
             )
         )
+    }
+
+    private fun validateFieldEmail() {
+        val fieldEmail: EditText? = binding.tilEmail.editText
+        val validator = ValidaEmail(binding.tilEmail)
+        validators.add(validator)
+        fieldEmail!!.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                validator.isValid
+            }
+        }
+    }
+
+    private fun validateFieldName() {
+        val field = binding.tilName.editText
+        val validator = PatternValidation(binding.tilName)
+        validators.add(validator)
+        field!!.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                validator.isValid
+            }
+        }
+    }
+
+    private fun validAllFields(): Boolean {
+        var formIsValid = true
+        for (validator in validators) {
+            if (!validator.isValid) {
+                formIsValid = false
+            }
+        }
+        return formIsValid
     }
 
     override fun onDestroyView() {
