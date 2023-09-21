@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/includeViewLoading"
-        layout="@layout/include_view_event_list_loading" />
+        layout="@layout/include_view_loading_event_list" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerEventList"

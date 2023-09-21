@@ -11,20 +11,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/error_loading_data"
+        android:lineSpacingExtra="8dp"
+        android:text="@string/checkin_success"
         android:textAlignment="center"
         android:textSize="24sp"
         app:drawableTopCompat="@drawable/ic_dissatisfied" />
 
     <Button
-        android:id="@+id/buttonRetry"
+        android:id="@+id/buttonClose"
         android:layout_width="200dp"
         android:layout_height="56dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="36dp"
         android:maxWidth="200dp"
         android:maxHeight="56dp"
-        android:text="@string/common_try_again"
+        android:text="@string/understood"
         android:textColor="@color/colorWhite"
         android:theme="@style/Base.Theme" />
 

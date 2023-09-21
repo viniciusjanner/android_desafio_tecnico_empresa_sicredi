@@ -56,13 +56,6 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
                     }
 
                     is EventCheckinViewModel.CheckinState.Success -> {
-                        findNavController().run {
-                            previousBackStackEntry?.savedStateHandle?.set(
-                                KEY_APPLIED_BASK_STACK,
-                                true,
-                            )
-                            popBackStack()
-                        }
                         FLIPPER_CHILD_SUCCESS
                     }
 
@@ -75,25 +68,16 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
     private fun initListeners() {
         binding.buttonSend.setOnClickListener {
-            val formIsValid: Boolean = validAllFields()
-            if (formIsValid) {
-                sendCheckin()
-            }
+            validateCheckin()
         }
 
         binding.includeViewError.buttonRetry.setOnClickListener {
             sendCheckin()
         }
-    }
 
-    private fun sendCheckin() {
-        viewModel.actionSendCheckin(
-            EventCheckInSend(
-                args.eventCheckinViewArg.eventId,
-                binding.tietName.text.toString().trim(),
-                binding.tietEmail.text.toString().trim(),
-            )
-        )
+        binding.includeViewSuccess.buttonClose.setOnClickListener {
+            navigateToEventDetail()
+        }
     }
 
     private fun validateFieldEmail() {
@@ -128,14 +112,41 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
         return formIsValid
     }
 
+    private fun validateCheckin() {
+        val formIsValid: Boolean = validAllFields()
+        if (formIsValid) {
+            sendCheckin()
+        }
+    }
+
+    private fun sendCheckin() {
+        viewModel.actionSendCheckin(
+            EventCheckInSend(
+                args.eventCheckinViewArg.eventId,
+                binding.tietName.text.toString().trim(),
+                binding.tietEmail.text.toString().trim(),
+            )
+        )
+    }
+
+    private fun navigateToEventDetail() {
+        findNavController().run {
+            previousBackStackEntry?.savedStateHandle?.set(
+                KEY_APPLIED_BASK_STACK,
+                true,
+            )
+            popBackStack()
+        }
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
 
     companion object {
-        private const val FLIPPER_CHILD_SUCCESS = 0
-        private const val FLIPPER_CHILD_LOADING = 1
+        private const val FLIPPER_CHILD_LOADING = 0
+        private const val FLIPPER_CHILD_SUCCESS = 1
         private const val FLIPPER_CHILD_ERROR = 2
 
         const val KEY_APPLIED_BASK_STACK = "keyAppliedBackStack"
