@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,7 +27,10 @@ class EventListFragment : Fragment() {
 
     private val eventsAdapter by lazy {
         getGenericAdapterOf {
-            EventListViewHolder.create(it, imageLoader)
+            EventListViewHolder.create(it, imageLoader) { eventItem, _ ->
+                // Temporario
+                Toast.makeText(requireContext(), "ID = ${eventItem.id}" , Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

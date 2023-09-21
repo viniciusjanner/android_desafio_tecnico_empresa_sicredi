@@ -8,11 +8,13 @@ import android.widget.TextView
 import com.viniciusjanner.desafio.sicredi.databinding.ItemEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.GenericViewHolder
+import com.viniciusjanner.desafio.sicredi.util.OnCharacterItemClick
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 
 class EventListViewHolder(
     itemBinding: ItemEventListBinding,
     private val imageLoader: ImageLoader,
+    private val onItemClick: OnCharacterItemClick,
 ) : GenericViewHolder<EventItem>(itemBinding) {
 
     private val eventImage: ImageView = itemBinding.eventImage
@@ -26,18 +28,23 @@ class EventListViewHolder(
         eventTitle.text = data.title
         eventDateHour.text = data.date?.formatDateHour()
         eventSubtitle.text = data.description
+
+        itemView.setOnClickListener {
+            onItemClick.invoke(data, eventImage)
+        }
     }
 
     companion object {
         fun create(
             parent: ViewGroup,
             imageLoader: ImageLoader,
+            onItemClick: OnCharacterItemClick,
         ): EventListViewHolder {
             val inflater = LayoutInflater.from(parent.context)
 
             val itemBinding = ItemEventListBinding.inflate(inflater, parent, false)
 
-            return EventListViewHolder(itemBinding, imageLoader)
+            return EventListViewHolder(itemBinding, imageLoader, onItemClick)
         }
     }
 }
