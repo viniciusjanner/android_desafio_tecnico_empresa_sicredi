@@ -90,21 +90,9 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/containerProgressCheckin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ProgressBar
-            android:id="@+id/progressCheckin"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/includeViewLoading"
+        layout="@layout/include_view_loading" />
 
     <include
         android:id="@+id/includeViewError"

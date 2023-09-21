@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -60,16 +59,13 @@ class EventDetailFragment : Fragment() {
     private fun initObserverUI() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
             // ViewFlipper
-            binding.flipperEvents.displayedChild =
+            binding.flipperEventDetail.displayedChild =
                 when (uiState) {
                     EventDetailViewModel.UiState.Loading -> {
-                        setShimmerVisibility(true)
                         FLIPPER_CHILD_LOADING
                     }
 
                     is EventDetailViewModel.UiState.Success -> {
-                        setShimmerVisibility(false)
-
                         val event = uiState.event
                         val eventImageUrl = args.eventDetailViewArg.eventImageUrl
                         imageLoader.load(binding.eventImage, eventImageUrl)
@@ -83,7 +79,6 @@ class EventDetailFragment : Fragment() {
                     }
 
                     EventDetailViewModel.UiState.Error -> {
-                        setShimmerVisibility(false)
                         FLIPPER_CHILD_ERROR
                     }
                 }
@@ -116,8 +111,6 @@ class EventDetailFragment : Fragment() {
     }
 
     private fun sendCheckin() {
-        // findNavController().navigate(R.id.action_EventDetailFragment_to_EventCheckinFragment)
-
         val directions = EventDetailFragmentDirections
             .actionEventDetailFragmentToEventCheckinFragment(
                 EventCheckinViewArg(
@@ -125,17 +118,6 @@ class EventDetailFragment : Fragment() {
                 )
             )
         findNavController().navigate(directions)
-    }
-
-    private fun setShimmerVisibility(visibility: Boolean) {
-        binding.includeViewLoading.shimmerEvents.run {
-            this.isVisible = visibility
-            if (visibility) {
-                startShimmer()
-            } else {
-                stopShimmer()
-            }
-        }
     }
 
     private fun openSharing() {
@@ -214,13 +196,12 @@ class EventDetailFragment : Fragment() {
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.EventDetailFragment)
 
         val observer = LifecycleEventObserver { _, event ->
-            val isSortingApplied =
+            val isCheckinApplied =
                 navBackStackEntry.savedStateHandle.contains(
                     EventCheckinFragment.KEY_APPLIED_BASK_STACK
                 )
 
-            if (event == Lifecycle.Event.ON_RESUME && isSortingApplied) {
-                // viewModel.actionApplySort()
+            if (event == Lifecycle.Event.ON_RESUME && isCheckinApplied) {
                 navBackStackEntry.savedStateHandle.remove<Boolean>(
                     EventCheckinFragment.KEY_APPLIED_BASK_STACK
                 )
