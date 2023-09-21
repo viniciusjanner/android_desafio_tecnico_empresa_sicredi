@@ -1,4 +1,4 @@
-package com.viniciusjanner.desafio.sicredi.presentation.list
+package com.viniciusjanner.desafio.sicredi.presentation.feature.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,7 +29,7 @@ class EventListFragment : Fragment() {
         getGenericAdapterOf {
             EventListViewHolder.create(it, imageLoader) { eventItem, _ ->
                 // Temporario
-                Toast.makeText(requireContext(), "ID = ${eventItem.id}" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "ID = ${eventItem.id}", Toast.LENGTH_SHORT).show()
             }
         }
     }
