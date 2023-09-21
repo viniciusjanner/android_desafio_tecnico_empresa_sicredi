@@ -3,7 +3,8 @@
     <!--Colors App-->
     <color name="colorPrimary">#026B42</color>
     <color name="colorPrimaryDark">#3dae2b</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <!--<color name="colorAccent">#FFFFFF</color>-->
+    <color name="colorAccent">#00A980</color>
 
     <!--Colors Components-->
     <color name="colorTextLight">#B6B6B6</color>
@@ -20,4 +21,5 @@
     <color name="colorGrayMedium">#D1D1D1</color>
     <color name="colorGreenLight">#00A980</color>
     <color name="colorWhite">#FFFFFF</color>
+    <!--<color name="colorWhite">#333333</color>-->
 </resources>

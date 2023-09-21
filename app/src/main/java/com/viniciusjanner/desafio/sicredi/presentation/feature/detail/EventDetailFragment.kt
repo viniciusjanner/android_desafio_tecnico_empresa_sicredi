@@ -8,13 +8,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventDetailBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
+import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinFragment
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoney
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,15 +52,14 @@ class EventDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initObserverUI()
-        initObserverCheckin()
         initListeners()
+        observeCheckinData()
     }
 
     private fun initObserverUI() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
             // ViewFlipper
             binding.flipperEvents.displayedChild =
-                    // State
                 when (uiState) {
                     EventDetailViewModel.UiState.Loading -> {
                         setShimmerVisibility(true)
@@ -88,24 +91,6 @@ class EventDetailFragment : Fragment() {
         getEventItem()
     }
 
-    private fun initObserverCheckin() {
-        viewModel.stateCheckin.observe(viewLifecycleOwner) { checkinState ->
-            when (checkinState) {
-                EventDetailViewModel.CheckinState.Loading -> {
-                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
-                }
-
-                is EventDetailViewModel.CheckinState.Success -> {
-                    Toast.makeText(requireContext(), "Sucesso", Toast.LENGTH_SHORT).show()
-                }
-
-                EventDetailViewModel.CheckinState.Error -> {
-                    Toast.makeText(requireContext(), "Erro", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
     private fun initListeners() {
         binding.eventLocal.setOnClickListener {
             openLocalization()
@@ -130,7 +115,7 @@ class EventDetailFragment : Fragment() {
     }
 
     private fun sendCheckin() {
-
+        findNavController().navigate(R.id.action_EventDetailFragment_to_EventCheckinFragment)
     }
 
     private fun setShimmerVisibility(visibility: Boolean) {
@@ -214,6 +199,34 @@ class EventDetailFragment : Fragment() {
         }
 
         return "Endereço não encontrado"
+    }
+
+    private fun observeCheckinData() {
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.EventDetailFragment)
+
+        val observer = LifecycleEventObserver { _, event ->
+            val isSortingApplied =
+                navBackStackEntry.savedStateHandle.contains(
+                    EventCheckinFragment.KEY_APPLIED_BASK_STACK
+                )
+
+            if (event == Lifecycle.Event.ON_RESUME && isSortingApplied) {
+                // viewModel.actionApplySort()
+                navBackStackEntry.savedStateHandle.remove<Boolean>(
+                    EventCheckinFragment.KEY_APPLIED_BASK_STACK
+                )
+            }
+        }
+
+        navBackStackEntry.lifecycle.addObserver(observer)
+
+        viewLifecycleOwner.lifecycle.addObserver(
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    navBackStackEntry.lifecycle.removeObserver(observer)
+                }
+            },
+        )
     }
 
     override fun onDestroyView() {

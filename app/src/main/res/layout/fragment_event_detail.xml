@@ -126,6 +126,7 @@
             android:maxWidth="200dp"
             android:maxHeight="50dp"
             android:text="@string/share"
+            android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertica"
             app:layout_constraintStart_toStartOf="parent" />
@@ -140,6 +141,7 @@
             android:maxWidth="200dp"
             android:maxHeight="50dp"
             android:text="@string/checkin"
+            android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineVertica" />

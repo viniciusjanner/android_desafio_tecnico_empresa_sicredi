@@ -23,6 +23,15 @@
         <argument
             android:name="eventDetailViewArg"
             app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailViewArg" />
+        <action
+            android:id="@+id/action_EventDetailFragment_to_EventCheckinFragment"
+            app:destination="@id/EventCheckinFragment" />
     </fragment>
+
+    <dialog
+        android:id="@+id/EventCheckinFragment"
+        android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinFragment"
+        android:label="EventCheckinFragment"
+        tools:layout="@layout/fragment_event_checkin" />
 
 </navigation>

@@ -13,4 +13,9 @@
 
     <string name="share">Share</string>
     <string name="checkin">Check-in</string>
+
+    <string name="hint_your_name">Digite seu nome</string>
+    <string name="hint_your_email">Digite seu email</string>
+
+    <string name="checkin_title">Faça seu check-in\npara participar do evento!</string>
 </resources>
