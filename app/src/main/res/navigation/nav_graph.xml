@@ -21,8 +21,8 @@
         android:label="@string/screen_event_detail_title"
         tools:layout="@layout/fragment_event_detail">
         <argument
-            android:name="eventId"
-            app:argType="string" />
+            android:name="eventDetailViewArg"
+            app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailViewArg" />
     </fragment>
 
 </navigation>

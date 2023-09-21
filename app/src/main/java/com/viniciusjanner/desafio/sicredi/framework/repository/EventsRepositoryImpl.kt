@@ -11,4 +11,7 @@ class EventsRepositoryImpl @Inject constructor(
 
     override suspend fun getEvents(): List<Event> =
         remoteDataSource.fetchEvents()
+
+    override suspend fun getEvent(eventId: String): Event =
+        remoteDataSource.fetchEvent(eventId)
 }

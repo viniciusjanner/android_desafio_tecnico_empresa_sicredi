@@ -16,4 +16,8 @@ class RetrofitEventsDataSource @Inject constructor(
                 it.toEventModel()
             }
     }
+
+    override suspend fun fetchEvent(eventId: String): Event {
+        return  eventApi.getEvent(eventId).toEventModel()
+    }
 }

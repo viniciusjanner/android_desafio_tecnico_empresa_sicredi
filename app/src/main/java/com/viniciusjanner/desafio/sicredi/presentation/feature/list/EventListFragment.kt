@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterOf
+import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailViewArg
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,7 +31,10 @@ class EventListFragment : Fragment() {
             EventListViewHolder.create(it, imageLoader) { eventItem, _ ->
                 val directions = EventListFragmentDirections
                     .actionEventListFragmentToEventDetailFragment(
-                        eventItem.id
+                        EventDetailViewArg(
+                            eventId = eventItem.id,
+                            eventImageUrl = eventItem.image ?: ""
+                        )
                     )
                 findNavController().navigate(directions)
             }
