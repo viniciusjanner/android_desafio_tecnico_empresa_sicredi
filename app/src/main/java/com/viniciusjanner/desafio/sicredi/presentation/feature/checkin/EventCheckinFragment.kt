@@ -145,9 +145,11 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        private const val FLIPPER_CHILD_LOADING = 0
-        private const val FLIPPER_CHILD_SUCCESS = 1
-        private const val FLIPPER_CHILD_ERROR = 2
+        @Suppress("unused")
+        private const val FLIPPER_CHILD_INITIAL = 0
+        private const val FLIPPER_CHILD_LOADING = 1
+        private const val FLIPPER_CHILD_SUCCESS = 2
+        private const val FLIPPER_CHILD_ERROR = 3
 
         const val KEY_APPLIED_BASK_STACK = "keyAppliedBackStack"
     }
