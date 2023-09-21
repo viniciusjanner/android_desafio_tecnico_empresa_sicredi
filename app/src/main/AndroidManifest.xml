@@ -3,11 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--API 19 : force usage (may lead to runtime failures)-->
-    <uses-sdk tools:overrideLibrary="androidx.core.splashscreen"/>
+    <uses-sdk tools:overrideLibrary="androidx.core.splashscreen" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".framework.EventApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

@@ -18,7 +18,7 @@
         <item name="android:textColor">@color/colorTextDark</item>
         <item name="android:windowBackground">@color/colorWhite</item>
         <!--app-->
-        <item name="tint">@color/colorPrimaryDark</item><!--Icon ImageView-->
+        <!--<item name="tint">@color/colorPrimaryDark</item>--><!--Icon ImageView-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <!--Anim-->

@@ -12,9 +12,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.ActivityMainBinding
 import com.viniciusjanner.desafio.sicredi.util.AppConstants
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
