@@ -10,6 +10,19 @@
         android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.list.EventListFragment"
         android:label="@string/screen_event_list_title"
         tools:layout="@layout/fragment_event_list">
+        <action
+            android:id="@+id/action_EventListFragment_to_EventDetailFragment"
+            app:destination="@id/EventDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EventDetailFragment"
+        android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailFragment"
+        android:label="@string/screen_event_detail_title"
+        tools:layout="@layout/fragment_event_detail">
+        <argument
+            android:name="eventId"
+            app:argType="string" />
     </fragment>
 
 </navigation>

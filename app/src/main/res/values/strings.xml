@@ -2,6 +2,7 @@
     <string name="app_name">Eventos Woop</string>
 
     <string name="screen_event_list_title">Eventos</string>
+    <string name="screen_event_detail_title">Detalhes</string>
 
     <string name="error_loading_data">Erro ao carregar dados.</string>
 

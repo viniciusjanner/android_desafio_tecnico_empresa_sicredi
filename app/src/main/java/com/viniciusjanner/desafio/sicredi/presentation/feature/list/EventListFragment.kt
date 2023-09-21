@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterOf
@@ -28,8 +28,11 @@ class EventListFragment : Fragment() {
     private val eventsAdapter by lazy {
         getGenericAdapterOf {
             EventListViewHolder.create(it, imageLoader) { eventItem, _ ->
-                // Temporario
-                Toast.makeText(requireContext(), "ID = ${eventItem.id}", Toast.LENGTH_SHORT).show()
+                val directions = EventListFragmentDirections
+                    .actionEventListFragmentToEventDetailFragment(
+                        eventItem.id
+                    )
+                findNavController().navigate(directions)
             }
         }
     }
