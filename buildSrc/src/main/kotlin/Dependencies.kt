@@ -46,15 +46,18 @@ object Dependencies {
         object Others {
             val facebookShimmer = "com.facebook.shimmer:shimmer:0.5.0"
 
-            const val versionGlide = "4.15.1"
-            val glideCompiler = "com.github.bumptech.glide:compiler:$versionGlide"
-            val glideGlide    = "com.github.bumptech.glide:glide:$versionGlide"
+            const val versionGlide = "4.16.0"
+            val glideAnnotations = "com.github.bumptech.glide:annotations:$versionGlide"
+            val glideCompiler    = "com.github.bumptech.glide:compiler:$versionGlide"
+            val glideGlide       = "com.github.bumptech.glide:glide:$versionGlide"
+            val glideOkhttp      = "com.github.bumptech.glide:okhttp3-integration:4.13.0"
         }
 
         object Squareup {
-            val okhttp = "com.squareup.okhttp3:okhttp"
-            val okhttpBom = "com.squareup.okhttp3:okhttp-bom:4.9.0"
-            val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor"
+            const val versionOkhttp = "3.12.12" // Support API 19
+            val okhttp = "com.squareup.okhttp3:okhttp:$versionOkhttp"
+            val okhttpBom = "com.squareup.okhttp3:okhttp-bom:$versionOkhttp"
+            val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$versionOkhttp"
 
             const val versionRetrofit    = "2.9.0"
             val retrofit = "com.squareup.retrofit2:retrofit:$versionRetrofit"

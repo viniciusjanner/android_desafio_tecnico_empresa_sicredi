@@ -23,7 +23,11 @@ android {
 
         multiDexEnabled = true
 
+        android.defaultConfig.vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", "\"https://5f5a8f24d44d640016169133.mockapi.io/\"")
     }
 
     buildTypes {
@@ -42,20 +46,26 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
 
 dependencies {
+    // ----------------------------------------------------------------------------------------------
+    // Modules
+    // ----------------------------------------------------------------------------------------------
+    implementation(project(":core"))
+
     // ----------------------------------------------------------------------------------------------
     // Develop
     // ----------------------------------------------------------------------------------------------
@@ -78,21 +88,19 @@ dependencies {
 
     // Google
     implementation(Dependencies.Develop.Google.androidMaterial)
-    implementation(Dependencies.Develop.Google.codeGson)
     implementation(Dependencies.Develop.Google.daggerHilt)
     kapt(Dependencies.Develop.Google.daggerHiltCompiler)
 
-    // Javax
-    implementation(Dependencies.Develop.Javax.javaxInject)
-
     // JetBrains
     implementation(Dependencies.Develop.JetBrains.coroutinesAndroid)
-    implementation(Dependencies.Develop.JetBrains.coroutinesCore)
 
     // Others
     implementation(Dependencies.Develop.Others.facebookShimmer)
+
+    implementation(Dependencies.Develop.Others.glideAnnotations)
     kapt(Dependencies.Develop.Others.glideCompiler)
     implementation(Dependencies.Develop.Others.glideGlide)
+    implementation(Dependencies.Develop.Others.glideOkhttp)
 }
 
 // Hilt required
