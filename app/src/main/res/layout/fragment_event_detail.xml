@@ -89,6 +89,7 @@
                         android:id="@+id/eventLocal"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        app:tint="@color/colorPrimary"
                         android:importantForAccessibility="no"
                         app:srcCompat="@drawable/ic_pin" />
 
