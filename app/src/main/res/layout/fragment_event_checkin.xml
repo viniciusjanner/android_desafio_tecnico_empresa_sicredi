@@ -58,7 +58,7 @@
                     android:id="@+id/tilEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietEmail"
@@ -73,7 +73,6 @@
                     android:layout_width="200dp"
                     android:layout_height="56dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="36dp"
                     android:maxWidth="200dp"
                     android:maxHeight="50dp"
@@ -93,6 +92,10 @@
     <include
         android:id="@+id/includeViewLoading"
         layout="@layout/include_view_loading" />
+
+    <include
+        android:id="@+id/includeViewSuccess"
+        layout="@layout/include_view_success" />
 
     <include
         android:id="@+id/includeViewError"
