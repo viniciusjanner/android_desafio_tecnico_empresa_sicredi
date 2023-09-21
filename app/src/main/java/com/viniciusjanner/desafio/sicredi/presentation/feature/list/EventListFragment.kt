@@ -1,16 +1,17 @@
-package com.viniciusjanner.desafio.sicredi.presentation.list
+package com.viniciusjanner.desafio.sicredi.presentation.feature.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterOf
+import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailViewArg
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,8 +29,19 @@ class EventListFragment : Fragment() {
     private val eventsAdapter by lazy {
         getGenericAdapterOf {
             EventListViewHolder.create(it, imageLoader) { eventItem, _ ->
-                // Temporario
-                Toast.makeText(requireContext(), "ID = ${eventItem.id}" , Toast.LENGTH_SHORT).show()
+                val directions = EventListFragmentDirections
+                    .actionEventListFragmentToEventDetailFragment(
+                        EventDetailViewArg(
+                            eventId = eventItem.id,
+                            eventImageUrl = eventItem.image ?: "",
+                            eventDate = eventItem.date,
+                            eventPrice = eventItem.price,
+                            eventTitle = eventItem.title,
+                            eventLatitude = eventItem.latitude,
+                            eventLongitude = eventItem.longitude,
+                        )
+                    )
+                findNavController().navigate(directions)
             }
         }
     }
@@ -62,7 +74,7 @@ class EventListFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
             // ViewFlipper
             binding.flipperEvents.displayedChild =
-                // State
+                    // State
                 when (uiState) {
                     EventListViewModel.UiState.Loading -> {
                         setShimmerVisibility(true)

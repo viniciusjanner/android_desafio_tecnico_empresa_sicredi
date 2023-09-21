@@ -23,6 +23,8 @@ android {
 
         multiDexEnabled = true
 
+        android.defaultConfig.vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_URL", "\"https://5f5a8f24d44d640016169133.mockapi.io/\"")
@@ -94,8 +96,11 @@ dependencies {
 
     // Others
     implementation(Dependencies.Develop.Others.facebookShimmer)
+
+    implementation(Dependencies.Develop.Others.glideAnnotations)
     kapt(Dependencies.Develop.Others.glideCompiler)
     implementation(Dependencies.Develop.Others.glideGlide)
+    implementation(Dependencies.Develop.Others.glideOkhttp)
 }
 
 // Hilt required

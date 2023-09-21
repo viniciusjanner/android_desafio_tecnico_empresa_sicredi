@@ -7,9 +7,35 @@
 
     <fragment
         android:id="@+id/EventListFragment"
-        android:name="com.viniciusjanner.desafio.sicredi.presentation.list.EventListFragment"
+        android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.list.EventListFragment"
         android:label="@string/screen_event_list_title"
         tools:layout="@layout/fragment_event_list">
+        <action
+            android:id="@+id/action_EventListFragment_to_EventDetailFragment"
+            app:destination="@id/EventDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/EventDetailFragment"
+        android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailFragment"
+        android:label="@string/screen_event_detail_title"
+        tools:layout="@layout/fragment_event_detail">
+        <argument
+            android:name="eventDetailViewArg"
+            app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailViewArg" />
+        <action
+            android:id="@+id/action_EventDetailFragment_to_EventCheckinFragment"
+            app:destination="@id/EventCheckinFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/EventCheckinFragment"
+        android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinFragment"
+        android:label="EventCheckinFragment"
+        tools:layout="@layout/fragment_event_checkin">
+        <argument
+            android:name="eventCheckinViewArg"
+            app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinViewArg" />
+    </dialog>
 
 </navigation>

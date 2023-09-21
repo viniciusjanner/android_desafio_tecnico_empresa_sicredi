@@ -1,4 +1,4 @@
-package com.viniciusjanner.desafio.sicredi.presentation.list
+package com.viniciusjanner.desafio.sicredi.presentation.feature.list
 
 import com.viniciusjanner.desafio.sicredi.presentation.common.ListItem
 

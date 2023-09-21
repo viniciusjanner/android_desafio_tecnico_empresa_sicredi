@@ -2,6 +2,7 @@
     <string name="app_name">Eventos Woop</string>
 
     <string name="screen_event_list_title">Eventos</string>
+    <string name="screen_event_detail_title">Detalhes</string>
 
     <string name="error_loading_data">Erro ao carregar dados.</string>
 
@@ -9,4 +10,12 @@
     <string name="common_no_results_found">Nenhum resultado</string>
     <string name="common_try_again">Tente novamente</string>
     <string name="common_offline_try_again">Você está offline. Verifique sua conexão com a Internet e tente novamente.</string>
+
+    <string name="share">Share</string>
+    <string name="checkin">Check-in</string>
+
+    <string name="hint_your_name">Digite seu nome</string>
+    <string name="hint_your_email">Digite seu email</string>
+
+    <string name="checkin_title">Faça seu check-in\npara participar do evento!</string>
 </resources>
