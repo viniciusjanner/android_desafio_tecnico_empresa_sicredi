@@ -136,60 +136,61 @@ class EventDetailFragment : Fragment() {
     private fun openLocalization() {
         val latitude = args.eventDetailViewArg.eventLatitude
         val longitude = args.eventDetailViewArg.eventLongitude
-        val endereco = getEndereco(requireContext(), latitude, longitude)
+        val address = convertCoordinatorsToAddress(requireContext(), latitude, longitude)
 
-        val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(endereco)}")
+        val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(address)}")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         startActivity(mapIntent)
     }
 
-    private fun getEndereco(context: Context, latitude: Double?, longitude: Double?): String {
+    private fun convertCoordinatorsToAddress(context: Context, latitude: Double?, longitude: Double?): String {
         val geocoder = Geocoder(context, Locale.getDefault())
         try {
             if (latitude != 0.0 && longitude != 0.0) {
-                val addresses = geocoder.getFromLocation(latitude!!, longitude!!, 1)
+                val addressList = geocoder.getFromLocation(latitude!!, longitude!!, 1)
 
-                if (addresses != null && addresses.isNotEmpty()) {
-                    val endereco = addresses[0]
-                    val enderecoCompleto = StringBuilder()
+                if (addressList != null && addressList.isNotEmpty()) {
+                    val address = addressList[0]
+                    val addressFull = StringBuilder()
 
                     // Adicione o nome da rua, se disponível
-                    endereco.thoroughfare?.let { enderecoCompleto.append(it) }
+                    address.thoroughfare?.let { addressFull.append(it) }
 
                     // Adicione a cidade, se disponível
-                    endereco.locality?.let {
-                        if (enderecoCompleto.isNotEmpty()) enderecoCompleto.append(", ")
-                        enderecoCompleto.append(it)
+                    address.locality?.let {
+                        if (addressFull.isNotEmpty()) addressFull.append(", ")
+                        addressFull.append(it)
                     }
 
                     // Adicione o estado, se disponível
-                    endereco.adminArea?.let {
-                        if (enderecoCompleto.isNotEmpty()) enderecoCompleto.append(", ")
-                        enderecoCompleto.append(it)
+                    address.adminArea?.let {
+                        if (addressFull.isNotEmpty()) addressFull.append(", ")
+                        addressFull.append(it)
                     }
 
                     // Adicione o país, se disponível
-                    endereco.countryName?.let {
-                        if (enderecoCompleto.isNotEmpty()) enderecoCompleto.append(", ")
-                        enderecoCompleto.append(it)
+                    address.countryName?.let {
+                        if (addressFull.isNotEmpty()) addressFull.append(", ")
+                        addressFull.append(it)
                     }
 
                     // Adicione o CEP, se disponível
-                    endereco.postalCode?.let {
-                        if (enderecoCompleto.isNotEmpty()) enderecoCompleto.append(", ")
-                        enderecoCompleto.append(it)
+                    address.postalCode?.let {
+                        if (addressFull.isNotEmpty()) addressFull.append(", ")
+                        addressFull.append(it)
                     }
 
-                    return enderecoCompleto.toString()
+                    return addressFull.toString()
                 }
             } else {
-                return "Endereço não encontrado"
+                // Endereço não encontrado
+                return ""
             }
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
-        return "Endereço não encontrado"
+        // Endereço não encontrado
+        return ""
     }
 
     private fun observeCheckinData() {
