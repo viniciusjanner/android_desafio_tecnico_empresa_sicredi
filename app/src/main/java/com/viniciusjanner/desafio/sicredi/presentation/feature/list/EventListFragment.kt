@@ -33,7 +33,10 @@ class EventListFragment : Fragment() {
                     .actionEventListFragmentToEventDetailFragment(
                         EventDetailViewArg(
                             eventId = eventItem.id,
-                            eventImageUrl = eventItem.image ?: ""
+                            eventImageUrl = eventItem.image ?: "",
+                            eventDate = eventItem.date,
+                            eventPrice = eventItem.price,
+                            eventTitle = eventItem.title,
                         )
                     )
                 findNavController().navigate(directions)

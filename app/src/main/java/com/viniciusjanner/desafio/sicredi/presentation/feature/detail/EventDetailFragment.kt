@@ -1,5 +1,6 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -84,7 +85,7 @@ class EventDetailFragment : Fragment() {
 
     private fun initListeners() {
         binding.buttonShare.setOnClickListener {
-
+            shareEvent()
         }
 
         binding.buttonCheckin.setOnClickListener {
@@ -110,6 +111,16 @@ class EventDetailFragment : Fragment() {
                 stopShimmer()
             }
         }
+    }
+
+    private fun shareEvent() {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, args.eventDetailViewArg.toShareEvent())
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
     override fun onDestroyView() {
