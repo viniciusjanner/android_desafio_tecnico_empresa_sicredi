@@ -14,6 +14,8 @@ data class EventDetailViewArg(
     val eventDate: Long?,
     val eventPrice: Double?,
     val eventTitle: String?,
+    val eventLatitude: Double?,
+    val eventLongitude: Double?,
 ) : Parcelable
 
 fun EventDetailViewArg.toShareEvent(): String {

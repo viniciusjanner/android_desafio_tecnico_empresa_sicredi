@@ -1,6 +1,9 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.detail
 
+import android.content.Context
 import android.content.Intent
+import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +17,8 @@ import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoney
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -60,15 +65,13 @@ class EventDetailFragment : Fragment() {
                         setShimmerVisibility(false)
 
                         val event = uiState.event
-                        binding.apply {
-                            val eventImageUrl = args.eventDetailViewArg.eventImageUrl
-                            imageLoader.load(eventImage, eventImageUrl)
+                        val eventImageUrl = args.eventDetailViewArg.eventImageUrl
+                        imageLoader.load(binding.eventImage, eventImageUrl)
 
-                            eventTitle.text = event.title
-                            eventDateHour.text = event.date?.formatDateHour()
-                            eventPrice.text = event.price?.formatMoney()
-                            eventSubtitle.text = event.description
-                        }
+                        binding.eventTitle.text = event.title
+                        binding.eventDateHour.text = event.date?.formatDateHour()
+                        binding.eventPrice.text = event.price?.formatMoney()
+                        binding.eventSubtitle.text = event.description
 
                         FLIPPER_CHILD_SUCCESS
                     }
@@ -84,8 +87,12 @@ class EventDetailFragment : Fragment() {
     }
 
     private fun initListeners() {
+        binding.eventLocal.setOnClickListener {
+            openLocalization()
+        }
+
         binding.buttonShare.setOnClickListener {
-            shareEvent()
+            openSharing()
         }
 
         binding.buttonCheckin.setOnClickListener {
@@ -93,7 +100,7 @@ class EventDetailFragment : Fragment() {
         }
 
         binding.includeViewError.buttonRetry.setOnClickListener {
-
+            getEventItem()
         }
     }
 
@@ -113,14 +120,76 @@ class EventDetailFragment : Fragment() {
         }
     }
 
-    private fun shareEvent() {
+    private fun openSharing() {
+        val eventText = args.eventDetailViewArg.toShareEvent()
+
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, args.eventDetailViewArg.toShareEvent())
+            putExtra(Intent.EXTRA_TEXT, eventText)
             type = "text/plain"
         }
+
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
+    }
+
+    private fun openLocalization() {
+        val latitude = args.eventDetailViewArg.eventLatitude
+        val longitude = args.eventDetailViewArg.eventLongitude
+        val endereco = getEndereco(requireContext(), latitude, longitude)
+
+        val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(endereco)}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        startActivity(mapIntent)
+    }
+
+    private fun getEndereco(context: Context, latitude: Double?, longitude: Double?): String {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        try {
+            if (latitude != 0.0 && longitude != 0.0) {
+                val addresses = geocoder.getFromLocation(latitude!!, longitude!!, 1)
+
+                if (addresses != null && addresses.isNotEmpty()) {
+                    val endereco = addresses[0]
+                    val enderecoCompleto = StringBuilder()
+
+                    // Adicione o nome da rua, se disponível
+                    endereco.thoroughfare?.let { enderecoCompleto.append(it) }
+
+                    // Adicione a cidade, se disponível
+                    endereco.locality?.let {
+                        if (enderecoCompleto.isNotEmpty()) enderecoCompleto.append(", ")
+                        enderecoCompleto.append(it)
+                    }
+
+                    // Adicione o estado, se disponível
+                    endereco.adminArea?.let {
+                        if (enderecoCompleto.isNotEmpty()) enderecoCompleto.append(", ")
+                        enderecoCompleto.append(it)
+                    }
+
+                    // Adicione o país, se disponível
+                    endereco.countryName?.let {
+                        if (enderecoCompleto.isNotEmpty()) enderecoCompleto.append(", ")
+                        enderecoCompleto.append(it)
+                    }
+
+                    // Adicione o CEP, se disponível
+                    endereco.postalCode?.let {
+                        if (enderecoCompleto.isNotEmpty()) enderecoCompleto.append(", ")
+                        enderecoCompleto.append(it)
+                    }
+
+                    return enderecoCompleto.toString()
+                }
+            } else {
+                return "Endereço não encontrado"
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return "Endereço não encontrado"
     }
 
     override fun onDestroyView() {

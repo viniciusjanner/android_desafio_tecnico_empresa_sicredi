@@ -37,6 +37,8 @@ class EventListFragment : Fragment() {
                             eventDate = eventItem.date,
                             eventPrice = eventItem.price,
                             eventTitle = eventItem.title,
+                            eventLatitude = eventItem.latitude,
+                            eventLongitude = eventItem.longitude,
                         )
                     )
                 findNavController().navigate(directions)
@@ -72,7 +74,7 @@ class EventListFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
             // ViewFlipper
             binding.flipperEvents.displayedChild =
-                // State
+                    // State
                 when (uiState) {
                     EventListViewModel.UiState.Loading -> {
                         setShimmerVisibility(true)
