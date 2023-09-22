@@ -49,6 +49,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietName"
                         android:layout_width="match_parent"
+                        android:singleLine="true"
+                        android:maxLength="50"
+                        android:maxLines="1"
+                        android:imeOptions="actionNext"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_your_name" />
 
@@ -62,6 +66,10 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietEmail"
+                        android:singleLine="true"
+                        android:maxLength="50"
+                        android:maxLines="1"
+                        android:imeOptions="actionGo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_your_email" />
