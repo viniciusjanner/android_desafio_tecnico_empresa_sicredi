@@ -67,11 +67,13 @@ class EventDetailFragment : Fragment() {
 
                     is EventDetailViewModel.UiState.Success -> {
                         val event = uiState.event
-                        val eventImageUrl = args.eventDetailViewArg.eventImageUrl
-                        imageLoader.load(binding.eventImage, eventImageUrl)
 
+                        event.image?.let {
+                            imageLoader.load(binding.eventImage, it)
+                        }
                         binding.eventTitle.text = event.title
                         binding.eventDateHour.text = event.date?.formatDateHour()
+                        binding.eventAddress.text = getAddress(event.latitude, event.longitude)
                         binding.eventPrice.text = event.price?.formatMoney()
                         binding.eventSubtitle.text = event.description
 
@@ -88,7 +90,7 @@ class EventDetailFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.eventLocal.setOnClickListener {
+        binding.eventMap.setOnClickListener {
             openLocalization()
         }
 
@@ -136,11 +138,18 @@ class EventDetailFragment : Fragment() {
     private fun openLocalization() {
         val latitude = args.eventDetailViewArg.eventLatitude
         val longitude = args.eventDetailViewArg.eventLongitude
-        val address = convertCoordinatorsToAddress(requireContext(), latitude, longitude)
+        val address = getAddress(latitude, longitude)
 
-        val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(address)}")
-        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-        startActivity(mapIntent)
+        if (address.isNotEmpty()) {
+            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(address)}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            startActivity(mapIntent)
+        }
+    }
+
+    private fun getAddress(latitude: Double?, longitude: Double?): String {
+        val address = convertCoordinatorsToAddress(requireContext(), latitude, longitude)
+        return address
     }
 
     private fun convertCoordinatorsToAddress(context: Context, latitude: Double?, longitude: Double?): String {
