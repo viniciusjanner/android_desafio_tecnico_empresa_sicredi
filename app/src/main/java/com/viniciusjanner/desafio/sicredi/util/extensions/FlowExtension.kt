@@ -1,4 +1,4 @@
-package com.viniciusjanner.desafio.sicredi.presentation.extensions
+package com.viniciusjanner.desafio.sicredi.util.extensions
 
 import com.viniciusjanner.desafio.core.usecase.base.ResultStatus
 import kotlinx.coroutines.flow.Flow
