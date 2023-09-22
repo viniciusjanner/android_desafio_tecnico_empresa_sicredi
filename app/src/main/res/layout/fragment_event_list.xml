@@ -5,7 +5,7 @@
     android:id="@+id/flipperEvents"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrayMedium"
+    android:background="@color/colorGrayLight"
     android:orientation="vertical">
 
     <include

@@ -89,6 +89,7 @@
                         android:id="@+id/eventLocal"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        app:tint="@color/colorPrimary"
                         android:importantForAccessibility="no"
                         app:srcCompat="@drawable/ic_pin" />
 
@@ -126,6 +127,7 @@
             android:maxWidth="200dp"
             android:maxHeight="50dp"
             android:text="@string/share"
+            app:backgroundTint="@color/colorGrayMedium"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertica"
