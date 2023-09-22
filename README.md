@@ -24,7 +24,7 @@ Links para as seções do projeto:
   <a href="#download">Download</a> •
   <a href="#features">Features</a> • 
   <a href="#arquitetura">Arquitetura</a> • 
-  <a href="#bibliotecas">Bibliotecas</a> • 
+  <a href="#bibliotecas">Bibliotecas</a>
 </p>
 
 
