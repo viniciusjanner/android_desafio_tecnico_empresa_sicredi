@@ -14,6 +14,7 @@
     <string name="share">Share</string>
     <string name="checkin">Check-in</string>
     <string name="understood">Entendido</string>
+    <string name="view_on_map">Ver no mapa</string>
 
     <string name="hint_your_name">Digite seu nome</string>
     <string name="hint_your_email">Digite seu email</string>
