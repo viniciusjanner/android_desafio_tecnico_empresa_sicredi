@@ -58,7 +58,7 @@
                     android:id="@+id/tilEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietEmail"
@@ -73,7 +73,6 @@
                     android:layout_width="200dp"
                     android:layout_height="56dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="36dp"
                     android:maxWidth="200dp"
                     android:maxHeight="50dp"
@@ -90,21 +89,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/containerProgressCheckin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:gravity="center"
-        android:orientation="vertical">
+    <include
+        android:id="@+id/includeViewLoading"
+        layout="@layout/include_view_loading" />
 
-        <ProgressBar
-            android:id="@+id/progressCheckin"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/includeViewSuccess"
+        layout="@layout/include_view_success" />
 
     <include
         android:id="@+id/includeViewError"
