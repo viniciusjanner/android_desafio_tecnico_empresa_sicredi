@@ -7,7 +7,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.viniciusjanner.desafio.core.usecase.EventsUseCase
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
-import com.viniciusjanner.desafio.sicredi.presentation.extensions.watchStatus
+import com.viniciusjanner.desafio.sicredi.util.extensions.watchStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

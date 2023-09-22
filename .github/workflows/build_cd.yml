@@ -6,12 +6,12 @@ on:
 #  push:
 #    branches: [ "staging" ]
 #    tags:
-#      - 'v*.*.*'
+#      - 'v*.*.*.*'
 
   pull_request:
     branches: [ "staging" ]
     tags:
-      - 'v*.*.*'
+      - 'v*.*.*.*'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

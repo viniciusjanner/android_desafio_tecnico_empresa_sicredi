@@ -2,20 +2,19 @@
 <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/flipperEvents"
+    android:id="@+id/flipperEventDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include
         android:id="@+id/includeViewLoading"
-        layout="@layout/include_view_event_detail_loading" />
+        layout="@layout/include_view_loading" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
@@ -32,8 +31,8 @@
                 android:id="@+id/containerNestedScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="16dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/eventImage"
@@ -48,7 +47,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     tools:text="Event title" />
 
@@ -56,51 +56,62 @@
                     android:id="@+id/eventDateHour"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:drawableStart="@drawable/ic_calendar"
                     android:drawablePadding="8dp"
                     android:ellipsize="end"
                     android:maxLines="4"
                     android:textColor="@color/colorGrayDark"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     tools:text="00 de setembro de 0000 às 00:00" />
 
-                <LinearLayout
-                    android:id="@+id/containerPriceLocal"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/eventAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="12dp"
+                    android:drawableStart="@drawable/ic_pin_drop"
+                    android:drawablePadding="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:textColor="@color/colorGrayDark"
+                    android:textSize="14sp"
+                    tools:text="Rua tal bairro cidade" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/eventPrice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_ticket"
-                        android:drawablePadding="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="4"
-                        android:textColor="@color/colorGrayDark"
-                        android:textSize="14sp"
-                        tools:text="R$ 0,00" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/eventMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableStart="@drawable/ic_map"
+                    android:drawablePadding="8dp"
+                    android:importantForAccessibility="no"
+                    android:text="@string/view_on_map"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"
+                    app:drawableTint="@color/colorPrimaryDark" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/eventLocal"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:importantForAccessibility="no"
-                        app:srcCompat="@drawable/ic_pin" />
-
-                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/eventPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableStart="@drawable/ic_ticket"
+                    android:drawablePadding="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:textColor="@color/colorGrayDark"
+                    android:textSize="14sp"
+                    tools:text="R$ 0,00" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/eventSubtitle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
                     android:ellipsize="end"
+                    android:paddingBottom="16dp"
                     android:textColor="@color/colorGrayDark"
                     android:textSize="16sp"
                     tools:text="Event subtitle" />
@@ -122,11 +133,12 @@
             android:layout_height="56dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:maxWidth="200dp"
             android:maxHeight="50dp"
             android:text="@string/share"
             android:textColor="@color/colorWhite"
+            app:backgroundTint="@color/colorGrayMedium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertica"
             app:layout_constraintStart_toStartOf="parent" />
@@ -137,7 +149,7 @@
             android:layout_height="56dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:maxWidth="200dp"
             android:maxHeight="50dp"
             android:text="@string/checkin"
