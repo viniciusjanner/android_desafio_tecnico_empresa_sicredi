@@ -140,9 +140,11 @@ class EventDetailFragment : Fragment() {
         val longitude = args.eventDetailViewArg.eventLongitude
         val address = getAddress(latitude, longitude)
 
-        val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(address)}")
-        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-        startActivity(mapIntent)
+        if (address.isNotEmpty()) {
+            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(address)}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            startActivity(mapIntent)
+        }
     }
 
     private fun getAddress(latitude: Double?, longitude: Double?): String {
