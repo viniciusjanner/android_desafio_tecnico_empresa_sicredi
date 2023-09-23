@@ -24,6 +24,6 @@ class RetrofitEventsDataSource @Inject constructor(
     }
 
     override suspend fun sendCheckin(checkIn: EventCheckinSend): EventCheckinResponse {
-        return eventApi.postCheckIn(checkIn)
+        return eventApi.postCheckin(checkIn)
     }
 }
