@@ -51,15 +51,15 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
             // ViewFlipper
             binding.flipperCheckin.displayedChild =
                 when (checkinState) {
-                    EventCheckinViewModel.CheckinState.Loading -> {
+                    EventCheckinViewModel.UiState.Loading -> {
                         FLIPPER_CHILD_LOADING
                     }
 
-                    is EventCheckinViewModel.CheckinState.Success -> {
+                    is EventCheckinViewModel.UiState.Success -> {
                         FLIPPER_CHILD_SUCCESS
                     }
 
-                    EventCheckinViewModel.CheckinState.Error -> {
+                    EventCheckinViewModel.UiState.Error -> {
                         FLIPPER_CHILD_ERROR
                     }
                 }
