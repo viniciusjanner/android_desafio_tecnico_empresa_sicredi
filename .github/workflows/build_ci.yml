@@ -44,14 +44,14 @@ jobs:
           name: report_lint.html
           path: app/build/reports/
 
-#      - name: Run Unit Test
-#        run: bash ./gradlew test --stacktrace
-#
-#      - name: Upload Unit Test Report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: report_unit_test.html
-#          path: app/build/reports/tests/testReleaseUnitTest/
+      - name: Run Unit Test
+        run: bash ./gradlew test --stacktrace
+
+      - name: Upload Unit Test Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: report_unit_test.html
+          path: app/build/reports/tests/testReleaseUnitTest/
 
 #      - name: Run Espresso Test (AVD)
 #        uses: reactivecircus/android-emulator-runner@v2
