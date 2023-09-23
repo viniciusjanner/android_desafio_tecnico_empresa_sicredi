@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
+import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.core.usecase.EventListUseCase
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
 import com.viniciusjanner.desafio.sicredi.util.extensions.watchStatus
@@ -19,7 +20,7 @@ class EventListViewModel @Inject constructor(
 
     sealed class UiState {
         data object Loading : UiState()
-        data class Success(val events: List<EventItem>) : UiState()
+        data class Success(val events: List<Event>) : UiState()
         data object Empty : UiState()
         data object Error : UiState()
     }
@@ -41,7 +42,7 @@ class EventListViewModel @Inject constructor(
                             },
                             success = {
                                 val items = it.map { event ->
-                                    EventItem(
+                                    Event(
                                         event.id,
                                         event.people,
                                         event.date,

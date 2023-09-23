@@ -1,6 +1,6 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.list
 
-import com.viniciusjanner.desafio.sicredi.presentation.common.ListItem
+import com.viniciusjanner.desafio.core.domain.model.ItemDiff
 
 data class EventItem(
     val id: String,
@@ -13,4 +13,4 @@ data class EventItem(
     val price: Double?,
     val title: String?,
     override val key: Long = id.toLong(),
-) : ListItem
+) : ItemDiff
