@@ -49,7 +49,7 @@ class EventCheckinViewModelTest {
             eventCheckinUseCase,
             mainCoroutineRule.testDispatcherProvider,
         ).apply {
-            stateCheckin.observeForever(uiStateObserver)
+            state.observeForever(uiStateObserver)
         }
     }
 
@@ -68,8 +68,8 @@ class EventCheckinViewModelTest {
             // Assert
             verify(uiStateObserver).onChanged(isA<EventCheckinViewModel.UiState.Success>())
 
-            val checkinStateSuccess = eventCheckinViewModel.stateCheckin.value as EventCheckinViewModel.UiState.Success
-            val checkinResponseSuccess = checkinStateSuccess.checkinResponse
+            val checkinStateSuccess = eventCheckinViewModel.state.value as EventCheckinViewModel.UiState.Success
+            val checkinResponseSuccess = checkinStateSuccess.eventCheckinResponse
 
             Assert.assertEquals(checkinResponse, checkinResponseSuccess)
         }

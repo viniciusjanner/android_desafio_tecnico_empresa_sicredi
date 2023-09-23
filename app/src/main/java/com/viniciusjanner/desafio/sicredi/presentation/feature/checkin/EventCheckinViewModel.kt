@@ -21,23 +21,23 @@ class EventCheckinViewModel @Inject constructor(
 
     sealed class UiState {
         data object Loading : UiState()
-        data class Success(val checkinResponse: EventCheckinResponse) : UiState()
+        data class Success(val eventCheckinResponse: EventCheckinResponse) : UiState()
         data object Error : UiState()
     }
 
     sealed class Action {
-        data class Send(val checkinSend: EventCheckinSend) : Action()
+        data class SendCheckinEvent(val eventCheckinSend: EventCheckinSend) : Action()
     }
 
-    private val actionCheckin = MutableLiveData<Action>()
+    private val action = MutableLiveData<Action>()
 
-    val stateCheckin: LiveData<UiState> = actionCheckin
+    val state: LiveData<UiState> = action
         .switchMap {
             liveData(coroutinesDispatchers.main()) {
                 when (it) {
-                    is Action.Send -> {
+                    is Action.SendCheckinEvent -> {
                         eventCheckinUseCase.invoke(
-                            EventCheckinUseCase.GetEventParam(it.checkinSend)
+                            EventCheckinUseCase.GetEventParam(it.eventCheckinSend)
                         ).watchStatus(
                             loading = {
                                 emit(UiState.Loading)
@@ -59,6 +59,6 @@ class EventCheckinViewModel @Inject constructor(
         }
 
     fun actionSendCheckin(checkin: EventCheckinSend) {
-        actionCheckin.value = Action.Send(checkin)
+        action.value = Action.SendCheckinEvent(checkin)
     }
 }

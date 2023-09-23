@@ -47,7 +47,7 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     private fun initObserverCheckin() {
-        viewModel.stateCheckin.observe(viewLifecycleOwner) { checkinState ->
+        viewModel.state.observe(viewLifecycleOwner) { checkinState ->
             // ViewFlipper
             binding.flipperCheckin.displayedChild =
                 when (checkinState) {
