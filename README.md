@@ -84,12 +84,12 @@ O projeto é modularizado, separando bem as reponsabilidades e facilitando:
 - escalabilidade.
 
 Os módulos são:
-- app: recursos de framework;
-- core: recursos para mapear e tratar os dados.
-- testing: recursos de factory para os testes.
+- **app**: recursos de framework;
+- **core**: recursos para mapear e tratar os dados.
+- **testing**: recursos de factory para os testes.
 
 Temos também:
-- **Testes ubitários** utilizando JUnit e Mockito;
+- **Testes unitários** utilizando JUnit e Mockito;
 - **Dagger Hilt** para injeção de dependências;
 - Gradle com **Kotlin DSL** para gerenciamento das dependências.
 - Workflows para CI/CD no **GitHub Actions**.
