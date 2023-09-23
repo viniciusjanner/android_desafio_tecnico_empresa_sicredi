@@ -1,6 +1,6 @@
 package com.viniciusjanner.desafio.core.usecase
 
-import com.viniciusjanner.desafio.core.data.repository.EventsRepository
+import com.viniciusjanner.desafio.core.data.repository.EventRepository
 import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.core.usecase.EventDetailUseCase.*
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
@@ -20,7 +20,7 @@ interface EventDetailUseCase {
 }
 
 class EventDetailUseCaseImpl @Inject constructor(
-    private val repository: EventsRepository,
+    private val repository: EventRepository,
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : UseCase<GetEventParam, Event>(),
     EventDetailUseCase {
