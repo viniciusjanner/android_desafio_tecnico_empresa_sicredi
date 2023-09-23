@@ -1,7 +1,7 @@
 package com.viniciusjanner.desafio.core.data.repository
 
 import com.viniciusjanner.desafio.core.domain.model.Event
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 
 interface EventsRemoteDataSource {
@@ -10,5 +10,5 @@ interface EventsRemoteDataSource {
 
     suspend fun fetchEvent(eventId: String): Event
 
-    suspend fun sendCheckin(checkIn: EventCheckInSend): EventCheckinResponse
+    suspend fun sendCheckin(checkIn: EventCheckinSend): EventCheckinResponse
 }

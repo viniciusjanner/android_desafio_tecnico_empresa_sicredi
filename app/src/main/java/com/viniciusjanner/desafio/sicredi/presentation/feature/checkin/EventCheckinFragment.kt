@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventCheckinBinding
 import com.viniciusjanner.desafio.sicredi.util.validation.PatternValidation
 import com.viniciusjanner.desafio.sicredi.util.validation.ValidaEmail
@@ -121,7 +121,7 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
     private fun sendCheckin() {
         viewModel.actionSendCheckin(
-            EventCheckInSend(
+            EventCheckinSend(
                 args.eventCheckinViewArg.eventId,
                 binding.tietName.text.toString().trim(),
                 binding.tietEmail.text.toString().trim(),

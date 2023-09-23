@@ -1,12 +1,12 @@
 package com.viniciusjanner.desafio.testing.model
 
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 
 class EventCheckinFactory {
 
-    fun checkinSend(): EventCheckInSend =
-        EventCheckInSend(
+    fun checkinSend(): EventCheckinSend =
+        EventCheckinSend(
             eventId = "1",
             name = "Vinicius",
             email = "vinicius@gmail.com"

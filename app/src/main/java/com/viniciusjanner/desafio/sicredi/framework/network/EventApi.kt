@@ -1,6 +1,6 @@
 package com.viniciusjanner.desafio.sicredi.framework.network
 
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.sicredi.framework.network.response.EventResponse
 import com.viniciusjanner.desafio.sicredi.framework.network.response.EventsResponse
@@ -18,5 +18,5 @@ interface EventApi {
     suspend fun getEvent(@Path("id") id: String): EventResponse
 
     @POST("/checkin")
-    suspend fun postCheckIn(@Body checkIn: EventCheckInSend): EventCheckinResponse
+    suspend fun postCheckIn(@Body checkIn: EventCheckinSend): EventCheckinResponse
 }

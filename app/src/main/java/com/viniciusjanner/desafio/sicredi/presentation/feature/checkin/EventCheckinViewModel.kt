@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.core.usecase.EventCheckinUseCase
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
@@ -26,7 +26,7 @@ class EventCheckinViewModel @Inject constructor(
     }
 
     sealed class Action {
-        data class Send(val checkinSend: EventCheckInSend) : Action()
+        data class Send(val checkinSend: EventCheckinSend) : Action()
     }
 
     private val actionCheckin = MutableLiveData<Action>()
@@ -58,7 +58,7 @@ class EventCheckinViewModel @Inject constructor(
             }
         }
 
-    fun actionSendCheckin(checkin: EventCheckInSend) {
+    fun actionSendCheckin(checkin: EventCheckinSend) {
         actionCheckin.value = Action.Send(checkin)
     }
 }

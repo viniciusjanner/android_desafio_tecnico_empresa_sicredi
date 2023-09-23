@@ -2,7 +2,7 @@ package com.viniciusjanner.desafio.sicredi.framework.remote
 
 import com.viniciusjanner.desafio.core.data.repository.EventsRemoteDataSource
 import com.viniciusjanner.desafio.core.domain.model.Event
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.sicredi.framework.network.EventApi
 import com.viniciusjanner.desafio.sicredi.framework.network.response.toEventModel
@@ -23,7 +23,7 @@ class RetrofitEventsDataSource @Inject constructor(
         return eventApi.getEvent(eventId).toEventModel()
     }
 
-    override suspend fun sendCheckin(checkIn: EventCheckInSend): EventCheckinResponse {
+    override suspend fun sendCheckin(checkIn: EventCheckinSend): EventCheckinResponse {
         return eventApi.postCheckIn(checkIn)
     }
 }
