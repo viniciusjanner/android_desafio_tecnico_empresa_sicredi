@@ -1,8 +1,8 @@
 package com.viniciusjanner.desafio.core.usecase
 
-import com.viniciusjanner.desafio.core.data.repository.EventsRepository
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.data.repository.EventRepository
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
 import com.viniciusjanner.desafio.core.usecase.base.ResultStatus
 import com.viniciusjanner.desafio.core.usecase.base.UseCase
@@ -16,19 +16,18 @@ interface EventCheckinUseCase {
     //
     operator fun invoke(params: GetEventParam): Flow<ResultStatus<EventCheckinResponse>>
 
-    // data class GetEventParam(val eventId: String, val name: String, val email: String)
-    data class GetEventParam(val checkin: EventCheckInSend)
+    data class GetEventParam(val checkinSend: EventCheckinSend)
 }
 
 class EventCheckinUseCaseImpl @Inject constructor(
-    private val repository: EventsRepository,
+    private val repository: EventRepository,
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : UseCase<EventCheckinUseCase.GetEventParam, EventCheckinResponse>(),
     EventCheckinUseCase {
 
     override suspend fun doWork(params: EventCheckinUseCase.GetEventParam): ResultStatus<EventCheckinResponse> {
         return withContext(coroutinesDispatchers.io()) {
-            ResultStatus.Success(repository.sendEventCheckin(params.checkin))
+            ResultStatus.Success(repository.postEventCheckin(params.checkinSend))
         }
     }
 }
