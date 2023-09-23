@@ -83,7 +83,7 @@ class EventListFragment : Fragment() {
 
                     is EventListViewModel.UiState.Success -> {
                         setShimmerVisibility(false)
-                        eventsAdapter.submitList(uiState.eventsList)
+                        eventsAdapter.submitList(uiState.events)
                         FLIPPER_CHILD_SUCCESS
                     }
 

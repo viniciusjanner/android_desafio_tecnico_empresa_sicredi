@@ -25,7 +25,7 @@ class EventDetailViewModel @Inject constructor(
     }
 
     sealed class Action {
-        data class Load(val eventId: String) : Action()
+        data class GetEvent(val eventId: String) : Action()
     }
 
     private val action = MutableLiveData<Action>()
@@ -34,7 +34,7 @@ class EventDetailViewModel @Inject constructor(
         .switchMap {
             liveData(coroutinesDispatchers.main()) {
                 when (it) {
-                    is Action.Load -> {
+                    is Action.GetEvent -> {
                         eventDetailUseCase.invoke(
                             EventDetailUseCase.GetEventParam(it.eventId)
                         ).watchStatus(
@@ -53,7 +53,7 @@ class EventDetailViewModel @Inject constructor(
             }
         }
 
-    fun actionLoadEvent(eventId: String) {
-        action.value = Action.Load(eventId)
+    fun actionGetEvent(eventId: String) {
+        action.value = Action.GetEvent(eventId)
     }
 }

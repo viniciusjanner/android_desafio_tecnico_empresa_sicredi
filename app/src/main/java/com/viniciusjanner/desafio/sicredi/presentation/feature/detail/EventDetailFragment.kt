@@ -86,7 +86,7 @@ class EventDetailFragment : Fragment() {
                 }
         }
 
-        getEventItem()
+        getEvent()
     }
 
     private fun initListeners() {
@@ -103,13 +103,13 @@ class EventDetailFragment : Fragment() {
         }
 
         binding.includeViewError.buttonRetry.setOnClickListener {
-            getEventItem()
+            getEvent()
         }
     }
 
-    private fun getEventItem() {
+    private fun getEvent() {
         val eventId = args.eventDetailViewArg.eventId
-        viewModel.actionLoadEvent(eventId)
+        viewModel.actionGetEvent(eventId)
     }
 
     private fun sendCheckin() {

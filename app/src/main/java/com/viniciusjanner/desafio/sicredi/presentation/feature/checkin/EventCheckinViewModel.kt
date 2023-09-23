@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.core.usecase.EventCheckinUseCase
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
 import com.viniciusjanner.desafio.sicredi.util.extensions.watchStatus
@@ -18,38 +19,38 @@ class EventCheckinViewModel @Inject constructor(
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : ViewModel() {
 
-    sealed class CheckinState {
-        data object Loading : CheckinState()
-        data class Success(val code: Int) : CheckinState()
-        data object Error : CheckinState()
+    sealed class UiState {
+        data object Loading : UiState()
+        data class Success(val eventCheckinResponse: EventCheckinResponse) : UiState()
+        data object Error : UiState()
     }
 
-    sealed class ActionCheckin {
-        data class Send(val checkin: EventCheckInSend) : ActionCheckin()
+    sealed class Action {
+        data class SendCheckinEvent(val eventCheckinSend: EventCheckinSend) : Action()
     }
 
-    private val actionCheckin = MutableLiveData<ActionCheckin>()
+    private val action = MutableLiveData<Action>()
 
-    val stateCheckin: LiveData<CheckinState> = actionCheckin
+    val state: LiveData<UiState> = action
         .switchMap {
             liveData(coroutinesDispatchers.main()) {
                 when (it) {
-                    is ActionCheckin.Send -> {
+                    is Action.SendCheckinEvent -> {
                         eventCheckinUseCase.invoke(
-                            EventCheckinUseCase.GetEventParam(it.checkin)
+                            EventCheckinUseCase.GetEventParam(it.eventCheckinSend)
                         ).watchStatus(
                             loading = {
-                                emit(CheckinState.Loading)
+                                emit(UiState.Loading)
                             },
                             success = {
                                 if (it.code == 200) {
-                                    emit(CheckinState.Success(it.code))
+                                    emit(UiState.Success(it))
                                 } else {
-                                    emit(CheckinState.Error)
+                                    emit(UiState.Error)
                                 }
                             },
                             error = {
-                                emit(CheckinState.Error)
+                                emit(UiState.Error)
                             },
                         )
                     }
@@ -57,7 +58,7 @@ class EventCheckinViewModel @Inject constructor(
             }
         }
 
-    fun actionSendCheckin(checkin: EventCheckInSend) {
-        actionCheckin.value = ActionCheckin.Send(checkin)
+    fun actionSendCheckin(checkin: EventCheckinSend) {
+        action.value = Action.SendCheckinEvent(checkin)
     }
 }

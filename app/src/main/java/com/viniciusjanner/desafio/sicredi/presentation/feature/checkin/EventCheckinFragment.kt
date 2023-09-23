@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.viniciusjanner.desafio.core.domain.model.EventCheckInSend
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventCheckinBinding
 import com.viniciusjanner.desafio.sicredi.util.validation.PatternValidation
 import com.viniciusjanner.desafio.sicredi.util.validation.ValidaEmail
@@ -47,19 +47,19 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     private fun initObserverCheckin() {
-        viewModel.stateCheckin.observe(viewLifecycleOwner) { checkinState ->
+        viewModel.state.observe(viewLifecycleOwner) { checkinState ->
             // ViewFlipper
             binding.flipperCheckin.displayedChild =
                 when (checkinState) {
-                    EventCheckinViewModel.CheckinState.Loading -> {
+                    EventCheckinViewModel.UiState.Loading -> {
                         FLIPPER_CHILD_LOADING
                     }
 
-                    is EventCheckinViewModel.CheckinState.Success -> {
+                    is EventCheckinViewModel.UiState.Success -> {
                         FLIPPER_CHILD_SUCCESS
                     }
 
-                    EventCheckinViewModel.CheckinState.Error -> {
+                    EventCheckinViewModel.UiState.Error -> {
                         FLIPPER_CHILD_ERROR
                     }
                 }
@@ -121,7 +121,7 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
     private fun sendCheckin() {
         viewModel.actionSendCheckin(
-            EventCheckInSend(
+            EventCheckinSend(
                 args.eventCheckinViewArg.eventId,
                 binding.tietName.text.toString().trim(),
                 binding.tietEmail.text.toString().trim(),

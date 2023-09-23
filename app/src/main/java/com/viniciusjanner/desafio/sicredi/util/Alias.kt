@@ -1,6 +1,6 @@
 package com.viniciusjanner.desafio.sicredi.util
 
 import android.view.View
-import com.viniciusjanner.desafio.sicredi.presentation.feature.list.EventItem
+import com.viniciusjanner.desafio.core.domain.model.Event
 
-typealias OnCharacterItemClick = (eventItem: EventItem, view: View) -> Unit
+typealias OnCharacterItemClick = (event: Event, view: View) -> Unit
