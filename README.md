@@ -36,6 +36,7 @@ Links para as seções do projeto:
 Splash | Eventos
 :-------------------------:|:-------------------------:
 <img src="readme_files/img_app_1.png" width="250" height="420" title="Tela Splash"/> | <img src="readme_files/img_app_2.png" width="250" height="420" title="Tela Eventos"/>
+
 Detalhes | Checkin
 :-------------------------:|:-------------------------:
 <img src="readme_files/img_app_3.png" width="250" height="420" title="Tela Detalhes"/> | <img src="readme_files/img_app_4.png" width="250" height="420" title="Tela Checki-In"/>
@@ -86,7 +87,7 @@ Os módulos são:
 - app: recursos de framework;
 - core: recursos para mapear e tratar os dados.
 
-Temos também: 
+Temos também:
 - **Dagger Hilt** para injeção de dependências;
 - Gradle com **Kotlin DSL** para gerenciamento das dependências.
 - Workflows para CI/CD no **GitHub Actions**.
