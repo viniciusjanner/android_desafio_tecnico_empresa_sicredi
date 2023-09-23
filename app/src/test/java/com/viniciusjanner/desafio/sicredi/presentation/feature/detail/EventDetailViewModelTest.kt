@@ -64,7 +64,7 @@ class EventDetailViewModelTest {
             whenever(eventDetailUseCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
 
             // Act
-            eventDetailViewModel.actionLoadEvent(event.id)
+            eventDetailViewModel.actionGetEvent(event.id)
 
             // Assert
             verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Success>())
@@ -86,7 +86,7 @@ class EventDetailViewModelTest {
             whenever(eventDetailUseCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
 
             // Act
-            eventDetailViewModel.actionLoadEvent(event.id)
+            eventDetailViewModel.actionGetEvent(event.id)
 
             // Assert
             verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Error>())
