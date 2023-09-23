@@ -17,6 +17,17 @@ class EventListViewModel @Inject constructor(
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : ViewModel() {
 
+    sealed class UiState {
+        data object Loading : UiState()
+        data class Success(val events: List<EventItem>) : UiState()
+        data object Empty : UiState()
+        data object Error : UiState()
+    }
+
+    sealed class Action {
+        data object GetEvents : Action()
+    }
+
     private val action = MutableLiveData<Action>()
 
     val state: LiveData<UiState> = action
@@ -61,16 +72,5 @@ class EventListViewModel @Inject constructor(
 
     fun actionGetEvents() {
         action.value = Action.GetEvents
-    }
-
-    sealed class UiState {
-        data object Loading : UiState()
-        data class Success(val events: List<EventItem>) : UiState()
-        data object Empty : UiState()
-        data object Error : UiState()
-    }
-
-    sealed class Action {
-        data object GetEvents : Action()
     }
 }
