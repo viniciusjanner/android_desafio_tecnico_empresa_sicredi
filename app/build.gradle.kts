@@ -65,6 +65,7 @@ dependencies {
     // Modules
     // ----------------------------------------------------------------------------------------------
     implementation(project(":core"))
+    testImplementation(project(":testing"))
 
     // ----------------------------------------------------------------------------------------------
     // Develop
@@ -96,7 +97,6 @@ dependencies {
 
     // Others
     implementation(Dependencies.Develop.Others.facebookShimmer)
-
     implementation(Dependencies.Develop.Others.glideAnnotations)
     kapt(Dependencies.Develop.Others.glideCompiler)
     implementation(Dependencies.Develop.Others.glideGlide)

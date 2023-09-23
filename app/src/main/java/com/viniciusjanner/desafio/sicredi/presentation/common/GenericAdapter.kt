@@ -2,8 +2,9 @@ package com.viniciusjanner.desafio.sicredi.presentation.common
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.viniciusjanner.desafio.core.domain.model.ItemDiff
 
-inline fun <T : ListItem, VH : GenericViewHolder<T>> getGenericAdapterOf(
+inline fun <T : ItemDiff, VH : GenericViewHolder<T>> getGenericAdapterOf(
     crossinline createViewHolder: (ViewGroup) -> VH,
 ): ListAdapter<T, VH> {
     val diff = GenericDiffCallback<T>()

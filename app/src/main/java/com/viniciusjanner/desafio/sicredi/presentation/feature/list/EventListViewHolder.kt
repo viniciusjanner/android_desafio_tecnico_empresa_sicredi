@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.sicredi.databinding.ItemEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.GenericViewHolder
@@ -15,7 +16,7 @@ class EventListViewHolder(
     itemBinding: ItemEventListBinding,
     private val imageLoader: ImageLoader,
     private val onItemClick: OnCharacterItemClick,
-) : GenericViewHolder<EventItem>(itemBinding) {
+) : GenericViewHolder<Event>(itemBinding) {
 
     private val eventImage: ImageView = itemBinding.eventImage
     private val eventTitle: TextView = itemBinding.eventTitle
@@ -23,7 +24,7 @@ class EventListViewHolder(
     private val eventSubtitle: TextView = itemBinding.eventSubtitle
 
     @SuppressLint("SetTextI18n")
-    override fun bind(data: EventItem) {
+    override fun bind(data: Event) {
         imageLoader.load(eventImage, data.image!!)
         eventTitle.text = data.title
         eventDateHour.text = data.date?.formatDateHour()

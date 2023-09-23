@@ -10,4 +10,5 @@ data class Event(
     val latitude: Double?,
     val price: Double?,
     val title: String?,
-)
+    override val key: Long = id.toLong(),
+) : ItemDiff

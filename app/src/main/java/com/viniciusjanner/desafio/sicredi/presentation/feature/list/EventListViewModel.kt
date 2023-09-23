@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
-import com.viniciusjanner.desafio.core.usecase.EventsUseCase
+import com.viniciusjanner.desafio.core.domain.model.Event
+import com.viniciusjanner.desafio.core.usecase.EventListUseCase
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
 import com.viniciusjanner.desafio.sicredi.util.extensions.watchStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,9 +14,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EventListViewModel @Inject constructor(
-    private val eventsUseCase: EventsUseCase,
+    private val eventListUseCase: EventListUseCase,
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : ViewModel() {
+
+    sealed class UiState {
+        data object Loading : UiState()
+        data class Success(val events: List<Event>) : UiState()
+        data object Empty : UiState()
+        data object Error : UiState()
+    }
+
+    sealed class Action {
+        data object GetEvents : Action()
+    }
 
     private val action = MutableLiveData<Action>()
 
@@ -24,13 +36,13 @@ class EventListViewModel @Inject constructor(
             liveData(coroutinesDispatchers.main()) {
                 when (action) {
                     is Action.GetEvents -> {
-                        eventsUseCase.invoke().watchStatus(
+                        eventListUseCase.invoke().watchStatus(
                             loading = {
                                 emit(UiState.Loading)
                             },
                             success = {
                                 val items = it.map { event ->
-                                    EventItem(
+                                    Event(
                                         event.id,
                                         event.people,
                                         event.date,
@@ -61,16 +73,5 @@ class EventListViewModel @Inject constructor(
 
     fun actionGetEvents() {
         action.value = Action.GetEvents
-    }
-
-    sealed class UiState {
-        data object Loading : UiState()
-        data class Success(val eventsList: List<EventItem>) : UiState()
-        data object Empty : UiState()
-        data object Error : UiState()
-    }
-
-    sealed class Action {
-        data object GetEvents : Action()
     }
 }
