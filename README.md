@@ -86,8 +86,10 @@ O projeto é modularizado, separando bem as reponsabilidades e facilitando:
 Os módulos são:
 - app: recursos de framework;
 - core: recursos para mapear e tratar os dados.
+- testing: recursos de factory para os testes.
 
 Temos também:
+- **Testes ubitários** utilizando JUnit e Mockito;
 - **Dagger Hilt** para injeção de dependências;
 - Gradle com **Kotlin DSL** para gerenciamento das dependências.
 - Workflows para CI/CD no **GitHub Actions**.
@@ -105,5 +107,5 @@ As seguintes bibliotecas e frameworks foram usadas na construção do projeto:
 - [Material Design](https://developer.android.com/develop/ui/views/theming/look-and-feel)
 - [Facebook Shimmer](https://github.com/facebookarchive/shimmer-android)
 - [Glide](https://github.com/bumptech/glide)
-
-  
+- [JUnit](https://junit.org/junit4/)
+- [Mockito](https://site.mockito.org/)
