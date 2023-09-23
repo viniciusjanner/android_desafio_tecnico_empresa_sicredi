@@ -1,7 +1,7 @@
 package com.viniciusjanner.desafio.core.usecase
 
 import com.nhaarman.mockitokotlin2.whenever
-import com.viniciusjanner.desafio.core.data.repository.EventsRepository
+import com.viniciusjanner.desafio.core.data.repository.EventRepository
 import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.core.usecase.base.ResultStatus
 import com.viniciusjanner.desafio.testing.MainCoroutineRule
@@ -27,15 +27,15 @@ class EventsUseCaseImplTest {
     var mainCoroutineRule = MainCoroutineRule()
 
     @Mock
-    lateinit var repository: EventsRepository
+    lateinit var repository: EventRepository
 
     private val events = EventsFactory().getEvents()
 
-    private lateinit var eventsUseCase: EventsUseCase
+    private lateinit var eventsUseCase: EventListUseCase
 
     @Before
     fun setup() {
-        eventsUseCase = EventsUseCaseImpl(
+        eventsUseCase = EventUseCaseImpl(
             repository,
             mainCoroutineRule.testDispatcherProvider,
         )

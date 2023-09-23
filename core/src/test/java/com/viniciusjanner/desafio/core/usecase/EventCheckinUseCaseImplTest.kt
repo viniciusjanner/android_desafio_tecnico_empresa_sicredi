@@ -1,7 +1,7 @@
 package com.viniciusjanner.desafio.core.usecase
 
 import com.nhaarman.mockitokotlin2.whenever
-import com.viniciusjanner.desafio.core.data.repository.EventsRepository
+import com.viniciusjanner.desafio.core.data.repository.EventRepository
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.core.usecase.base.ResultStatus
 import com.viniciusjanner.desafio.testing.MainCoroutineRule
@@ -26,7 +26,7 @@ class EventCheckinUseCaseImplTest {
     var mainCoroutineRule = MainCoroutineRule()
 
     @Mock
-    lateinit var repository: EventsRepository
+    lateinit var repository: EventRepository
 
     private val checkinSend = EventCheckinFactory().checkinSend()
     private val checkinResponse = EventCheckinFactory().checkinResponse()
@@ -47,7 +47,7 @@ class EventCheckinUseCaseImplTest {
         // deve retornar Success de ResultStatus quando a request retornar com sucesso
         //
         runTest {
-            whenever(repository.sendEventCheckin(checkinSend)).thenReturn(checkinResponse)
+            whenever(repository.postEventCheckin(checkinSend)).thenReturn(checkinResponse)
 
             // Act
             val resultFlow: Flow<ResultStatus<EventCheckinResponse>> = eventCheckinUseCase.invoke(EventCheckinUseCase.GetEventParam(checkinSend))
@@ -64,7 +64,7 @@ class EventCheckinUseCaseImplTest {
         // deve retornar Error de ResultStatus quando a request retornar com error
         //
         runTest {
-            whenever(repository.sendEventCheckin(checkinSend)).thenAnswer { throw Throwable() }
+            whenever(repository.postEventCheckin(checkinSend)).thenAnswer { throw Throwable() }
 
             // Act
             val resultFlow: Flow<ResultStatus<EventCheckinResponse>> = eventCheckinUseCase.invoke(EventCheckinUseCase.GetEventParam(checkinSend))

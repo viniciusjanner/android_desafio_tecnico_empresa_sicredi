@@ -1,6 +1,6 @@
 package com.viniciusjanner.desafio.core.usecase
 
-import com.viniciusjanner.desafio.core.data.repository.EventsRepository
+import com.viniciusjanner.desafio.core.data.repository.EventRepository
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
@@ -20,14 +20,14 @@ interface EventCheckinUseCase {
 }
 
 class EventCheckinUseCaseImpl @Inject constructor(
-    private val repository: EventsRepository,
+    private val repository: EventRepository,
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : UseCase<EventCheckinUseCase.GetEventParam, EventCheckinResponse>(),
     EventCheckinUseCase {
 
     override suspend fun doWork(params: EventCheckinUseCase.GetEventParam): ResultStatus<EventCheckinResponse> {
         return withContext(coroutinesDispatchers.io()) {
-            ResultStatus.Success(repository.sendEventCheckin(params.checkinSend))
+            ResultStatus.Success(repository.postEventCheckin(params.checkinSend))
         }
     }
 }

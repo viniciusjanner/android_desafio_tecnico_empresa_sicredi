@@ -4,11 +4,11 @@ import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 
-interface EventsRemoteDataSource {
+interface EventRepository {
 
-    suspend fun fetchEvents(): List<Event>
+    suspend fun getEvents(): List<Event>
 
-    suspend fun fetchEvent(eventId: String): Event
+    suspend fun getEvent(eventId: String): Event
 
-    suspend fun sendCheckin(checkIn: EventCheckinSend): EventCheckinResponse
+    suspend fun postEventCheckin(checkIn: EventCheckinSend): EventCheckinResponse
 }
