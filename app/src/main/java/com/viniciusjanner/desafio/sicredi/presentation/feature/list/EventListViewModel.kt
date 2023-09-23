@@ -65,7 +65,7 @@ class EventListViewModel @Inject constructor(
 
     sealed class UiState {
         data object Loading : UiState()
-        data class Success(val eventsList: List<EventItem>) : UiState()
+        data class Success(val events: List<EventItem>) : UiState()
         data object Empty : UiState()
         data object Error : UiState()
     }
