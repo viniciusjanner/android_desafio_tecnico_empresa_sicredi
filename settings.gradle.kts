@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 rootProject.name = "Eventos Woop"
 include(":app")
 include(":core")
+include(":testing")
