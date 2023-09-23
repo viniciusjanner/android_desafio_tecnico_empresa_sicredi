@@ -96,7 +96,7 @@ Temos também:
 
 
 ## Bibliotecas
-As seguintes bibliotecas e frameworks foram usadas na construção do projeto:
+As seguintes bibliotecas e frameworks foram utilizados na construção do projeto:
 - [Kotlin](https://kotlinlang.org/)
 - [AndroidX](https://developer.android.com/jetpack/androidx)
 - [Dagger Hilt](https://dagger.dev/hilt/)
