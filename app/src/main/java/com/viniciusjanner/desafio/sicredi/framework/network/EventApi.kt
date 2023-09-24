@@ -11,12 +11,12 @@ import retrofit2.http.Path
 
 interface EventApi {
 
-    @GET("api/events")
+    @GET("events")
     suspend fun getEvents(): EventsResponse
 
-    @GET("/events/{id}")
+    @GET("events/{id}")
     suspend fun getEvent(@Path("id") id: String): EventResponse
 
-    @POST("/checkin")
+    @POST("checkin")
     suspend fun postEventCheckin(@Body checkIn: EventCheckinSend): EventCheckinResponse
 }
