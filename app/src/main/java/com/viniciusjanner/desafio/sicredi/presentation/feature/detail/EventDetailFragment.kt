@@ -18,7 +18,7 @@ import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinArgs
 import com.viniciusjanner.desafio.sicredi.util.Utils
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
-import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoney
+import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoneyBrazil
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromBottomToTop
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -102,7 +102,7 @@ class EventDetailFragment : Fragment() {
             eventTitle.text = event.title
             eventDateHour.text = event.date?.formatDateHour()
             eventAddress.text = Utils.convertCoordinatesToAddress(event.latitude!!, event.longitude!!, requireContext())
-            eventPrice.text = event.price?.formatMoney()
+            eventPrice.text = event.price?.formatMoneyBrazil()
             eventSubtitle.text = event.description
         }
     }
