@@ -38,7 +38,7 @@
             android:id="@+id/eventTitle"
             style="@style/Theme.Widget.TextView.Event.Title.Item"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             tools:text="Event title" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -49,14 +49,21 @@
             tools:text="00 de setembro de 0000 às 00:00" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/eventSubtitle"
-            style="@style/Theme.Widget.TextView.Event.Description.Item"
+            android:id="@+id/eventAddress"
+            style="@style/Theme.Widget.TextView.Event.Address.Item"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="20dp"
-            tools:text="Description..." />
+            android:fontFamily="@font/font_ubuntu_regular"
+            tools:text="Local: Rua tal..." />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventPrice"
+            style="@style/Theme.Widget.TextView.Event.Price.Item"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            tools:text="Ingresso: R$0,00" />
 
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
-

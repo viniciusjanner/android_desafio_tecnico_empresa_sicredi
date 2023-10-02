@@ -10,7 +10,9 @@ import com.viniciusjanner.desafio.sicredi.databinding.ItemEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.GenericViewHolder
 import com.viniciusjanner.desafio.sicredi.util.AliasOnItemClick
+import com.viniciusjanner.desafio.sicredi.util.Utils
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
+import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoney
 
 class EventListViewHolder(
     itemBinding: ItemEventListBinding,
@@ -21,7 +23,8 @@ class EventListViewHolder(
     private val eventImage: ImageView = itemBinding.eventImage
     private val eventTitle: TextView = itemBinding.eventTitle
     private val eventDateHour: TextView = itemBinding.eventDateHour
-    private val eventSubtitle: TextView = itemBinding.eventSubtitle
+    private val eventAddress: TextView = itemBinding.eventAddress
+    private val eventPrice: TextView = itemBinding.eventPrice
 
     @SuppressLint("SetTextI18n")
     override fun bind(data: Event) {
@@ -29,7 +32,8 @@ class EventListViewHolder(
 
         eventTitle.text = data.title
         eventDateHour.text = data.date?.formatDateHour()
-        eventSubtitle.text = data.description
+        eventAddress.text = Utils.convertCoordinatesToAddress(data.latitude, data.longitude, eventAddress.context)
+        eventPrice.text = "Ingresso: ${data.price?.formatMoney()}"
 
         itemView.setOnClickListener {
             onItemClick.invoke(data, eventImage)
