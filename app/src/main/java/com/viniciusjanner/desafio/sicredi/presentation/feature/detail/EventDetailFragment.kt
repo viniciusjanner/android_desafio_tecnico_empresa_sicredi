@@ -1,9 +1,7 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.detail
 
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
-import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,12 +16,11 @@ import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventDetailBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinArgs
+import com.viniciusjanner.desafio.sicredi.util.Utils
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoney
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromBottomToTop
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -103,13 +100,9 @@ class EventDetailFragment : Fragment() {
             }
 
             eventTitle.text = event.title
-
             eventDateHour.text = event.date?.formatDateHour()
-
-            eventAddress.text = convertCoordinatesToAddress(event.latitude!!, event.longitude!!)
-
+            eventAddress.text = Utils.convertCoordinatesToAddress(event.latitude!!, event.longitude!!, requireContext())
             eventPrice.text = event.price?.formatMoney()
-
             eventSubtitle.text = event.description
         }
     }
@@ -176,59 +169,6 @@ class EventDetailFragment : Fragment() {
                 .append("\n")
                 .toString()
         }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun convertCoordinatesToAddress(latitude: Double, longitude: Double, context: Context = requireContext()): String {
-        try {
-            if (latitude != 0.0 && longitude != 0.0) {
-                val geocoder = Geocoder(context, Locale.getDefault())
-                val addressList = geocoder.getFromLocation(latitude, longitude, 1)
-                val size = addressList?.size ?: 0
-
-                if (addressList != null && size > 0) {
-                    val address = addressList[0]
-                    val addressFull = StringBuilder()
-
-                    // Adicione o nome da rua, se disponível
-                    address.thoroughfare?.let { addressFull.append(it) }
-
-                    // Adicione a cidade, se disponível
-                    address.locality?.let {
-                        if (addressFull.isNotEmpty()) addressFull.append(", ")
-                        addressFull.append(it)
-                    }
-
-                    // Adicione o estado, se disponível
-                    address.adminArea?.let {
-                        if (addressFull.isNotEmpty()) addressFull.append(", ")
-                        addressFull.append(it)
-                    }
-
-                    // Adicione o país, se disponível
-                    address.countryName?.let {
-                        if (addressFull.isNotEmpty()) addressFull.append(", ")
-                        addressFull.append(it)
-                    }
-
-                    // Adicione o CEP, se disponível
-                    address.postalCode?.let {
-                        if (addressFull.isNotEmpty()) addressFull.append(", ")
-                        addressFull.append(it)
-                    }
-
-                    return addressFull.toString()
-                }
-            } else {
-                // Endereço não encontrado
-                return ""
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            return ""
-        }
-        // Endereço não encontrado
-        return ""
     }
 
     override fun onDestroyView() {
