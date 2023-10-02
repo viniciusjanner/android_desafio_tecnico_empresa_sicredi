@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
-import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
-import com.viniciusjanner.desafio.core.usecase.EventCheckinUseCase
+import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
+import com.viniciusjanner.desafio.core.usecase.feature.checkin.EventCheckinUseCase
 import com.viniciusjanner.desafio.sicredi.util.extensions.watchStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -20,18 +20,18 @@ class EventCheckinViewModel @Inject constructor(
 ) : ViewModel() {
 
     sealed class UiState {
-        data object Loading : UiState()
+        object Loading : UiState()
         data class Success(val eventCheckinResponse: EventCheckinResponse) : UiState()
-        data object Error : UiState()
+        object Error : UiState()
     }
 
     sealed class Action {
         data class SendCheckinEvent(val eventCheckinSend: EventCheckinSend) : Action()
     }
 
-    private val action = MutableLiveData<Action>()
+    private val _action = MutableLiveData<Action>()
 
-    val state: LiveData<UiState> = action
+    val state: LiveData<UiState> = _action
         .switchMap {
             liveData(coroutinesDispatchers.main()) {
                 when (it) {
@@ -59,6 +59,6 @@ class EventCheckinViewModel @Inject constructor(
         }
 
     fun actionSendCheckin(checkin: EventCheckinSend) {
-        action.value = Action.SendCheckinEvent(checkin)
+        _action.value = Action.SendCheckinEvent(checkin)
     }
 }

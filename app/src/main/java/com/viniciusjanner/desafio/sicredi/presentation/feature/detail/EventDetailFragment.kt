@@ -1,5 +1,6 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.detail
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
@@ -8,19 +9,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.viniciusjanner.desafio.sicredi.R
+import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventDetailBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
-import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinFragment
-import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinViewArg
+import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinArgs
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoney
+import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromBottomToTop
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.util.Locale
@@ -53,30 +53,19 @@ class EventDetailFragment : Fragment() {
 
         initObserverUI()
         initListeners()
-        observeCheckinData()
     }
 
     private fun initObserverUI() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
-            // ViewFlipper
-            binding.flipperEventDetail.displayedChild =
+            binding.viewFlipper.displayedChild =
                 when (uiState) {
                     EventDetailViewModel.UiState.Loading -> {
                         FLIPPER_CHILD_LOADING
                     }
 
                     is EventDetailViewModel.UiState.Success -> {
-                        val event = uiState.event
-
-                        event.image?.let {
-                            imageLoader.load(binding.eventImage, it)
-                        }
-                        binding.eventTitle.text = event.title
-                        binding.eventDateHour.text = event.date?.formatDateHour()
-                        binding.eventAddress.text = coordinatesToAddress(event.latitude, event.longitude)
-                        binding.eventPrice.text = event.price?.formatMoney()
-                        binding.eventSubtitle.text = event.description
-
+                        val event: Event = uiState.event
+                        populateDetailsEvent(event)
                         FLIPPER_CHILD_SUCCESS
                     }
 
@@ -91,7 +80,7 @@ class EventDetailFragment : Fragment() {
 
     private fun initListeners() {
         binding.eventMap.setOnClickListener {
-            openLocalization()
+            openAddressInMap()
         }
 
         binding.buttonShare.setOnClickListener {
@@ -99,61 +88,105 @@ class EventDetailFragment : Fragment() {
         }
 
         binding.buttonCheckin.setOnClickListener {
-            sendCheckin()
+            navigateToEventCheckin()
         }
 
-        binding.includeViewError.buttonRetry.setOnClickListener {
+        binding.includeViewError.buttonAction.setOnClickListener {
             getEvent()
         }
     }
 
-    private fun getEvent() {
-        val eventId = args.eventDetailViewArg.eventId
-        viewModel.actionGetEvent(eventId)
+    private fun populateDetailsEvent(event: Event) {
+        with(binding) {
+            event.image?.let {
+                imageLoader.load(eventImage, it)
+            }
+
+            eventTitle.text = event.title
+
+            eventDateHour.text = event.date?.formatDateHour()
+
+            eventAddress.text = convertCoordinatesToAddress(event.latitude!!, event.longitude!!)
+
+            eventPrice.text = event.price?.formatMoney()
+
+            eventSubtitle.text = event.description
+        }
     }
 
-    private fun sendCheckin() {
-        val directions = EventDetailFragmentDirections
-            .actionEventDetailFragmentToEventCheckinFragment(
-                EventCheckinViewArg(
-                    eventId = args.eventDetailViewArg.eventId,
+    private fun getEvent() {
+        val eventId: String? = args?.eventDetailArgs?.eventId
+        eventId?.let {
+            viewModel.actionGetEvent(it)
+        }
+    }
+
+    private fun navigateToEventCheckin() {
+        val eventId: String? = args?.eventDetailArgs?.eventId
+        eventId?.let {
+            val directions = EventDetailFragmentDirections.actionEventDetailFragmentToEventCheckinFragment(
+                EventCheckinArgs(
+                    eventId = eventId,
                 )
             )
-        findNavController().navigate(directions)
+            findNavController().navigateFromBottomToTop(directions)
+        }
+    }
+
+    private fun openAddressInMap() {
+        try {
+            val address: String = binding.eventAddress.text.toString()
+            val uriString = "geo:0,0?q=${address}"
+            val uri = Uri.parse(uriString)
+
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "Nenhum aplicativo disponível!", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun openSharing() {
-        val eventText = args.eventDetailViewArg.toShareEvent()
+        try {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, messageSharing())
+                type = "text/plain"
+            }
 
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, eventText)
-            type = "text/plain"
-        }
-
-        val shareIntent = Intent.createChooser(sendIntent, null)
-        startActivity(shareIntent)
-    }
-
-    private fun openLocalization() {
-        val latitude = args.eventDetailViewArg.eventLatitude
-        val longitude = args.eventDetailViewArg.eventLongitude
-        val address = coordinatesToAddress(latitude, longitude)
-
-        if (address.isNotEmpty()) {
-            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(address)}")
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            startActivity(mapIntent)
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "Nenhum aplicativo disponível!", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun coordinatesToAddress(latitude: Double?, longitude: Double?, context: Context = requireContext()): String {
-        val geocoder = Geocoder(context, Locale.getDefault())
+    private fun messageSharing(): String {
+        return with(binding) {
+            StringBuilder()
+                .append("Evento")
+                .append("\n\nTitulo: ${eventTitle.text}")
+                .append("\n\nData: ${eventDateHour.text}")
+                .append("\n\nEndereço: ${eventAddress.text}")
+                .append("\n\nPreço: ${eventPrice.text}")
+                .append("\n")
+                .toString()
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun convertCoordinatesToAddress(latitude: Double, longitude: Double, context: Context = requireContext()): String {
         try {
             if (latitude != 0.0 && longitude != 0.0) {
-                val addressList = geocoder.getFromLocation(latitude!!, longitude!!, 1)
+                val geocoder = Geocoder(context, Locale.getDefault())
+                val addressList = geocoder.getFromLocation(latitude, longitude, 1)
+                val size = addressList?.size ?: 0
 
-                if (addressList != null && addressList.isNotEmpty()) {
+                if (addressList != null && size > 0) {
                     val address = addressList[0]
                     val addressFull = StringBuilder()
 
@@ -192,36 +225,10 @@ class EventDetailFragment : Fragment() {
             }
         } catch (e: IOException) {
             e.printStackTrace()
+            return ""
         }
         // Endereço não encontrado
         return ""
-    }
-
-    private fun observeCheckinData() {
-        val navBackStackEntry = findNavController().getBackStackEntry(R.id.EventDetailFragment)
-
-        val observer = LifecycleEventObserver { _, event ->
-            val isCheckinApplied =
-                navBackStackEntry.savedStateHandle.contains(
-                    EventCheckinFragment.KEY_APPLIED_BASK_STACK
-                )
-
-            if (event == Lifecycle.Event.ON_RESUME && isCheckinApplied) {
-                navBackStackEntry.savedStateHandle.remove<Boolean>(
-                    EventCheckinFragment.KEY_APPLIED_BASK_STACK
-                )
-            }
-        }
-
-        navBackStackEntry.lifecycle.addObserver(observer)
-
-        viewLifecycleOwner.lifecycle.addObserver(
-            LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_DESTROY) {
-                    navBackStackEntry.lifecycle.removeObserver(observer)
-                }
-            },
-        )
     }
 
     override fun onDestroyView() {

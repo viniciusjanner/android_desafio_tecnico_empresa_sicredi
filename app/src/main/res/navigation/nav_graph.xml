@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/EventListFragment"
         android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.list.EventListFragment"
-        android:label="@string/screen_event_list_title"
+        android:label="@string/screen_event_list"
         tools:layout="@layout/fragment_event_list">
         <action
             android:id="@+id/action_EventListFragment_to_EventDetailFragment"
@@ -18,11 +18,11 @@
     <fragment
         android:id="@+id/EventDetailFragment"
         android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailFragment"
-        android:label="@string/screen_event_detail_title"
+        android:label="@string/screen_event_detail"
         tools:layout="@layout/fragment_event_detail">
         <argument
-            android:name="eventDetailViewArg"
-            app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailViewArg" />
+            android:name="eventDetailArgs"
+            app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailArgs" />
         <action
             android:id="@+id/action_EventDetailFragment_to_EventCheckinFragment"
             app:destination="@id/EventCheckinFragment" />
@@ -31,11 +31,11 @@
     <dialog
         android:id="@+id/EventCheckinFragment"
         android:name="com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinFragment"
-        android:label="EventCheckinFragment"
+        android:label="@string/screen_event_checkin"
         tools:layout="@layout/fragment_event_checkin">
         <argument
-            android:name="eventCheckinViewArg"
-            app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinViewArg" />
+            android:name="eventCheckinArgs"
+            app:argType="com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinArgs" />
     </dialog>
 
 </navigation>

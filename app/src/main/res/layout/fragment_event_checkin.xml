@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/flipperCheckin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerCheckin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_gravity="bottom"
+    android:background="@drawable/bg_bottomsheet"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingTop="32dp"
+    tools:background="@color/colorBlack">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerCheckin"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_bottomsheet" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
+        <ViewFlipper
+            android:id="@+id/viewFlipper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/containerNestedScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="24dp"
-                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBackgroundDefault"
                 android:orientation="vertical">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="36dp"
-                    android:text="@string/checkin_title"
+                    android:layout_marginHorizontal="36dp"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/screen_event_checkin_title_header"
                     android:textAlignment="center"
                     android:textSize="24sp" />
 
@@ -44,17 +57,19 @@
                     android:id="@+id/tilName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp">
+                    android:layout_marginHorizontal="36dp"
+                    android:layout_marginTop="56dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietName"
                         android:layout_width="match_parent"
-                        android:singleLine="true"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorGray1"
+                        android:hint="@string/hint_your_name"
+                        android:imeOptions="actionNext"
                         android:maxLength="50"
                         android:maxLines="1"
-                        android:imeOptions="actionNext"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_your_name" />
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,51 +77,47 @@
                     android:id="@+id/tilEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginHorizontal="36dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="56dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietEmail"
-                        android:singleLine="true"
-                        android:maxLength="50"
-                        android:maxLines="1"
-                        android:imeOptions="actionGo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_your_email" />
+                        android:background="@color/colorGray1"
+                        android:hint="@string/hint_your_email"
+                        android:imeOptions="actionDone"
+                        android:maxLength="50"
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/buttonSend"
-                    android:layout_width="200dp"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="36dp"
-                    android:maxWidth="200dp"
-                    android:maxHeight="50dp"
-                    android:text="@string/checkin"
-                    android:textColor="@color/colorWhite"
-                    android:theme="@style/Base.Theme"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/buttonAction"
+                    style="@style/Theme.Widget.TextView.Flat.Active"
+                    android:text="@string/common_checkin"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+            <include
+                android:id="@+id/includeViewLoading"
+                layout="@layout/include_view_loading" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/includeViewSuccess"
+                layout="@layout/include_view_success" />
 
-    <include
-        android:id="@+id/includeViewLoading"
-        layout="@layout/include_view_loading" />
+            <include
+                android:id="@+id/includeViewError"
+                layout="@layout/include_view_error" />
 
-    <include
-        android:id="@+id/includeViewSuccess"
-        layout="@layout/include_view_success" />
+        </ViewFlipper>
 
-    <include
-        android:id="@+id/includeViewError"
-        layout="@layout/include_view_error" />
+    </androidx.core.widget.NestedScrollView>
 
-</ViewFlipper>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.checkin
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,11 @@ import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
+import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventCheckinBinding
 import com.viniciusjanner.desafio.sicredi.util.validation.PatternValidation
 import com.viniciusjanner.desafio.sicredi.util.validation.ValidaEmail
@@ -28,17 +32,28 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
     private val validators = mutableListOf<Validator>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun getTheme(): Int = R.style.Theme_Widget_BottomSheet
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentEventCheckinBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // BottomSheetDialog
+        dialog?.let {
+            val sheet = it as BottomSheetDialog
+            // Anim
+            sheet.window?.attributes?.windowAnimations = R.style.Theme_Widget_Anim_Dialog
+            // State
+            sheet.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            // Collapsed
+            sheet.behavior.skipCollapsed = true
+            // Exibir todos os itens do layout (se possivel).
+            sheet.behavior.peekHeight = Resources.getSystem().displayMetrics.heightPixels
+        }
 
         initObserverCheckin()
         initListeners()
@@ -48,8 +63,7 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
     private fun initObserverCheckin() {
         viewModel.state.observe(viewLifecycleOwner) { checkinState ->
-            // ViewFlipper
-            binding.flipperCheckin.displayedChild =
+            binding.viewFlipper.displayedChild =
                 when (checkinState) {
                     EventCheckinViewModel.UiState.Loading -> {
                         FLIPPER_CHILD_LOADING
@@ -67,15 +81,15 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     private fun initListeners() {
-        binding.buttonSend.setOnClickListener {
+        binding.buttonAction.setOnClickListener {
             validateCheckin()
         }
 
-        binding.includeViewError.buttonRetry.setOnClickListener {
+        binding.includeViewError.buttonAction.setOnClickListener {
             sendCheckin()
         }
 
-        binding.includeViewSuccess.buttonClose.setOnClickListener {
+        binding.includeViewSuccess.buttonAction.setOnClickListener {
             navigateToEventDetail()
         }
     }
@@ -83,7 +97,9 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     private fun validateFieldEmail() {
         val fieldEmail: EditText? = binding.tilEmail.editText
         val validator = ValidaEmail(binding.tilEmail)
+
         validators.add(validator)
+
         fieldEmail!!.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 validator.isValid
@@ -94,7 +110,9 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     private fun validateFieldName() {
         val field = binding.tilName.editText
         val validator = PatternValidation(binding.tilName)
+
         validators.add(validator)
+
         field!!.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 validator.isValid
@@ -120,23 +138,20 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     private fun sendCheckin() {
-        viewModel.actionSendCheckin(
-            EventCheckinSend(
-                args.eventCheckinViewArg.eventId,
-                binding.tietName.text.toString().trim(),
-                binding.tietEmail.text.toString().trim(),
+        val eventId: String? = args?.eventCheckinArgs?.eventId
+        eventId?.let {
+            viewModel.actionSendCheckin(
+                EventCheckinSend(
+                    eventId = it,
+                    name = binding.tietName.text.toString().trim(),
+                    email = binding.tietEmail.text.toString().trim(),
+                )
             )
-        )
+        }
     }
 
     private fun navigateToEventDetail() {
-        findNavController().run {
-            previousBackStackEntry?.savedStateHandle?.set(
-                KEY_APPLIED_BASK_STACK,
-                true,
-            )
-            popBackStack()
-        }
+        findNavController().popBackStack()
     }
 
     override fun onDestroyView() {
@@ -150,7 +165,5 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
         private const val FLIPPER_CHILD_LOADING = 1
         private const val FLIPPER_CHILD_SUCCESS = 2
         private const val FLIPPER_CHILD_ERROR = 3
-
-        const val KEY_APPLIED_BASK_STACK = "keyAppliedBackStack"
     }
 }

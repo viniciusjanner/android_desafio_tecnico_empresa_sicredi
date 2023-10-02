@@ -3,6 +3,7 @@ package com.viniciusjanner.desafio.sicredi.util.extensions
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("unused")
 fun Long.formatDateHour(): String {
     val dateFormat = SimpleDateFormat("EEE, dd MMMM yyyy HH:mm", Locale("pt", "BR"))
     val date = Date(this)

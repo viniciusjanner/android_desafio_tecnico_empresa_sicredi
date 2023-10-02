@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/containerProgress"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:gravity="center"
-    android:orientation="vertical">
+    style="@style/Theme.Widget.Container.Base.LinearLayout.Vertical">
 
     <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center" />
+        android:id="@+id/progressBar"
+        style="@style/Theme.Widget.ProgressBar.Ring" />
 
 </LinearLayout>

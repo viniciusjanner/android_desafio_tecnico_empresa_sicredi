@@ -1,39 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-    <style name="Base.Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!--
+    ...........................................................................................................
+    | APP
+    ...........................................................................................................
+    -->
+    <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!--Color Primary-->
-        <item name="colorPrimary">@color/colorPrimary</item><!--Toolbar-->
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item><!--StatusBar-->
-        <item name="colorOnPrimary">@color/colorAccent</item><!--Toolbar Text-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/colorAccent</item>
         <!--Color Secondary-->
-        <item name="colorSecondary">@color/colorPrimary</item><!--FloatActionButton-->
+        <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnSecondary">@color/colorWhite</item><!--Icon FloatActionButton-->
+        <item name="colorOnSecondary">@color/colorWhite</item>
         <!--Color Accent-->
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--android-->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--android:-->
         <item name="android:breakStrategy" tools:targetApi="m">simple</item>
-        <item name="android:colorBackground">@color/colorWhite</item>
+        <item name="android:colorBackground">@color/colorBackgroundDefault</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorStatusBarLight</item>
         <item name="android:textColor">@color/colorTextDark</item>
-        <item name="android:windowBackground">@color/colorWhite</item>
-        <!--app-->
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="android:textColorSecondary">@color/colorWhite</item>
+        <item name="android:windowAnimationStyle">@style/Theme.Widget.Anim.WindowTransition</item>
+        <item name="android:windowBackground">@color/colorBackgroundDefault</item>
+        <!--app:-->
         <!--<item name="tint">@color/colorPrimaryDark</item>--><!--Icon ImageView-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <!--Anim-->
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | SCREENS
+    ...........................................................................................................
+    -->
+    <style name="Theme.Screen.Splash" parent="Theme.SplashScreen" />
+
+    <style name="Theme.Screen.Home" parent="Theme.App" />
+    <!--
+    ...........................................................................................................
+    | WIDGET > ANIM
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.Anim.Dialog" parent="Animation.AppCompat.Dialog">
+        <!--android:-->
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
 
-    <style name="WindowAnimationTransition">
+    <style name="Theme.Widget.Anim.WindowTransition" parent="Theme.App">
+        <!--android:-->
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > BOTTOMSHEET
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.BottomSheet" parent="Theme.Design.Light.BottomSheetDialog">
+        <!--android:-->
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > CONTAINER > BASE
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.Container.Base" parent="Theme.App">
+        <!--android:-->
+        <item name="android:background">@color/colorBackgroundDefault</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
 
-    <style name="Theme.Splash" parent="Theme.SplashScreen" />
+    <style name="Theme.Widget.Container.Base.LinearLayout.Vertical" parent="Theme.Widget.Container.Base">
+        <!--android:-->
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > PROGRESSBAR
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.ProgressBar.Ring" parent="Theme.App">
+        <!--android:-->
+        <item name="android:gravity">center</item>
+        <item name="android:indeterminateDrawable">@drawable/view_progressbar</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_width">64dp</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > SHAPEABLE IMAGEVIEW
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.ShapeableImageView.Rounded.Top" parent="Theme.App">
+        <!--app:-->
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > TEXTVIEW > EVENT
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.TextView.Event.Title" parent="Theme.App">
+        <!--android:-->
+        <item name="android:fontFamily">@font/font_ubuntu_bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">24sp</item>
+    </style>
 
-    <style name="Theme.Home" parent="Base.Theme">
+    <style name="Theme.Widget.TextView.Event.Title.Item" parent="Theme.Widget.TextView.Event.Title">
+        <!--android:-->
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 
+    <style name="Theme.Widget.TextView.Event.DataHour" parent="Theme.App">
+        <!--android:-->
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableStart">@drawable/ic_calendar</item>
+        <item name="android:fontFamily">@font/font_ubuntu_light</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorGray4</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.DataHour.Item" parent="Theme.Widget.TextView.Event.DataHour">
+        <!--android:-->
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:drawableStart">@null</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Address" parent="Theme.App">
+        <!--android:-->
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableStart">@drawable/ic_pin_drop</item>
+        <item name="android:fontFamily">@font/font_ubuntu_italic</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorGray4</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Address.Item" parent="Theme.Widget.TextView.Event.Address">
+        <!--android:-->
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:drawableStart">@null</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Description" parent="Theme.App">
+        <!--android:-->
+        <item name="android:fontFamily">@font/font_ubuntu_regular</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorGray4</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Description.Item" parent="Theme.Widget.TextView.Event.Description">
+        <!--android:-->
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">4</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Price" parent="Theme.App">
+        <!--android:-->
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableStart">@drawable/ic_ticket</item>
+        <item name="android:fontFamily">@font/font_ubuntu_bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/colorGray4</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Price.Item" parent="Theme.Widget.TextView.Event.Price">
+        <!--android:-->
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:drawableStart">@null</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > TEXTVIEW > FLAT
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.TextView.Flat" parent="Theme.App">
+        <!--android:-->
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Flat.Active" parent="Theme.Widget.TextView.Flat">
+        <!--android:-->
+        <item name="android:background">@drawable/bg_textview_flat_active</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Flat.Inactive" parent="Theme.Widget.TextView.Flat">
+        <!--android:-->
+        <item name="android:background">@drawable/bg_textview_flat_inactive</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > TEXTVIEW > INCLUDEVIEW
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.TextView.IncludeView" parent="Theme.App">
+        <!--android:-->
+        <item name="android:fontFamily">@font/font_ubuntu_regular</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:text">@string/common_ops</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorGray3</item>
+        <item name="android:textSize">24sp</item>
+        <!--app:-->
+        <item name="drawableTint">@color/colorGray3</item>
+        <item name="drawableTopCompat">@drawable/ic_info_circle</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.IncludeView.Empty" parent="Theme.Widget.TextView.IncludeView">
+        <!--android:-->
+        <item name="android:text">@string/common_no_results_found</item>
+        <!--app:-->
+        <item name="drawableTint">@color/colorOrange</item>
+        <item name="drawableTopCompat">@drawable/ic_info_circle</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.IncludeView.Success" parent="Theme.Widget.TextView.IncludeView">
+        <!--android:-->
+        <item name="android:text">@string/common_success</item>
+        <!--app:-->
+        <item name="drawableTint">@color/colorPrimaryDark</item>
+        <item name="drawableTopCompat">@drawable/ic_check_circle</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.IncludeView.Error" parent="Theme.Widget.TextView.IncludeView">
+        <!--android:-->
+        <item name="android:text">@string/common_error</item>
+        <!--app:-->
+        <item name="drawableTint">@color/colorRed</item>
+        <item name="drawableTopCompat">@drawable/ic_error_circle</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > TOOLBAR
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.Toolbar" parent="Theme.App">
+        <!--android:-->
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
+        <!--app:-->
+        <item name="actionMenuTextColor">@color/colorWhite</item>
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > VIEW
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.View.Trnsparent" parent="Theme.App">
+        <!--android:-->
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <!--Adicionar esta linha nas propriedades-->
+        <!--android:layout_weight="1"-->
     </style>
 
 </resources>

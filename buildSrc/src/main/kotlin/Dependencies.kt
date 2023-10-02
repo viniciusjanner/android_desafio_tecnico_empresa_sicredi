@@ -55,7 +55,7 @@ object Dependencies {
             val glideAnnotations = "com.github.bumptech.glide:annotations:$versionGlide"
             val glideCompiler = "com.github.bumptech.glide:compiler:$versionGlide"
             val glideGlide = "com.github.bumptech.glide:glide:$versionGlide"
-            val glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:4.13.0"
+            val glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:$versionGlide"
         }
 
         object Squareup {

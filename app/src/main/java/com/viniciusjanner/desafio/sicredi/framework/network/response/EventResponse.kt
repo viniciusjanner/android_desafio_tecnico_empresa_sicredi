@@ -29,7 +29,7 @@ fun EventResponse.toEventModel(): Event {
         people = this.people,
         date = this.date,
         description = this.description,
-        image = this.image?.replace("http", "https"),
+        image = this.image,
         longitude = this.longitude,
         latitude = this.latitude,
         price = this.price,

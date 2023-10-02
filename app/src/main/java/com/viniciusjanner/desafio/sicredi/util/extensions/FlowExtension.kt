@@ -3,6 +3,7 @@ package com.viniciusjanner.desafio.sicredi.util.extensions
 import com.viniciusjanner.desafio.core.usecase.base.ResultStatus
 import kotlinx.coroutines.flow.Flow
 
+@Suppress("unused")
 suspend fun <T> Flow<ResultStatus<T>>.watchStatus(
     //
     // Usamos {} para suprimir o bloco de codigo ao chamarmos .watchStatus

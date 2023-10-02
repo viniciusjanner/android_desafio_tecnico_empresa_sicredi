@@ -23,8 +23,6 @@ android {
 
         multiDexEnabled = true
 
-        android.defaultConfig.vectorDrawables.useSupportLibrary = true
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_URL", "\"https://5f5a8f24d44d640016169133.mockapi.io/api/\"")
@@ -66,6 +64,10 @@ dependencies {
     // ----------------------------------------------------------------------------------------------
     implementation(project(":core"))
     testImplementation(project(":testing"))
+
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.google.android.gms:play-services-basement:18.2.0")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
 
     // ----------------------------------------------------------------------------------------------
     // Develop

@@ -19,13 +19,3 @@ abstract class UseCase<in P, R> {
 
     protected abstract suspend fun doWork(params: P): ResultStatus<R>
 }
-
-@Suppress("unused")
-abstract class FlowUseCase<in P, R : Any> {
-    //
-    // operator : nos permite suprimir o .invoke na chamada do método.
-    //
-    suspend operator fun invoke(params: P): Flow<R> = createFlowObservable(params)
-
-    protected abstract suspend fun createFlowObservable(params: P): Flow<R>
-}

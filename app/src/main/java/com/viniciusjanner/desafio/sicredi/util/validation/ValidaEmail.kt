@@ -3,22 +3,27 @@ package com.viniciusjanner.desafio.sicredi.util.validation
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
 
-class ValidaEmail(private val textInputEmail: TextInputLayout) :
-    Validator {
-    private val fieldEmail: EditText = this.textInputEmail.editText!!
-    private val patternValidation: PatternValidation = PatternValidation(this.textInputEmail)
+class ValidaEmail(
+    private val textInputLayout: TextInputLayout
+) : Validator {
+
+    private val editText: EditText = this.textInputLayout.editText!!
+
+    private val patternValidation: PatternValidation = PatternValidation(this.textInputLayout)
 
     private fun valida(email: String): Boolean {
         if (isEmailValid(email)) {
             return true
         }
-        textInputEmail.error = "E-mail inválido"
+        textInputLayout.error = "E-mail inválido"
         return false
     }
 
     override fun isValid(): Boolean {
-        if (!patternValidation.isValid) return false
-        val email: String = fieldEmail.text.toString()
+        if (!patternValidation.isValid) {
+            return false
+        }
+        val email: String = editText.text.toString()
         return valida(email)
     }
 

@@ -9,13 +9,13 @@ import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.sicredi.databinding.ItemEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.GenericViewHolder
-import com.viniciusjanner.desafio.sicredi.util.OnCharacterItemClick
+import com.viniciusjanner.desafio.sicredi.util.AliasOnItemClick
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 
 class EventListViewHolder(
     itemBinding: ItemEventListBinding,
     private val imageLoader: ImageLoader,
-    private val onItemClick: OnCharacterItemClick,
+    private val onItemClick: AliasOnItemClick,
 ) : GenericViewHolder<Event>(itemBinding) {
 
     private val eventImage: ImageView = itemBinding.eventImage
@@ -25,7 +25,8 @@ class EventListViewHolder(
 
     @SuppressLint("SetTextI18n")
     override fun bind(data: Event) {
-        imageLoader.load(eventImage, data.image!!)
+        imageLoader.load(eventImage, data.image)
+
         eventTitle.text = data.title
         eventDateHour.text = data.date?.formatDateHour()
         eventSubtitle.text = data.description
@@ -39,7 +40,7 @@ class EventListViewHolder(
         fun create(
             parent: ViewGroup,
             imageLoader: ImageLoader,
-            onItemClick: OnCharacterItemClick,
+            onItemClick: AliasOnItemClick,
         ): EventListViewHolder {
             val inflater = LayoutInflater.from(parent.context)
 

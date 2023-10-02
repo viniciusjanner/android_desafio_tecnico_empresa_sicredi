@@ -8,10 +8,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterOf
-import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailViewArg
+import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailArgs
+import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromRightToLeft
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,23 +29,20 @@ class EventListFragment : Fragment() {
     lateinit var imageLoader: ImageLoader
 
     private val eventsAdapter by lazy {
-        getGenericAdapterOf {
-            EventListViewHolder.create(it, imageLoader) { eventItem, _ ->
-                val directions = EventListFragmentDirections
-                    .actionEventListFragmentToEventDetailFragment(
-                        EventDetailViewArg(
-                            eventId = eventItem.id,
-                            eventImageUrl = eventItem.image ?: "",
-                            eventDate = eventItem.date,
-                            eventPrice = eventItem.price,
-                            eventTitle = eventItem.title,
-                            eventLatitude = eventItem.latitude,
-                            eventLongitude = eventItem.longitude,
-                        )
-                    )
-                findNavController().navigate(directions)
+        getGenericAdapterOf { viewGroup ->
+            EventListViewHolder.create(viewGroup, imageLoader) { event, _ ->
+                navigateToEventDetail(event)
             }
         }
+    }
+
+    private fun navigateToEventDetail(event: Event) {
+        val directions = EventListFragmentDirections.actionEventListFragmentToEventDetailFragment(
+            EventDetailArgs(
+                eventId = event.id,
+            )
+        )
+        findNavController().navigateFromRightToLeft(directions)
     }
 
     override fun onCreateView(
@@ -72,9 +71,7 @@ class EventListFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
-            // ViewFlipper
-            binding.flipperEvents.displayedChild =
-                    // State
+            binding.viewFlipper.displayedChild =
                 when (uiState) {
                     EventListViewModel.UiState.Loading -> {
                         setShimmerVisibility(true)
@@ -104,7 +101,7 @@ class EventListFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.includeViewError.buttonRetry.setOnClickListener {
+        binding.includeViewError.buttonAction.setOnClickListener {
             getEvents()
         }
     }
