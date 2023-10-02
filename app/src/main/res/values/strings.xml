@@ -6,6 +6,14 @@
 
     <string name="screen_event_detail">Detalhes</string>
     <string name="screen_event_detail_description_title">Detalhes do evento</string>
+    <string name="screen_event_detail_message_sharing">
+        Evento
+        \n\nTitulo: %1$s
+        \n\nData: %2$s
+        \n\nEndereço: %3$s
+        \n\nPreço: %4$s
+        \n
+    </string>
 
     <string name="screen_event_checkin">Check-In</string>
     <string name="screen_event_checkin_message_error">Ops!\nOcorreu um erro ao\nefetuar o check-in!</string>
