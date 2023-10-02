@@ -100,7 +100,7 @@ class EventDetailFragment : Fragment() {
             eventDateHour.text = event.date?.formatDateHour()
             eventAddress.text = Utils.convertCoordinatesToAddress(event.latitude!!, event.longitude!!, requireContext())
             eventPrice.text = event.price?.formatMoneyBrazil()
-            eventSubtitle.text = event.description
+            eventDescription.text = event.description
         }
     }
 
