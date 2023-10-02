@@ -1,11 +1,18 @@
 package com.viniciusjanner.desafio.sicredi.util
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.location.Geocoder
+import android.net.Uri
+import android.util.Log
+import android.widget.Toast
 import java.io.IOException
 import java.util.Locale
 
 object Utils {
+
+    private val tag: String = Utils::class.java.simpleName
 
     @Suppress("DEPRECATION")
     fun convertCoordinatesToAddress(latitude: Double?, longitude: Double?, context: Context): String {
@@ -58,5 +65,38 @@ object Utils {
         }
         // Endereço não encontrado
         return ""
+    }
+
+    fun openAppMap(address: String, context: Context) {
+        try {
+            val uriString = "geo:0,0?q=${address}"
+            val uri = Uri.parse(uriString)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(context, "Nenhum aplicativo disponível!", Toast.LENGTH_SHORT).show()
+            Log.e(tag, "openAddressInMap: ${e.message}")
+        } catch (e: Exception) {
+            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            Log.e(tag, "openAddressInMap: ${e.message}")
+        }
+    }
+
+    fun openAppSharing(messageSharing: String, context: Context) {
+        try {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, messageSharing)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            context.startActivity(shareIntent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(context, "Nenhum aplicativo disponível!", Toast.LENGTH_SHORT).show()
+            Log.e(tag, "openSharing: ${e.message}")
+        } catch (e: Exception) {
+            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            Log.e(tag, "openSharing: ${e.message}")
+        }
     }
 }

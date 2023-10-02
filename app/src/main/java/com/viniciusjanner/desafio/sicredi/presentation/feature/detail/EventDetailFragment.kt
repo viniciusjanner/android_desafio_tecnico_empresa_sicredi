@@ -1,18 +1,15 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.detail
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.viniciusjanner.desafio.core.domain.model.Event
+import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventDetailBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinArgs
@@ -81,7 +78,7 @@ class EventDetailFragment : Fragment() {
         }
 
         binding.buttonShare.setOnClickListener {
-            openSharing()
+            openMessageSharing()
         }
 
         binding.buttonCheckin.setOnClickListener {
@@ -127,48 +124,22 @@ class EventDetailFragment : Fragment() {
     }
 
     private fun openAddressInMap() {
-        try {
-            val address: String = binding.eventAddress.text.toString()
-            val uriString = "geo:0,0?q=${address}"
-            val uri = Uri.parse(uriString)
-
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            Toast.makeText(requireContext(), "Nenhum aplicativo disponível!", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
+        val address: String = binding.eventAddress.text.toString()
+        Utils.openAppMap(address, requireContext())
     }
 
-    private fun openSharing() {
-        try {
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, messageSharing())
-                type = "text/plain"
+    private fun openMessageSharing() {
+        val messageSharing =
+            with(binding) {
+                getString(
+                    R.string.screen_event_detail_message_sharing,
+                    eventTitle.text,
+                    eventDateHour.text,
+                    eventAddress.text,
+                    eventPrice.text,
+                )
             }
-
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            startActivity(shareIntent)
-        } catch (e: ActivityNotFoundException) {
-            Toast.makeText(requireContext(), "Nenhum aplicativo disponível!", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun messageSharing(): String {
-        return with(binding) {
-            StringBuilder()
-                .append("Evento")
-                .append("\n\nTitulo: ${eventTitle.text}")
-                .append("\n\nData: ${eventDateHour.text}")
-                .append("\n\nEndereço: ${eventAddress.text}")
-                .append("\n\nPreço: ${eventPrice.text}")
-                .append("\n")
-                .toString()
-        }
+        Utils.openAppSharing(messageSharing, requireContext())
     }
 
     override fun onDestroyView() {
