@@ -31,9 +31,14 @@ class EventListViewHolder(
         imageLoader.load(eventImage, data.image)
 
         eventTitle.text = data.title
+
         eventDateHour.text = data.date?.formatDateHour()
-        eventAddress.text = Utils.convertCoordinatesToAddress(data.latitude, data.longitude, eventAddress.context)
-        eventPrice.text = "Ingresso: ${data.price?.formatMoneyBrazil()}"
+
+        eventAddress.text = Utils.convertCoordinatesToAddress(
+            data.latitude, data.longitude, eventAddress.context
+        )
+
+        eventPrice.text = data.price?.formatMoneyBrazil()
 
         itemView.setOnClickListener {
             onItemClick.invoke(data, eventImage)

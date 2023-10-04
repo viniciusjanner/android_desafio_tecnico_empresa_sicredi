@@ -26,7 +26,6 @@
         <item name="android:windowAnimationStyle">@style/Theme.Widget.Anim.WindowTransition</item>
         <item name="android:windowBackground">@color/colorBackgroundDefault</item>
         <!--app:-->
-        <!--<item name="tint">@color/colorPrimaryDark</item>--><!--Icon ImageView-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -117,21 +116,25 @@
     | WIDGET > TEXTVIEW > EVENT
     ...........................................................................................................
     -->
-    <style name="Theme.Widget.TextView.Event.Title" parent="Theme.App">
+    <style name="Theme.Widget.TextView.Event.Address" parent="Theme.App">
         <!--android:-->
-        <item name="android:fontFamily">@font/font_ubuntu_bold</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableStart">@drawable/ic_pin_drop</item>
+        <item name="android:fontFamily">@font/font_ubuntu_italic</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Theme.Widget.TextView.Event.Title.Item" parent="Theme.Widget.TextView.Event.Title">
+    <style name="Theme.Widget.TextView.Event.Address.Item" parent="Theme.Widget.TextView.Event.Address">
         <!--android:-->
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:drawableStart">@null</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="Theme.Widget.TextView.Event.DataHour" parent="Theme.App">
@@ -142,7 +145,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray4</item>
+        <item name="android:textColor">@color/colorGray5</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -155,34 +158,13 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Theme.Widget.TextView.Event.Address" parent="Theme.App">
-        <!--android:-->
-        <item name="android:drawablePadding">8dp</item>
-        <item name="android:drawableStart">@drawable/ic_pin_drop</item>
-        <item name="android:fontFamily">@font/font_ubuntu_italic</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray4</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="Theme.Widget.TextView.Event.Address.Item" parent="Theme.Widget.TextView.Event.Address">
-        <!--android:-->
-        <item name="android:drawablePadding">0dp</item>
-        <item name="android:drawableStart">@null</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">2</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-
     <style name="Theme.Widget.TextView.Event.Description" parent="Theme.App">
         <!--android:-->
         <item name="android:fontFamily">@font/font_ubuntu_regular</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray4</item>
+        <item name="android:textColor">@color/colorGray5</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -193,6 +175,28 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Theme.Widget.TextView.Event.Label.Bold" parent="Theme.App">
+        <!--android:-->
+        <item name="android:fontFamily">@font/font_ubuntu_bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.People" parent="Theme.App">
+        <!--android:-->
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableStart">@drawable/ic_account</item>
+        <item name="android:fontFamily">@font/font_ubuntu_regular</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="Theme.Widget.TextView.Event.Price" parent="Theme.App">
         <!--android:-->
         <item name="android:drawablePadding">8dp</item>
@@ -200,7 +204,7 @@
         <item name="android:fontFamily">@font/font_ubuntu_bold</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textColor">@color/colorGray4</item>
+        <item name="android:textColor">@color/colorGray5</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -211,6 +215,35 @@
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Price.Rounded" parent="Theme.Widget.TextView.Event.Price">
+        <!--android:-->
+        <item name="android:background">@drawable/bg_rounded_green</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:drawableStart">@null</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Title" parent="Theme.App">
+        <!--android:-->
+        <item name="android:fontFamily">@font/font_ubuntu_bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="Theme.Widget.TextView.Event.Title.Item" parent="Theme.Widget.TextView.Event.Title">
+        <!--android:-->
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">22sp</item>
     </style>
     <!--
     ...........................................................................................................
@@ -251,10 +284,10 @@
         <item name="android:text">@string/common_ops</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray3</item>
+        <item name="android:textColor">@color/colorGray4</item>
         <item name="android:textSize">24sp</item>
         <!--app:-->
-        <item name="drawableTint">@color/colorGray3</item>
+        <item name="drawableTint">@color/colorGray4</item>
         <item name="drawableTopCompat">@drawable/ic_info_circle</item>
     </style>
 

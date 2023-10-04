@@ -36,11 +36,14 @@
    ...........................................................................................................
    -->
     <color name="colorBlack">#000000</color>
-    <color name="colorGray1">#D1D1D1</color>
-    <color name="colorGray2">#9B9999</color>
-    <color name="colorGray3">#7B7A7A</color>
-    <color name="colorGray4">#333333</color>
+    <color name="colorGray1">#EBEBEB</color>
+    <color name="colorGray2">#D1D1D1</color>
+    <color name="colorGray3">#9B9999</color>
+    <color name="colorGray4">#7B7A7A</color>
+    <color name="colorGray5">#333333</color>
     <color name="colorGreen1">#53F4CD</color>
+    <color name="colorGreen2">#00E56F</color>
+    <color name="colorGreen3">#3DAE2B</color>
     <color name="colorOrange">#FF9D0E</color>
     <color name="colorRed">#FF2020</color>
     <color name="colorWhite">#FFFFFF</color>

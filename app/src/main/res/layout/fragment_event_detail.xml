@@ -40,19 +40,50 @@
                     tools:background="@color/colorOrange"
                     tools:src="@drawable/ic_placeholder_image" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray3" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/eventTitle"
                     style="@style/Theme.Widget.TextView.Event.Title"
                     android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="20dp"
                     tools:text="Event title" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/eventDateHour"
                     style="@style/Theme.Widget.TextView.Event.DataHour"
                     android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     tools:text="00 de tal mes de 0000 às 00:00" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/eventPeople"
+                    style="@style/Theme.Widget.TextView.Event.People"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    tools:text="Participantes: 237" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/eventPrice"
+                    style="@style/Theme.Widget.TextView.Event.Price"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    tools:text="R$ 0,00" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="16dp"
+                    android:background="@color/colorGray3" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelAddress"
+                    style="@style/Theme.Widget.TextView.Event.Label.Bold"
+                    android:layout_marginHorizontal="24dp"
+                    android:text="@string/screen_event_detail_label_address" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/eventAddress"
@@ -71,30 +102,22 @@
                     android:drawablePadding="8dp"
                     android:fontFamily="@font/font_ubuntu_regular"
                     android:importantForAccessibility="no"
-                    android:text="@string/common_view_on_map"
+                    android:text="@string/screen_event_detail_open_map"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     app:drawableTint="@color/colorPrimaryDark" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/eventPrice"
-                    style="@style/Theme.Widget.TextView.Event.Price"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="16dp"
-                    tools:text="R$ 0,00" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginVertical="20dp"
-                    android:background="@color/colorGray2" />
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="16dp"
+                    android:background="@color/colorGray3" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/eventDescriptionTitle"
-                    style="@style/Theme.Widget.TextView.Event.Description"
+                    android:id="@+id/labelDescription"
+                    style="@style/Theme.Widget.TextView.Event.Label.Bold"
                     android:layout_marginHorizontal="24dp"
-                    android:fontFamily="@font/font_ubuntu_bold"
-                    android:text="@string/screen_event_detail_description_title" />
+                    android:text="@string/screen_event_detail_label_detail_event" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/eventDescription"

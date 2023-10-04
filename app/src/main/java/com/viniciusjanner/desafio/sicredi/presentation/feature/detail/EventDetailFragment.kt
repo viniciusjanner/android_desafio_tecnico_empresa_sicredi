@@ -97,9 +97,15 @@ class EventDetailFragment : Fragment() {
             }
 
             eventTitle.text = event.title
+
             eventDateHour.text = event.date?.formatDateHour()
-            eventAddress.text = Utils.convertCoordinatesToAddress(event.latitude!!, event.longitude!!, requireContext())
+
+            eventPeople.text = getString(R.string.screen_event_detail_people_param, (event.people?.size ?: 0).toString())
+
             eventPrice.text = event.price?.formatMoneyBrazil()
+
+            eventAddress.text = Utils.convertCoordinatesToAddress(event.latitude!!, event.longitude!!, requireContext())
+
             eventDescription.text = event.description
         }
     }

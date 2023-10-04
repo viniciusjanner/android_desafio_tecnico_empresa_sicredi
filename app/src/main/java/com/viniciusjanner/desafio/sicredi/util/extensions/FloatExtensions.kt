@@ -8,4 +8,4 @@ fun Double.formatMoneyBrazil() =
     NumberFormat
         .getCurrencyInstance(Locale("pt", "BR"))
         .format(this)
-        ?: ""
+        .replace("R$", "R$ ")

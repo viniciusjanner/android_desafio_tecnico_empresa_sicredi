@@ -5,7 +5,8 @@
     <string name="screen_event_list">Eventos</string>
 
     <string name="screen_event_detail">Detalhes</string>
-    <string name="screen_event_detail_description_title">Detalhes do evento</string>
+    <string name="screen_event_detail_label_address">Endereço</string>
+    <string name="screen_event_detail_label_detail_event">Detalhes do evento</string>
     <string name="screen_event_detail_message_sharing">
         Evento
         \n\nTitulo: %1$s
@@ -14,6 +15,8 @@
         \n\nPreço: %4$s
         \n
     </string>
+    <string name="screen_event_detail_open_map">Abrir mapa</string>
+    <string name="screen_event_detail_people_param">Participantes: %1$s</string>
 
     <string name="screen_event_checkin">Check-In</string>
     <string name="screen_event_checkin_message_error">Ops!\nOcorreu um erro ao\nefetuar o check-in!</string>
@@ -23,14 +26,13 @@
     <string name="common_checkin">Check-In</string>
     <string name="common_close">Fechar</string>
     <string name="common_error">Ocorreu um erro</string>
+    <string name="common_hint_your_name">Digite seu nome</string>
+    <string name="common_hint_your_email">Digite seu email</string>
     <string name="common_no_results_found">Nenhum resultado</string>
     <string name="common_ops">Ops…</string>
     <string name="common_search_again">Buscar novamente</string>
     <string name="common_share">Share</string>
     <string name="common_success">Sucesso</string>
     <string name="common_try_again">Tente novamente</string>
-    <string name="common_view_on_map">Ver no mapa</string>
 
-    <string name="hint_your_name">Digite seu nome</string>
-    <string name="hint_your_email">Digite seu email</string>
 </resources>
