@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--
+    ...........................................................................................................
+    | MARGIN FOR CARDVIEW WITH ELEVATION USED IN RECYCLERVIEW
+    ...........................................................................................................
+    -->
+    <dimen name="item_cardview_with_elevation_margin_top">16dp</dimen>
+    <dimen name="item_cardview_with_elevation_margin_right">16dp</dimen>
+    <dimen name="item_cardview_with_elevation_margin_left">16dp</dimen>
+    <dimen name="item_cardview_with_elevation_margin_bottom">16dp</dimen>
+    <dimen name="item_cardview_with_elevation_margin_bottom_last">16dp</dimen>
 </resources>
