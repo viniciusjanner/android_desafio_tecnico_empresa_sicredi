@@ -10,8 +10,7 @@
     card_view:cardCornerRadius="16dp"
     card_view:cardElevation="8dp"
     card_view:cardMaxElevation="8dp"
-    card_view:cardPreventCornerOverlap="false"
-    card_view:cardUseCompatPadding="true">
+    card_view:cardPreventCornerOverlap="false">
 
     <LinearLayout
         android:id="@+id/containerCardView"

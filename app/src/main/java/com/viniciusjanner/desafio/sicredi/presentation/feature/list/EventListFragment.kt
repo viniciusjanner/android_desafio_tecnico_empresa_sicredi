@@ -8,9 +8,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.viniciusjanner.desafio.core.domain.model.Event
+import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
+import com.viniciusjanner.desafio.sicredi.presentation.common.MarginItemDecoration
 import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterOf
 import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailArgs
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromRightToLeft
@@ -66,8 +69,18 @@ class EventListFragment : Fragment() {
         binding.recyclerEventList.run {
             setHasFixedSize(true)
             adapter = eventsAdapter
+            addItemDecoration(customItemDecoration())
         }
     }
+
+    private fun customItemDecoration(): RecyclerView.ItemDecoration =
+        MarginItemDecoration(
+            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_top),
+            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_left),
+            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_right),
+            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_bottom),
+            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_bottom_last),
+        )
 
     private fun initObservers() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
