@@ -21,15 +21,17 @@
     <string name="screen_event_checkin">Check-In</string>
     <string name="screen_event_checkin_message_error">Ops!\nOcorreu um erro ao\nefetuar o check-in!</string>
     <string name="screen_event_checkin_message_success">Parabéns!\nVocê efetuou seu\ncheck-in no evento!</string>
-    <string name="screen_event_checkin_title_header">Faça seu check-in\npara participar do evento!</string>
+    <string name="screen_event_checkin_title_header">Faça check-in para\nparticipar do evento!</string>
 
     <string name="common_checkin">Check-In</string>
     <string name="common_close">Fechar</string>
+    <string name="common_email">E-mail</string>
     <string name="common_error">Ocorreu um erro</string>
-    <string name="common_hint_your_name">Digite seu nome</string>
-    <string name="common_hint_your_email">Digite seu email</string>
+    <string name="common_invalid_email">E-mail inválido</string>
+    <string name="common_name">Nome</string>
     <string name="common_no_results_found">Nenhum resultado</string>
     <string name="common_ops">Ops…</string>
+    <string name="common_required_field">Campo obrigatório</string>
     <string name="common_search_again">Buscar novamente</string>
     <string name="common_share">Share</string>
     <string name="common_success">Sucesso</string>
