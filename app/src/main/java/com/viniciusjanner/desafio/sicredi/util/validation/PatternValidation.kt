@@ -1,18 +1,22 @@
 package com.viniciusjanner.desafio.sicredi.util.validation
 
+import android.content.Context
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
+import com.viniciusjanner.desafio.sicredi.R
 
 class PatternValidation(
     private val textInputLayout: TextInputLayout
 ) : Validator {
+
+    private val context: Context = this.textInputLayout.context
 
     private val editText: EditText = this.textInputLayout.editText!!
 
     private fun validate(): Boolean {
         val text: String = editText.text.toString()
         if (text.isEmpty()) {
-            textInputLayout.error = REQUIRED_FIELD
+            textInputLayout.error = context.resources.getString(R.string.common_required_field)
             return false
         }
         return true
@@ -31,7 +35,7 @@ class PatternValidation(
         textInputLayout.isErrorEnabled = false
     }
 
-    companion object {
-        private const val REQUIRED_FIELD = "Campo obrigatório"
-    }
+//    companion object {
+//        private const val REQUIRED_FIELD = "Campo obrigatório"
+//    }
 }

@@ -113,6 +113,33 @@
     </style>
     <!--
     ...........................................................................................................
+    | WIDGET > TEXTINPUT > LAYOUT
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.TextInputLayout.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!--android:-->
+        <item name="android:textColorHint">@color/colorGray5</item><!--no focus-->
+        <!--app:-->
+        <item name="boxStrokeColor">@color/colorPrimaryDark</item><!--focus-->
+        <item name="boxStrokeWidth">2dp</item><!--no focus-->
+        <item name="boxStrokeWidthFocused">2dp</item><!--focus-->
+        <item name="hintTextColor">@color/colorPrimaryDark</item><!--focus-->
+    </style>
+    <!--
+    ...........................................................................................................
+    | WIDGET > TEXTINPUT > EDITTEXT
+    ...........................................................................................................
+    -->
+    <style name="Theme.Widget.TextInputEditText.Default" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <!--android:-->
+        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textColorHighlight">@color/colorGreen2</item><!--texto selecionado-->
+        <item name="android:textCursorDrawable">@null</item><!--@null para utilizar mesma cor do textColor-->
+        <!--app:-->
+        <item name="colorControlActivated">@color/colorPrimary</item><!--cor do handle exibido ao selecionar o texto-->
+    </style>
+    <!--
+    ...........................................................................................................
     | WIDGET > TEXTVIEW > EVENT
     ...........................................................................................................
     -->

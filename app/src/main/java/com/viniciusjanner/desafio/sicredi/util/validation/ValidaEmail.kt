@@ -1,11 +1,15 @@
 package com.viniciusjanner.desafio.sicredi.util.validation
 
+import android.content.Context
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
+import com.viniciusjanner.desafio.sicredi.R
 
 class ValidaEmail(
     private val textInputLayout: TextInputLayout
 ) : Validator {
+
+    private val context: Context = this.textInputLayout.context
 
     private val editText: EditText = this.textInputLayout.editText!!
 
@@ -15,7 +19,7 @@ class ValidaEmail(
         if (isEmailValid(email)) {
             return true
         }
-        textInputLayout.error = "E-mail inválido"
+        textInputLayout.error = context.resources.getString(R.string.common_invalid_email)
         return false
     }
 
