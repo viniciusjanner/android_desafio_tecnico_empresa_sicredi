@@ -118,7 +118,7 @@
     -->
     <style name="Theme.Widget.TextInputLayout.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <!--android:-->
-        <item name="android:textColorHint">@color/colorGray5</item><!--no focus-->
+        <item name="android:textColorHint">@color/colorGray6</item><!--no focus-->
         <!--app:-->
         <item name="boxStrokeColor">@color/colorPrimaryDark</item><!--focus-->
         <item name="boxStrokeWidth">2dp</item><!--no focus-->
@@ -132,7 +132,7 @@
     -->
     <style name="Theme.Widget.TextInputEditText.Default" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
         <!--android:-->
-        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textColorHighlight">@color/colorGreen2</item><!--texto selecionado-->
         <item name="android:textCursorDrawable">@null</item><!--@null para utilizar mesma cor do textColor-->
         <!--app:-->
@@ -151,7 +151,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -172,7 +172,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -191,7 +191,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -208,7 +208,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -220,7 +220,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -231,7 +231,7 @@
         <item name="android:fontFamily">@font/font_ubuntu_bold</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -311,10 +311,10 @@
         <item name="android:text">@string/common_ops</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray4</item>
+        <item name="android:textColor">@color/colorGray5</item>
         <item name="android:textSize">24sp</item>
         <!--app:-->
-        <item name="drawableTint">@color/colorGray4</item>
+        <item name="drawableTint">@color/colorGray5</item>
         <item name="drawableTopCompat">@drawable/ic_info_circle</item>
     </style>
 
