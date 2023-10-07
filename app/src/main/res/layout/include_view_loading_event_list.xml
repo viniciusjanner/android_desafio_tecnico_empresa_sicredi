@@ -19,13 +19,13 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp">
 
-        <include layout="@layout/item_event_list_shimmer" />
+        <include layout="@layout/include_view_loading_item_event_list" />
 
-        <include layout="@layout/item_event_list_shimmer" />
+        <include layout="@layout/include_view_loading_item_event_list" />
 
-        <include layout="@layout/item_event_list_shimmer" />
+        <include layout="@layout/include_view_loading_item_event_list" />
 
-        <include layout="@layout/item_event_list_shimmer" />
+        <include layout="@layout/include_view_loading_item_event_list" />
 
     </LinearLayout>
 
