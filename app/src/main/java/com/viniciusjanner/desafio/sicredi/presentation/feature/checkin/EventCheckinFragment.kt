@@ -42,7 +42,15 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // BottomSheetDialog
+        initBottomSheetDialog()
+        initObserverCheckin()
+        initListeners()
+
+        validateFieldName()
+        validateFieldEmail()
+    }
+
+    private fun initBottomSheetDialog() {
         dialog?.let {
             val sheet = it as BottomSheetDialog
             // Anim
@@ -54,11 +62,6 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
             // Exibir todos os itens do layout (se possivel).
             sheet.behavior.peekHeight = Resources.getSystem().displayMetrics.heightPixels
         }
-
-        initObserverCheckin()
-        initListeners()
-        validateFieldName()
-        validateFieldEmail()
     }
 
     private fun initObserverCheckin() {
