@@ -26,6 +26,8 @@ object Dependencies {
             val navigationFragment = "androidx.navigation:navigation-fragment-ktx:$versionNavigation"
             val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:$versionNavigation"
             val navigationUi = "androidx.navigation:navigation-ui-ktx:$versionNavigation"
+
+            val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
         }
 
         object Google {

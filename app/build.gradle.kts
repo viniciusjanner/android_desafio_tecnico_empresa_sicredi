@@ -74,20 +74,16 @@ dependencies {
     // ----------------------------------------------------------------------------------------------
     // Androidx
     implementation(Dependencies.Develop.Androidx.appCompat)
-
     implementation(Dependencies.Develop.Androidx.constraintLayout)
-
     implementation(Dependencies.Develop.Androidx.core)
     implementation(Dependencies.Develop.Androidx.coreSplashScreen)
-
     implementation(Dependencies.Develop.Androidx.lifecycleRunTime)
     implementation(Dependencies.Develop.Androidx.lifecycleLiveData)
     implementation(Dependencies.Develop.Androidx.lifecycleViewModel)
-
     implementation(Dependencies.Develop.Androidx.multidex)
-
     implementation(Dependencies.Develop.Androidx.navigationFragment)
     implementation(Dependencies.Develop.Androidx.navigationUi)
+    implementation(Dependencies.Develop.Androidx.swiperefreshlayout)
 
     // Google
     implementation(Dependencies.Develop.Google.androidMaterial)
