@@ -18,6 +18,7 @@ import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoneyBrazil
 import com.viniciusjanner.desafio.sicredi.util.extensions.hide
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromBottomToTop
+import com.viniciusjanner.desafio.sicredi.util.extensions.onSingleClick
 import com.viniciusjanner.desafio.sicredi.util.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -84,19 +85,19 @@ class EventDetailFragment : Fragment() {
             getEvent()
         }
 
-        binding.eventMap.setOnClickListener {
+        binding.eventMap.onSingleClick {
             openAddressInMap()
         }
 
-        binding.buttonShare.setOnClickListener {
+        binding.buttonShare.onSingleClick {
             openMessageSharing()
         }
 
-        binding.buttonCheckin.setOnClickListener {
+        binding.buttonCheckin.onSingleClick {
             navigateToEventCheckin()
         }
 
-        binding.includeViewError.buttonAction.setOnClickListener {
+        binding.includeViewError.buttonAction.onSingleClick {
             getEvent()
         }
     }

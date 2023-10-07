@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventCheckinBinding
+import com.viniciusjanner.desafio.sicredi.util.extensions.onSingleClick
 import com.viniciusjanner.desafio.sicredi.util.validation.PatternValidation
 import com.viniciusjanner.desafio.sicredi.util.validation.ValidaEmail
 import com.viniciusjanner.desafio.sicredi.util.validation.Validator
@@ -84,15 +85,15 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     private fun initListeners() {
-        binding.buttonAction.setOnClickListener {
+        binding.buttonAction.onSingleClick {
             validateCheckin()
         }
 
-        binding.includeViewError.buttonAction.setOnClickListener {
+        binding.includeViewError.buttonAction.onSingleClick {
             sendCheckin()
         }
 
-        binding.includeViewSuccess.buttonAction.setOnClickListener {
+        binding.includeViewSuccess.buttonAction.onSingleClick {
             navigateToEventDetail()
         }
     }

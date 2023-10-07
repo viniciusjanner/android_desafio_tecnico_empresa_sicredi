@@ -17,6 +17,7 @@ import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterO
 import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailArgs
 import com.viniciusjanner.desafio.sicredi.util.extensions.hide
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromRightToLeft
+import com.viniciusjanner.desafio.sicredi.util.extensions.onSingleClick
 import com.viniciusjanner.desafio.sicredi.util.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -122,7 +123,11 @@ class EventListFragment : Fragment() {
             getEvents()
         }
 
-        binding.includeViewError.buttonAction.setOnClickListener {
+        binding.includeViewEmpty.buttonAction.onSingleClick {
+            getEvents()
+        }
+
+        binding.includeViewError.buttonAction.onSingleClick {
             getEvents()
         }
     }
