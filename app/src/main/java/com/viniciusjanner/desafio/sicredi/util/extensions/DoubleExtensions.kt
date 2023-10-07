@@ -4,8 +4,7 @@ import java.text.NumberFormat
 import java.util.Locale
 
 @Suppress("unused")
-fun Double.formatMoneyBrazil() =
+fun Double.formatMoneyBrazil(): String =
     NumberFormat
         .getCurrencyInstance(Locale("pt", "BR"))
         .format(this)
-        .replace("R$", "R$ ")
