@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +15,9 @@ import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.MarginItemDecoration
 import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterOf
 import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailArgs
+import com.viniciusjanner.desafio.sicredi.util.extensions.hide
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromRightToLeft
+import com.viniciusjanner.desafio.sicredi.util.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -84,36 +85,43 @@ class EventListFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
-            binding.viewFlipper.displayedChild =
-                when (uiState) {
-                    EventListViewModel.UiState.Loading -> {
-                        setShimmerVisibility(true)
-                        FLIPPER_CHILD_LOADING
-                    }
+            with(binding) {
+                viewFlipper.displayedChild =
+                    when (uiState) {
+                        EventListViewModel.UiState.Loading -> {
+                            includeViewLoading.shimmerEvents.show()
+                            FLIPPER_CHILD_LOADING
+                        }
 
-                    is EventListViewModel.UiState.Success -> {
-                        setShimmerVisibility(false)
-                        eventsAdapter.submitList(uiState.events)
-                        FLIPPER_CHILD_SUCCESS
-                    }
+                        is EventListViewModel.UiState.Success -> {
+                            includeViewLoading.shimmerEvents.hide()
+                            eventsAdapter.submitList(uiState.events)
+                            FLIPPER_CHILD_SUCCESS
+                        }
 
-                    EventListViewModel.UiState.Empty -> {
-                        setShimmerVisibility(false)
-                        eventsAdapter.submitList(emptyList())
-                        FLIPPER_CHILD_EMPTY
-                    }
+                        EventListViewModel.UiState.Empty -> {
+                            includeViewLoading.shimmerEvents.hide()
+                            eventsAdapter.submitList(emptyList())
+                            FLIPPER_CHILD_EMPTY
+                        }
 
-                    EventListViewModel.UiState.Error -> {
-                        setShimmerVisibility(false)
-                        FLIPPER_CHILD_ERROR
+                        EventListViewModel.UiState.Error -> {
+                            includeViewLoading.shimmerEvents.hide()
+                            FLIPPER_CHILD_ERROR
+                        }
                     }
-                }
+            }
         }
 
         getEvents()
     }
 
     private fun initListeners() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.hide()
+            getEvents()
+        }
+
         binding.includeViewError.buttonAction.setOnClickListener {
             getEvents()
         }
@@ -121,17 +129,6 @@ class EventListFragment : Fragment() {
 
     private fun getEvents() {
         viewModel.actionGetEvents()
-    }
-
-    private fun setShimmerVisibility(visibility: Boolean) {
-        binding.includeViewLoading.shimmerEvents.run {
-            this.isVisible = visibility
-            if (visibility) {
-                startShimmer()
-            } else {
-                stopShimmer()
-            }
-        }
     }
 
     override fun onDestroyView() {
