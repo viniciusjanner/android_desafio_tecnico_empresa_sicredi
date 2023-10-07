@@ -89,24 +89,24 @@ class EventListFragment : Fragment() {
                 viewFlipper.displayedChild =
                     when (uiState) {
                         EventListViewModel.UiState.Loading -> {
-                            includeViewLoading.shimmerEvents.show()
+                            includeViewLoading.shimmer.show()
                             FLIPPER_CHILD_LOADING
                         }
 
                         is EventListViewModel.UiState.Success -> {
-                            includeViewLoading.shimmerEvents.hide()
+                            includeViewLoading.shimmer.hide()
                             eventsAdapter.submitList(uiState.events)
                             FLIPPER_CHILD_SUCCESS
                         }
 
                         EventListViewModel.UiState.Empty -> {
-                            includeViewLoading.shimmerEvents.hide()
+                            includeViewLoading.shimmer.hide()
                             eventsAdapter.submitList(emptyList())
                             FLIPPER_CHILD_EMPTY
                         }
 
                         EventListViewModel.UiState.Error -> {
-                            includeViewLoading.shimmerEvents.hide()
+                            includeViewLoading.shimmer.hide()
                             FLIPPER_CHILD_ERROR
                         }
                     }
