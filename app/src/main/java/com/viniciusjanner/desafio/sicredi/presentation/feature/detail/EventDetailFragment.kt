@@ -16,7 +16,9 @@ import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventChec
 import com.viniciusjanner.desafio.sicredi.util.Utils
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoneyBrazil
+import com.viniciusjanner.desafio.sicredi.util.extensions.hide
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromBottomToTop
+import com.viniciusjanner.desafio.sicredi.util.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -45,34 +47,43 @@ class EventDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initObserverUI()
+        initObservers()
         initListeners()
     }
 
-    private fun initObserverUI() {
+    private fun initObservers() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
-            binding.viewFlipper.displayedChild =
-                when (uiState) {
-                    EventDetailViewModel.UiState.Loading -> {
-                        FLIPPER_CHILD_LOADING
-                    }
+            with(binding) {
+                viewFlipper.displayedChild =
+                    when (uiState) {
+                        EventDetailViewModel.UiState.Loading -> {
+                            includeViewLoading.shimmer.show()
+                            FLIPPER_CHILD_LOADING
+                        }
 
-                    is EventDetailViewModel.UiState.Success -> {
-                        val event: Event = uiState.event
-                        populateDetailsEvent(event)
-                        FLIPPER_CHILD_SUCCESS
-                    }
+                        is EventDetailViewModel.UiState.Success -> {
+                            includeViewLoading.shimmer.hide()
+                            populateDetailsEvent(uiState.event)
+                            FLIPPER_CHILD_SUCCESS
+                        }
 
-                    EventDetailViewModel.UiState.Error -> {
-                        FLIPPER_CHILD_ERROR
+                        EventDetailViewModel.UiState.Error -> {
+                            includeViewLoading.shimmer.hide()
+                            FLIPPER_CHILD_ERROR
+                        }
                     }
-                }
+            }
         }
 
         getEvent()
     }
 
     private fun initListeners() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.hide()
+            getEvent()
+        }
+
         binding.eventMap.setOnClickListener {
             openAddressInMap()
         }
@@ -154,8 +165,8 @@ class EventDetailFragment : Fragment() {
     }
 
     companion object {
-        private const val FLIPPER_CHILD_LOADING = 0
-        private const val FLIPPER_CHILD_SUCCESS = 1
+        private const val FLIPPER_CHILD_LOADING = 1
+        private const val FLIPPER_CHILD_SUCCESS = 0
         private const val FLIPPER_CHILD_ERROR = 2
     }
 }
