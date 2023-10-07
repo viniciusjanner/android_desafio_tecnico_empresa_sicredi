@@ -34,8 +34,4 @@ class PatternValidation(
         textInputLayout.error = null
         textInputLayout.isErrorEnabled = false
     }
-
-//    companion object {
-//        private const val REQUIRED_FIELD = "Campo obrigatório"
-//    }
 }
