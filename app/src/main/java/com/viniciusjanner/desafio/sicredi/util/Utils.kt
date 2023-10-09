@@ -10,11 +10,12 @@ import android.util.Log
 import android.widget.Toast
 import java.util.Locale
 
+@Suppress("unused")
 object Utils {
 
     private val tag: String = Utils::class.java.simpleName
 
-    fun convertCoordinatesToAddress(latitude: Double?, longitude: Double?, context: Context, callback: (String) -> Unit) {
+    fun convertCoordinatesToAddressString(latitude: Double?, longitude: Double?, context: Context, callback: (String) -> Unit) {
         try {
             if (latitude != null && longitude != null && latitude != 0.0 && longitude != 0.0) {
 

@@ -117,7 +117,7 @@ class EventDetailFragment : Fragment() {
 
             eventPrice.text = event.price?.formatMoneyBrazil()
 
-            Utils.convertCoordinatesToAddress(event.latitude!!, event.longitude!!, requireContext()) { addressString ->
+            Utils.convertCoordinatesToAddressString(event.latitude!!, event.longitude!!, requireContext()) { addressString ->
                 eventAddress.text = addressString
             }
 
