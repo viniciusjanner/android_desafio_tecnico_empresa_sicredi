@@ -105,12 +105,26 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     private fun initListeners() {
-        binding.tietName.doAfterTextChanged { text ->
-            viewModel.setName(text.toString())
+        binding.tietName.apply {
+            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) {
+                    viewModel.setName(text?.toString())
+                }
+            }
+            doAfterTextChanged {
+                viewModel.setName(it.toString())
+            }
         }
 
-        binding.tietEmail.doAfterTextChanged { text ->
-            viewModel.setEmail(text.toString())
+        binding.tietEmail.apply {
+            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) {
+                    viewModel.setEmail(text?.toString())
+                }
+            }
+            doAfterTextChanged {
+                viewModel.setEmail(it.toString())
+            }
         }
 
         binding.buttonAction.onSingleClick {
