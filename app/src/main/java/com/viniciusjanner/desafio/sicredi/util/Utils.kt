@@ -48,9 +48,9 @@ object Utils {
         }
     }
 
-    fun openAppMap(address: String, context: Context) {
+    fun openAppMap(addressString: String, context: Context) {
         try {
-            val uriString = "geo:0,0?q=${address}"
+            val uriString = "geo:0,0?q=${addressString}"
             val uri = Uri.parse(uriString)
             val intent = Intent(Intent.ACTION_VIEW, uri)
 
