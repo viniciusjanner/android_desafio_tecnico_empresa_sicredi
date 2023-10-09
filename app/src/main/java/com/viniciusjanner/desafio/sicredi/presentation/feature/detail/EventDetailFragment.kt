@@ -112,11 +112,14 @@ class EventDetailFragment : Fragment() {
 
             eventDateHour.text = event.date?.formatDateHour()
 
-            eventPeople.text = getString(R.string.screen_event_detail_people_param, (event.people?.size ?: 0).toString())
+            val peopleNumbers: Int = (event.people?.size ?: 0)
+            eventPeople.text = getString(R.string.screen_event_detail_people_param, peopleNumbers.toString())
 
             eventPrice.text = event.price?.formatMoneyBrazil()
 
-            eventAddress.text = Utils.convertCoordinatesToAddress(event.latitude!!, event.longitude!!, requireContext())
+            Utils.convertCoordinatesToAddress(event.latitude!!, event.longitude!!, requireContext()) { addressString ->
+                eventAddress.text = addressString
+            }
 
             eventDescription.text = event.description
         }

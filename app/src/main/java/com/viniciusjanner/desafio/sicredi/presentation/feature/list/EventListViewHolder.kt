@@ -34,9 +34,9 @@ class EventListViewHolder(
 
         eventDateHour.text = data.date?.formatDateHour()
 
-        eventAddress.text = Utils.convertCoordinatesToAddress(
-            data.latitude, data.longitude, eventAddress.context
-        )
+        Utils.convertCoordinatesToAddress(data.latitude, data.longitude, eventAddress.context) { addressString ->
+            eventAddress.text = addressString
+        }
 
         eventPrice.text = data.price?.formatMoneyBrazil()
 
