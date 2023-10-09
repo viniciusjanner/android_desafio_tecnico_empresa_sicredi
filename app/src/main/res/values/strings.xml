@@ -30,11 +30,9 @@
     <string name="common_error_required">Campo obrigatório</string>
     <string name="common_error_invalid_name">Nome inválido</string>
     <string name="common_error_invalid_email">E-mail inválido</string>
-    <string name="common_invalid_email">E-mail inválido</string>
     <string name="common_name">Nome</string>
     <string name="common_no_results_found">Nenhum resultado</string>
     <string name="common_ops">Ops…</string>
-    <string name="common_required_field">Campo obrigatório</string>
     <string name="common_search_again">Buscar novamente</string>
     <string name="common_share">Share</string>
     <string name="common_success">Sucesso</string>
