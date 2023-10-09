@@ -43,7 +43,7 @@ object Utils {
                 }
             }
         } catch (e: Exception) {
-            Log.e(tag, "convertCoordinatesToAddress: Exception = ${e.message}")
+            Log.e(tag, "convertCoordinatesToAddress: ${e.message}")
             callback("")
         }
     }
