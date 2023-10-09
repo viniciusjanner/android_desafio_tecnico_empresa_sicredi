@@ -88,18 +88,18 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
         viewModel.errorName.observe(viewLifecycleOwner) {
             binding.tilName.error =
                 when (it) {
-                    ErrorMessage.INVALID -> getString(R.string.common_error_invalid_name)
-                    ErrorMessage.REQUIRED -> getString(R.string.common_error_required)
-                    ErrorMessage.NONE -> null
+                    ErrorMessage.Invalid -> getString(R.string.common_error_invalid_name)
+                    ErrorMessage.Required -> getString(R.string.common_error_required)
+                    ErrorMessage.None -> null
                 }
         }
 
         viewModel.errorEmail.observe(viewLifecycleOwner) {
             binding.tilEmail.error =
                 when (it) {
-                    ErrorMessage.INVALID -> getString(R.string.common_error_invalid_email)
-                    ErrorMessage.REQUIRED -> getString(R.string.common_error_required)
-                    ErrorMessage.NONE -> null
+                    ErrorMessage.Invalid -> getString(R.string.common_error_invalid_email)
+                    ErrorMessage.Required -> getString(R.string.common_error_required)
+                    ErrorMessage.None -> null
                 }
         }
     }
