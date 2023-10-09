@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,10 +15,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventCheckinBinding
+import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinViewModel.*
 import com.viniciusjanner.desafio.sicredi.util.extensions.onSingleClick
-import com.viniciusjanner.desafio.sicredi.util.validation.PatternValidation
-import com.viniciusjanner.desafio.sicredi.util.validation.ValidaEmail
-import com.viniciusjanner.desafio.sicredi.util.validation.Validator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,8 +29,6 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
     private val args by navArgs<EventCheckinFragmentArgs>()
 
-    private val validators = mutableListOf<Validator>()
-
     override fun getTheme(): Int = R.style.Theme_Widget_BottomSheet
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -43,12 +39,14 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
         initBottomSheetDialog()
         initObserverCheckin()
         initListeners()
+    }
 
-        validateFieldName()
-        validateFieldEmail()
+    private fun initViews() {
+        binding.buttonAction.isEnabled = viewModel.isEnableButton()
     }
 
     private fun initBottomSheetDialog() {
@@ -69,24 +67,54 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
         viewModel.state.observe(viewLifecycleOwner) { checkinState ->
             binding.viewFlipper.displayedChild =
                 when (checkinState) {
-                    EventCheckinViewModel.UiState.Loading -> {
+                    UiState.Loading -> {
                         FLIPPER_CHILD_LOADING
                     }
 
-                    is EventCheckinViewModel.UiState.Success -> {
+                    is UiState.Success -> {
                         FLIPPER_CHILD_SUCCESS
                     }
 
-                    EventCheckinViewModel.UiState.Error -> {
+                    UiState.Error -> {
                         FLIPPER_CHILD_ERROR
                     }
+                }
+        }
+
+        viewModel.enableButtonMediator.observe(viewLifecycleOwner) { isEnabled ->
+            binding.buttonAction.isEnabled = (isEnabled == true)
+        }
+
+        viewModel.errorName.observe(viewLifecycleOwner) {
+            binding.tilName.error =
+                when (it) {
+                    ErrorMessage.INVALID -> getString(R.string.common_error_invalid_name)
+                    ErrorMessage.REQUIRED -> getString(R.string.common_error_required)
+                    ErrorMessage.NONE -> null
+                }
+        }
+
+        viewModel.errorEmail.observe(viewLifecycleOwner) {
+            binding.tilEmail.error =
+                when (it) {
+                    ErrorMessage.INVALID -> getString(R.string.common_error_invalid_email)
+                    ErrorMessage.REQUIRED -> getString(R.string.common_error_required)
+                    ErrorMessage.NONE -> null
                 }
         }
     }
 
     private fun initListeners() {
+        binding.tietName.doAfterTextChanged { text ->
+            viewModel.setName(text.toString())
+        }
+
+        binding.tietEmail.doAfterTextChanged { text ->
+            viewModel.setEmail(text.toString())
+        }
+
         binding.buttonAction.onSingleClick {
-            validateCheckin()
+            sendCheckin()
         }
 
         binding.includeViewError.buttonAction.onSingleClick {
@@ -95,49 +123,6 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
         binding.includeViewSuccess.buttonAction.onSingleClick {
             navigateToEventDetail()
-        }
-    }
-
-    private fun validateFieldEmail() {
-        val fieldEmail: EditText? = binding.tilEmail.editText
-        val validator = ValidaEmail(binding.tilEmail)
-
-        validators.add(validator)
-
-        fieldEmail!!.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                validator.isValid
-            }
-        }
-    }
-
-    private fun validateFieldName() {
-        val field = binding.tilName.editText
-        val validator = PatternValidation(binding.tilName)
-
-        validators.add(validator)
-
-        field!!.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                validator.isValid
-            }
-        }
-    }
-
-    private fun validAllFields(): Boolean {
-        var formIsValid = true
-        for (validator in validators) {
-            if (!validator.isValid) {
-                formIsValid = false
-            }
-        }
-        return formIsValid
-    }
-
-    private fun validateCheckin() {
-        val formIsValid: Boolean = validAllFields()
-        if (formIsValid) {
-            sendCheckin()
         }
     }
 
