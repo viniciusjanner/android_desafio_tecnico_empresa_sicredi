@@ -1,6 +1,5 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.list
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -26,7 +25,6 @@ class EventListViewHolder(
     private val eventAddress: TextView = itemBinding.eventAddress
     private val eventPrice: TextView = itemBinding.eventPrice
 
-    @SuppressLint("SetTextI18n")
     override fun bind(data: Event) {
         imageLoader.load(eventImage, data.image)
 
