@@ -1,25 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--Colors App-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--
+    ...........................................................................................................
+    | COLOR > APP
+    ...........................................................................................................
+    -->
     <color name="colorPrimary">#026B42</color>
     <color name="colorPrimaryDark">#3dae2b</color>
-    <!--<color name="colorAccent">#FFFFFF</color>-->
-    <color name="colorAccent">#00A980</color>
-
-    <!--Colors Components-->
-    <color name="colorTextLight">#B6B6B6</color>
-    <color name="colorTextDark">#000000</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <!--
+    ...........................................................................................................
+    | COLOR > BACKGROUND
+    ...........................................................................................................
+    -->
+    <color name="colorBackgroundDefault">#FFFFFF</color>
+    <color name="colorBackgroundGrayLight">#D1D1D1</color>
+    <color name="colorBackgroundSplash">#00E56F</color>
+    <!--
+    ...........................................................................................................
+    | COLOR > OVERRIDE
+    ...........................................................................................................
+    -->
+    <!--Alterar cor default da borderStroke do input-->
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/colorGray6</color>
+    <!--
+    ...........................................................................................................
+    | COLOR > STATUSBAR
+    ...........................................................................................................
+    -->
     <color name="colorStatusBarLight">#014B2E</color>
     <color name="colorStatusBarDark">#014B2E</color>
-
-    <!--Color Screen Splash-->
-    <color name="colorSplashBackground">#00E56F</color>
-
-    <!--Others Colors-->
+    <!--
+    ...........................................................................................................
+    | COLOR > TEXT
+    ...........................................................................................................
+    -->
+    <color name="colorTextLight">#B6B6B6</color>
+    <color name="colorTextDark">#2E2D2D</color>
+    <!--
+    ...........................................................................................................
+    | COLORS
+    ...........................................................................................................
+    -->
     <color name="colorBlack">#000000</color>
-    <color name="colorGrayDark">#333333</color>
-    <color name="colorGrayLight">#D1D1D1</color>
-    <color name="colorGrayMedium">#9B9999</color>
-    <color name="colorGreenLight">#00A980</color>
+
+    <color name="colorGray1">#EBEBEB</color>
+    <color name="colorGray2">#D1D1D1</color>
+    <color name="colorGray3">#ACACAC</color>
+    <color name="colorGray4">#9B9999</color>
+    <color name="colorGray5">#7B7A7A</color>
+    <color name="colorGray6">#333333</color>
+
+    <color name="colorGreen1">#53F4CD</color>
+    <color name="colorGreen2">#00E56F</color>
+    <color name="colorGreen3">#3DAE2B</color>
+
+    <color name="colorOrange">#FF9D0E</color>
+
+    <color name="colorRed">#FF2020</color>
+
     <color name="colorWhite">#FFFFFF</color>
 </resources>

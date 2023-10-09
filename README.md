@@ -64,7 +64,7 @@ O aplicativo conta com as seguintes features:
 - Tela de check-in do evento com as seguintes opções:
   - Campo para inserir nome;
   - Campo para inserir email;
-  - Valicação do preenchimento dos campos;
+  - Validação do preenchimento dos campos;
   - Botão para efetuar check-in.
 
 

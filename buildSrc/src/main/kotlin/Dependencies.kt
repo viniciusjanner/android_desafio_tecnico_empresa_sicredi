@@ -26,6 +26,8 @@ object Dependencies {
             val navigationFragment = "androidx.navigation:navigation-fragment-ktx:$versionNavigation"
             val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:$versionNavigation"
             val navigationUi = "androidx.navigation:navigation-ui-ktx:$versionNavigation"
+
+            val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
         }
 
         object Google {
@@ -55,7 +57,7 @@ object Dependencies {
             val glideAnnotations = "com.github.bumptech.glide:annotations:$versionGlide"
             val glideCompiler = "com.github.bumptech.glide:compiler:$versionGlide"
             val glideGlide = "com.github.bumptech.glide:glide:$versionGlide"
-            val glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:4.13.0"
+            val glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:$versionGlide"
         }
 
         object Squareup {
