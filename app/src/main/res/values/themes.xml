@@ -336,7 +336,7 @@
 
     <style name="Theme.Widget.TextView.IncludeView.Error" parent="Theme.Widget.TextView.IncludeView">
         <!--android:-->
-        <item name="android:text">@string/common_error</item>
+        <item name="android:text">@string/common_error_occurred</item>
         <!--app:-->
         <item name="drawableTint">@color/colorRed</item>
         <item name="drawableTopCompat">@drawable/ic_error_circle</item>

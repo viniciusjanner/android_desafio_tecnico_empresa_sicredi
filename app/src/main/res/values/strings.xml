@@ -26,7 +26,7 @@
     <string name="common_checkin">Check-In</string>
     <string name="common_close">Fechar</string>
     <string name="common_email">E-mail</string>
-    <string name="common_error">Ocorreu um erro</string>
+    <string name="common_error_occurred">Ocorreu um erro</string>
     <string name="common_error_required">Campo obrigatório</string>
     <string name="common_error_invalid_name">Nome inválido</string>
     <string name="common_error_invalid_email">E-mail inválido</string>
