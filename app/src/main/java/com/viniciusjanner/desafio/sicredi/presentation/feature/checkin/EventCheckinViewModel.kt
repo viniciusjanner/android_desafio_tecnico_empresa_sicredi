@@ -10,7 +10,9 @@ import com.viniciusjanner.desafio.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.core.domain.model.EventCheckinSend
 import com.viniciusjanner.desafio.core.usecase.base.CoroutinesDispatchers
 import com.viniciusjanner.desafio.core.usecase.feature.checkin.EventCheckinUseCase
+import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.util.extensions.watchStatus
+import com.viniciusjanner.desafio.sicredi.util.validations.InputValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -20,23 +22,18 @@ class EventCheckinViewModel @Inject constructor(
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : ViewModel() {
 
-    sealed class ErrorMessage {
-        object Invalid : ErrorMessage()
-        object Required : ErrorMessage()
-        object None : ErrorMessage()
-    }
+    private val _errorName: MutableLiveData<Int> = MutableLiveData()
+    val errorName: LiveData<Int> = _errorName
 
-    private val _errorName: MutableLiveData<ErrorMessage> = MutableLiveData()
-    val errorName: LiveData<ErrorMessage> = _errorName
-
-    private val _errorEmail: MutableLiveData<ErrorMessage> = MutableLiveData()
-    val errorEmail: LiveData<ErrorMessage> = _errorEmail
+    private val _errorEmail: MutableLiveData<Int> = MutableLiveData()
+    val errorEmail: LiveData<Int> = _errorEmail
 
     val enableButtonMediator = MediatorLiveData<Boolean>()
         .apply {
             fun update() {
-                val isNameValid = errorName.value == ErrorMessage.None
-                val isEmailValid = errorEmail.value == ErrorMessage.None
+                val empty = R.string.common_error_empty
+                val isNameValid = errorName.value == empty
+                val isEmailValid = errorEmail.value == empty
                 value = isNameValid && isEmailValid
             }
             addSource(errorName) { update() }
@@ -46,37 +43,25 @@ class EventCheckinViewModel @Inject constructor(
     fun isEnableButton(): Boolean = enableButtonMediator.value ?: false
 
     fun setName(text: String?) {
-        text?.trim()?.let {
-            _errorName.value =
-                when {
-                    it.trim().isEmpty() -> {
-                        ErrorMessage.Required
-                    }
-                    it.length < 2 -> {
-                        ErrorMessage.Invalid
-                    }
-                    else -> {
-                        ErrorMessage.None
-                    }
-                }
-        }
+        _errorName.value =
+            when {
+                InputValidator.isValidRequired(text) -> R.string.common_error_required
+
+                InputValidator.isValidName(text) -> R.string.common_error_invalid_name
+
+                else -> R.string.common_error_empty
+            }
     }
 
     fun setEmail(text: String?) {
-        text?.trim()?.let {
-            _errorEmail.value =
-                when {
-                    it.isEmpty() -> {
-                        ErrorMessage.Required
-                    }
-                    !android.util.Patterns.EMAIL_ADDRESS.matcher(it).matches() -> {
-                        ErrorMessage.Invalid
-                    }
-                    else -> {
-                        ErrorMessage.None
-                    }
-                }
-        }
+        _errorEmail.value =
+            when {
+                InputValidator.isValidRequired(text) -> R.string.common_error_required
+
+                InputValidator.isValidEmail(text) -> R.string.common_error_invalid_email
+
+                else -> R.string.common_error_empty
+            }
     }
 
     sealed class UiState {

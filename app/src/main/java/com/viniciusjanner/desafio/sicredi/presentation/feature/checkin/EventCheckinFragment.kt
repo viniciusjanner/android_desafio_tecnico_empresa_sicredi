@@ -67,17 +67,11 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
         viewModel.state.observe(viewLifecycleOwner) { checkinState ->
             binding.viewFlipper.displayedChild =
                 when (checkinState) {
-                    UiState.Loading -> {
-                        FLIPPER_CHILD_LOADING
-                    }
+                    UiState.Loading -> FLIPPER_CHILD_LOADING
 
-                    is UiState.Success -> {
-                        FLIPPER_CHILD_SUCCESS
-                    }
+                    is UiState.Success -> FLIPPER_CHILD_SUCCESS
 
-                    UiState.Error -> {
-                        FLIPPER_CHILD_ERROR
-                    }
+                    UiState.Error -> FLIPPER_CHILD_ERROR
                 }
         }
 
@@ -86,21 +80,11 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
         }
 
         viewModel.errorName.observe(viewLifecycleOwner) {
-            binding.tilName.error =
-                when (it) {
-                    ErrorMessage.Invalid -> getString(R.string.common_error_invalid_name)
-                    ErrorMessage.Required -> getString(R.string.common_error_required)
-                    ErrorMessage.None -> null
-                }
+            binding.tilName.error = getString(it)
         }
 
         viewModel.errorEmail.observe(viewLifecycleOwner) {
-            binding.tilEmail.error =
-                when (it) {
-                    ErrorMessage.Invalid -> getString(R.string.common_error_invalid_email)
-                    ErrorMessage.Required -> getString(R.string.common_error_required)
-                    ErrorMessage.None -> null
-                }
+            binding.tilEmail.error = getString(it)
         }
     }
 
