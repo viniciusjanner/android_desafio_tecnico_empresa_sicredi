@@ -125,6 +125,7 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     private fun sendCheckin() {
+        @Suppress("UNNECESSARY_SAFE_CALL")
         val eventId: String? = args?.eventCheckinArgs?.eventId
         eventId?.let {
             viewModel.actionSendCheckin(

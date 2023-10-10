@@ -126,6 +126,7 @@ class EventDetailFragment : Fragment() {
     }
 
     private fun getEvent() {
+        @Suppress("UNNECESSARY_SAFE_CALL")
         val eventId: String? = args?.eventDetailArgs?.eventId
         eventId?.let {
             viewModel.actionGetEvent(it)
@@ -133,6 +134,7 @@ class EventDetailFragment : Fragment() {
     }
 
     private fun navigateToEventCheckin() {
+        @Suppress("UNNECESSARY_SAFE_CALL")
         val eventId: String? = args?.eventDetailArgs?.eventId
         eventId?.let {
             val directions = EventDetailFragmentDirections.actionEventDetailFragmentToEventCheckinFragment(
