@@ -91,6 +91,7 @@ class EventListFragment : Fragment() {
                     when (uiState) {
                         EventListViewModel.UiState.Loading -> {
                             includeViewLoading.shimmer.show()
+                            includeViewLoading.scrollView.scrollTo(0, 0)
                             FLIPPER_CHILD_LOADING
                         }
 
