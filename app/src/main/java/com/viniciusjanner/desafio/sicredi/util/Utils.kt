@@ -17,7 +17,7 @@ object Utils {
 
     fun convertCoordinatesToAddressString(latitude: Double?, longitude: Double?, context: Context, callback: (String) -> Unit) {
         try {
-            if (latitude != null && longitude != null && latitude != 0.0 && longitude != 0.0) {
+            if (latitude != null && longitude != null) {
 
                 val geocoder = Geocoder(context, Locale.getDefault())
 
