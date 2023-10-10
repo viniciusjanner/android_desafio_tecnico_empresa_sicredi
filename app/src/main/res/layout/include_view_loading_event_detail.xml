@@ -21,36 +21,36 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:background="@color/colorGray2" />
+            android:layout_height="250dp"
+            android:background="@color/colorBackgroundShimmer" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="20dp"
-            android:background="@color/colorGray2" />
+            android:background="@color/colorBackgroundShimmer" />
 
         <View
             android:layout_width="220dp"
             android:layout_height="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
-            android:background="@color/colorGray2" />
+            android:background="@color/colorBackgroundShimmer" />
 
         <View
             android:layout_width="156dp"
             android:layout_height="24dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="20dp"
-            android:background="@color/colorGray2" />
+            android:background="@color/colorBackgroundShimmer" />
 
         <View
             android:layout_width="96dp"
             android:layout_height="24dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="20dp"
-            android:background="@color/colorGray2" />
+            android:background="@color/colorBackgroundShimmer" />
 
     </LinearLayout>
 
