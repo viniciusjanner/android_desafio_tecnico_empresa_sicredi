@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefresh"
+    android:id="@+id/viewFlipper"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackgroundDefault">
+    android:layout_height="match_parent">
 
-    <ViewFlipper
-        android:id="@+id/viewFlipper"
+    <include
+        android:id="@+id/includeViewLoading"
+        layout="@layout/include_view_loading_event_list" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/includeViewLoading"
-            layout="@layout/include_view_loading_event_list" />
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundDefault">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerEventList"
@@ -25,14 +25,14 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_event_list" />
 
-        <include
-            android:id="@+id/includeViewEmpty"
-            layout="@layout/include_view_empty" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <include
-            android:id="@+id/includeViewError"
-            layout="@layout/include_view_error" />
+    <include
+        android:id="@+id/includeViewEmpty"
+        layout="@layout/include_view_empty" />
 
-    </ViewFlipper>
+    <include
+        android:id="@+id/includeViewError"
+        layout="@layout/include_view_error" />
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</ViewFlipper>
