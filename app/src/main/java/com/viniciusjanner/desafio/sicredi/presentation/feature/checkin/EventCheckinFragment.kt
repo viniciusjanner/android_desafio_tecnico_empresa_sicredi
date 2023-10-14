@@ -40,16 +40,13 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-        initBottomSheetDialog()
         initObserverCheckin()
         initListeners()
     }
 
     private fun initViews() {
         binding.buttonAction.isEnabled = viewModel.isEnableButton()
-    }
 
-    private fun initBottomSheetDialog() {
         dialog?.let {
             val sheet = it as BottomSheetDialog
             // Anim
