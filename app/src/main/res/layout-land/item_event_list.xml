@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="@dimen/landscape_item_list_layout_width"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/landscape_item_list_layout_height"
     card_view:cardBackgroundColor="@color/colorBackgroundDefault"
     card_view:cardCornerRadius="16dp"
     card_view:cardElevation="8dp"
@@ -14,8 +14,8 @@
 
     <LinearLayout
         android:id="@+id/containerCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/landscape_item_list_layout_width"
+        android:layout_height="@dimen/landscape_item_list_layout_height"
         android:orientation="vertical">
 
         <com.google.android.material.imageview.ShapeableImageView
