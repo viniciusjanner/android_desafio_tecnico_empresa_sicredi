@@ -8,50 +8,54 @@
     app:shimmer_repeat_mode="restart"
     app:shimmer_shape="radial">
 
-    <!--
-        ShimmerFrameLayout extend de FrameLayout.
-        FrameLayout aceita apenas um "filho".
-    -->
-    <LinearLayout
-        android:id="@+id/containerEventDetailShimmer"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackgroundDefault"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
-        <View
+        <LinearLayout
+            android:id="@+id/containerNestedScroll"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@color/colorBackgroundShimmer" />
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackgroundDefault"
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorBackgroundShimmer" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/colorBackgroundShimmer" />
 
-        <View
-            android:layout_width="220dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorBackgroundShimmer" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorBackgroundShimmer" />
 
-        <View
-            android:layout_width="156dp"
-            android:layout_height="24dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorBackgroundShimmer" />
+            <View
+                android:layout_width="220dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorBackgroundShimmer" />
 
-        <View
-            android:layout_width="96dp"
-            android:layout_height="24dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorBackgroundShimmer" />
+            <View
+                android:layout_width="156dp"
+                android:layout_height="24dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorBackgroundShimmer" />
 
-    </LinearLayout>
+            <View
+                android:layout_width="96dp"
+                android:layout_height="24dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorBackgroundShimmer" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </com.facebook.shimmer.ShimmerFrameLayout>

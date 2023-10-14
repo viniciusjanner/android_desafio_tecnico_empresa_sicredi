@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:shimmer_auto_start="false"
+    app:shimmer_repeat_mode="restart"
+    app:shimmer_shape="radial">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/containerNestedScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/eventImage"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="@color/colorBackgroundShimmer"
+                android:scaleType="fitXY" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eventTitle"
+                style="@style/Theme.Widget.TextView.Event.Title"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorBackgroundShimmer" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eventDateHour"
+                style="@style/Theme.Widget.TextView.Event.DataHour"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorBackgroundShimmer"
+                android:drawableStart="@null" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eventPeople"
+                style="@style/Theme.Widget.TextView.Event.People"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorBackgroundShimmer"
+                android:drawableStart="@null" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eventPrice"
+                style="@style/Theme.Widget.TextView.Event.Price"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorBackgroundShimmer"
+                android:drawableStart="@null" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="160dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

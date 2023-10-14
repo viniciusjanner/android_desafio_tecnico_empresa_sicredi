@@ -19,6 +19,7 @@ import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoneyBrazil
 import com.viniciusjanner.desafio.sicredi.util.extensions.hide
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromBottomToTop
 import com.viniciusjanner.desafio.sicredi.util.extensions.onSingleClick
+import com.viniciusjanner.desafio.sicredi.util.extensions.resetPositionScroll
 import com.viniciusjanner.desafio.sicredi.util.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -36,11 +37,9 @@ class EventDetailFragment : Fragment() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+
         _binding = FragmentEventDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,35 +47,76 @@ class EventDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setNavArgs()
         initObservers()
         initListeners()
     }
 
+    @Suppress("unnecessary_safe_call")
+    private fun setNavArgs() {
+        args?.eventDetailArgs?.let {
+            viewModel.setSavedStateHandle(it)
+        }
+    }
+
     private fun initObservers() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
-            with(binding) {
-                viewFlipper.displayedChild =
-                    when (uiState) {
-                        EventDetailViewModel.UiState.Loading -> {
-                            includeViewLoading.shimmer.show()
-                            FLIPPER_CHILD_LOADING
-                        }
+            when (uiState) {
+                EventDetailViewModel.UiState.Loading -> updateUiToLoading()
 
-                        is EventDetailViewModel.UiState.Success -> {
-                            includeViewLoading.shimmer.hide()
-                            populateDetailsEvent(uiState.event)
-                            FLIPPER_CHILD_SUCCESS
-                        }
+                is EventDetailViewModel.UiState.Success -> updateUiToSuccess(uiState.event)
 
-                        EventDetailViewModel.UiState.Error -> {
-                            includeViewLoading.shimmer.hide()
-                            FLIPPER_CHILD_ERROR
-                        }
-                    }
+                EventDetailViewModel.UiState.Error -> updateUiToError()
             }
         }
+    }
 
-        getEvent()
+    private fun updateUiToLoading() {
+        with(binding) {
+            includeViewLoading.run {
+                nestedScroll.resetPositionScroll()
+                shimmer.show()
+            }
+            viewFlipper.displayedChild = FLIPPER_CHILD_LOADING
+        }
+    }
+
+    private fun updateUiToSuccess(event: Event) {
+        with(binding) {
+            populateDetailsEvent(event)
+            includeViewLoading.shimmer.hide()
+            viewFlipper.displayedChild = FLIPPER_CHILD_SUCCESS
+        }
+    }
+
+    private fun updateUiToError() {
+        with(binding) {
+            includeViewLoading.shimmer.hide()
+            viewFlipper.displayedChild = FLIPPER_CHILD_ERROR
+        }
+    }
+
+    private fun populateDetailsEvent(event: Event) {
+        with(binding) {
+            event.image?.let {
+                imageLoader.load(eventImage, it)
+            }
+
+            eventTitle.text = event.title
+
+            eventDateHour.text = event.date?.formatDateHour()
+
+            val peopleNumbers: Int = (event.people?.size ?: 0)
+            eventPeople.text = getString(R.string.screen_event_detail_people_param, peopleNumbers.toString())
+
+            eventPrice.text = event.price?.formatMoneyBrazil()
+
+            Utils.convertCoordinatesToAddressString(event.latitude!!, event.longitude!!) { addressString ->
+                eventAddress.text = addressString
+            }
+
+            eventDescription.text = event.description
+        }
     }
 
     private fun initListeners() {
@@ -102,53 +142,37 @@ class EventDetailFragment : Fragment() {
         }
     }
 
-    private fun populateDetailsEvent(event: Event) {
-        with(binding) {
-            event.image?.let {
-                imageLoader.load(eventImage, it)
-            }
-
-            eventTitle.text = event.title
-
-            eventDateHour.text = event.date?.formatDateHour()
-
-            val peopleNumbers: Int = (event.people?.size ?: 0)
-            eventPeople.text = getString(R.string.screen_event_detail_people_param, peopleNumbers.toString())
-
-            eventPrice.text = event.price?.formatMoneyBrazil()
-
-            Utils.convertCoordinatesToAddressString(event.latitude!!, event.longitude!!, requireContext()) { addressString ->
-                eventAddress.text = addressString
-            }
-
-            eventDescription.text = event.description
-        }
-    }
-
+    @Suppress("unnecessary_safe_call")
     private fun getEvent() {
-        @Suppress("UNNECESSARY_SAFE_CALL")
+        clearDetailsEvent()
+
         val eventId: String? = args?.eventDetailArgs?.eventId
         eventId?.let {
             viewModel.actionGetEvent(it)
         }
     }
 
-    private fun navigateToEventCheckin() {
-        @Suppress("UNNECESSARY_SAFE_CALL")
-        val eventId: String? = args?.eventDetailArgs?.eventId
-        eventId?.let {
-            val directions = EventDetailFragmentDirections.actionEventDetailFragmentToEventCheckinFragment(
-                EventCheckinArgs(
-                    eventId = eventId,
-                )
-            )
-            findNavController().navigateFromBottomToTop(directions)
+    private fun clearDetailsEvent() {
+        with(binding) {
+            eventImage.setImageDrawable(null)
+
+            eventTitle.text = null
+
+            eventDateHour.text = null
+
+            eventPeople.text = null
+
+            eventPrice.text = null
+
+            eventAddress.text = null
+
+            eventDescription.text = null
         }
     }
 
     private fun openAddressInMap() {
         val address: String = binding.eventAddress.text.toString()
-        Utils.openAppMap(address, requireContext())
+        Utils.openAppMap(address)
     }
 
     private fun openMessageSharing() {
@@ -162,7 +186,20 @@ class EventDetailFragment : Fragment() {
                     eventPrice.text,
                 )
             }
-        Utils.openAppSharing(messageSharing, requireContext())
+        Utils.openAppSharing(messageSharing)
+    }
+
+    @Suppress("unnecessary_safe_call")
+    private fun navigateToEventCheckin() {
+        val eventId: String? = args?.eventDetailArgs?.eventId
+        eventId?.let {
+            val directions = EventDetailFragmentDirections.actionEventDetailFragmentToEventCheckinFragment(
+                EventCheckinArgs(
+                    eventId = eventId,
+                )
+            )
+            findNavController().navigateFromBottomToTop(directions)
+        }
     }
 
     override fun onDestroyView() {
