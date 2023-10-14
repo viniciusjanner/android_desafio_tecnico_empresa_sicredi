@@ -16,6 +16,7 @@
     <color name="colorBackgroundDefault">#FFFFFF</color>
     <color name="colorBackgroundGrayLight">#D1D1D1</color>
     <color name="colorBackgroundSplash">#00E56F</color>
+    <color name="colorBackgroundList">#D1D1D1</color>
     <!--
     ...........................................................................................................
     | COLOR > OVERRIDE
