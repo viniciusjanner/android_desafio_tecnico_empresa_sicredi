@@ -20,9 +20,12 @@
             android:id="@+id/recyclerEventList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:background="@color/colorBackgroundList"
+            android:gravity="center_vertical"
             android:importantForAccessibility="no"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_event_list" />
 

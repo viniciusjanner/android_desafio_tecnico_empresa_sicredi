@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/portrait_item_list_layout_width"
+    android:layout_height="@dimen/portrait_item_list_layout_height"
     card_view:cardBackgroundColor="@color/colorBackgroundDefault"
     card_view:cardCornerRadius="16dp"
     card_view:cardElevation="8dp"
@@ -20,11 +20,11 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/eventImage"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="@dimen/portrait_item_list_image_layout_height"
             android:adjustViewBounds="true"
-            android:background="@color/colorBackgroundShimmer"
             android:importantForAccessibility="no"
             android:scaleType="fitXY"
+            android:src="@drawable/bg_shimmer_rounded_top"
             app:shapeAppearanceOverlay="@style/Theme.Widget.ShapeableImageView.Rounded.Top" />
 
         <androidx.appcompat.widget.AppCompatTextView

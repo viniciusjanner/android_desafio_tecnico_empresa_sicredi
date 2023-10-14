@@ -30,7 +30,7 @@ class EventListViewModel @Inject constructor(
         object GetEvents : Action()
     }
 
-    private val _action = MutableLiveData<Action>()
+    private val _action = MutableLiveData<Action>(Action.GetEvents)
 
     val state: LiveData<UiState> = _action
         .switchMap { action ->

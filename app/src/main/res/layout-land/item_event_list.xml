@@ -4,8 +4,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/landscape_item_list_layout_width"
+    android:layout_height="match_parent"
     card_view:cardBackgroundColor="@color/colorBackgroundDefault"
     card_view:cardCornerRadius="16dp"
     card_view:cardElevation="8dp"
@@ -21,9 +21,11 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/eventImage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/portrait_item_list_image_layout_height"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:adjustViewBounds="true"
             android:importantForAccessibility="no"
+            android:maxHeight="@dimen/landscape_item_list_image_max_height"
             android:scaleType="fitXY"
             app:shapeAppearanceOverlay="@style/Theme.Widget.ShapeableImageView.Rounded.Top"
             tools:src="@drawable/ic_placeholder_image" />
@@ -32,7 +34,7 @@
             android:id="@+id/eventTitle"
             style="@style/Theme.Widget.TextView.Event.Title.Item"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             tools:text="Event title" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -46,15 +48,16 @@
             android:id="@+id/eventAddress"
             style="@style/Theme.Widget.TextView.Event.Address.Item"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginVertical="16dp"
+            android:maxLines="1"
             tools:text="Rua tal, bairro tal, cidade tal..." />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/eventPrice"
             style="@style/Theme.Widget.TextView.Event.Price.Rounded"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             tools:text="R$ 0,00" />
 
     </LinearLayout>
