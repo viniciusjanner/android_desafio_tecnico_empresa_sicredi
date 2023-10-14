@@ -55,8 +55,6 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilName"
                     style="@style/Theme.Widget.TextInputLayout.Default"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="48dp"
                     android:layout_marginTop="40dp"
                     android:theme="@style/Theme.Widget.TextInputLayout.Default"
@@ -65,8 +63,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietName"
                         style="@style/Theme.Widget.TextInputEditText.Default"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:hint="@string/common_name"
                         android:imeOptions="actionNext"
                         android:maxLength="50"
@@ -79,8 +75,6 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilEmail"
                     style="@style/Theme.Widget.TextInputLayout.Default"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="48dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="36dp"
@@ -90,8 +84,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietEmail"
                         style="@style/Theme.Widget.TextInputEditText.Default"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:hint="@string/common_email"
                         android:imeOptions="actionDone"
                         android:maxLength="50"
