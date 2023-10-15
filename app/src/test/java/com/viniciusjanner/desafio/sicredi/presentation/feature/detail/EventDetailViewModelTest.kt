@@ -85,7 +85,7 @@ class EventDetailViewModelTest {
             }
 
             // Arrange
-            //whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
+            whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
 
             // Act
             //viewModel.actionGetEvent(event.id)
