@@ -125,5 +125,10 @@ class EventDetailViewModelTest {
 
             // Assert
             verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Error>())
+
+            val uiStateError = viewModel.state.value as EventDetailViewModel.UiState.Error
+            val error = EventDetailViewModel.UiState.Error
+
+            Assert.assertEquals(error, uiStateError)
         }
 }
