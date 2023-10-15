@@ -42,9 +42,7 @@ class EventDetailViewModelTest {
 
     private val argsKey = "eventDetailArgs"
 
-    private val savedStateHandle = SavedStateHandle().apply {
-        set(argsKey, event.id)
-    }
+    private val savedStateHandle = SavedStateHandle()
 
     private lateinit var viewModel: EventDetailViewModel
 
@@ -56,6 +54,9 @@ class EventDetailViewModelTest {
             savedStateHandle
         ).apply {
             state.observeForever(uiStateObserver)
+            savedStateHandle.apply {
+                set(argsKey, event.id)
+            }
         }
     }
 
