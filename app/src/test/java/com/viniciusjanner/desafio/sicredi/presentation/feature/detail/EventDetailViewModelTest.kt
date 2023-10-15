@@ -2,6 +2,7 @@ package com.viniciusjanner.desafio.sicredi.presentation.feature.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateHandle
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.isA
 import com.nhaarman.mockitokotlin2.verify
@@ -34,6 +35,8 @@ class EventDetailViewModelTest {
     @Mock
     private lateinit var useCase: EventDetailUseCase
 
+    private val savedStateHandle = SavedStateHandle()
+
     @Mock
     private lateinit var uiStateObserver: Observer<EventDetailViewModel.UiState>
 
@@ -46,6 +49,7 @@ class EventDetailViewModelTest {
         viewModel = EventDetailViewModel(
             useCase,
             mainCoroutineRule.coroutinesDispatchers,
+            savedStateHandle
         ).apply {
             state.observeForever(uiStateObserver)
         }
