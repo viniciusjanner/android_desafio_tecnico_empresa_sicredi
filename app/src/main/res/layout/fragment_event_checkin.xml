@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/containerCheckin"
+    android:id="@+id/containerRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
@@ -13,7 +13,7 @@
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingTop="32dp"
-    tools:background="@color/colorBlack">
+    tools:background="@color/colorOrange">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/containerNestedScrollView"
+                android:id="@+id/containerCheckin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorBackgroundDefault"

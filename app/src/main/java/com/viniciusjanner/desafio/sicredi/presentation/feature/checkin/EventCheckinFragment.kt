@@ -1,5 +1,6 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.checkin
 
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,6 +50,15 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
 
         dialog?.let {
             val sheet = it as BottomSheetDialog
+
+            // Full screen
+            val orientation = sheet.context.resources.configuration.orientation
+            val landscape = Configuration.ORIENTATION_LANDSCAPE
+            if (orientation == landscape) {
+                val sheetContainer = requireView().parent as? ViewGroup ?: return
+                sheetContainer.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+            }
+
             // Anim
             sheet.window?.attributes?.windowAnimations = R.style.Theme_Widget_Anim_Dialog
             // State
@@ -86,6 +96,10 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
     }
 
     private fun initListeners() {
+        binding.containerRoot.setOnClickListener {
+            navigateToEventDetail()
+        }
+
         binding.tietName.apply {
             onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
@@ -121,8 +135,8 @@ class EventCheckinFragment : BottomSheetDialogFragment() {
         }
     }
 
+    @Suppress("unnecessary_safe_call")
     private fun sendCheckin() {
-        @Suppress("UNNECESSARY_SAFE_CALL")
         val eventId: String? = args?.eventCheckinArgs?.eventId
         eventId?.let {
             viewModel.actionSendCheckin(
