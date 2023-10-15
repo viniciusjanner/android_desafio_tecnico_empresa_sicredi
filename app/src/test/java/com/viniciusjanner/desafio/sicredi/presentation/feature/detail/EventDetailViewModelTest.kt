@@ -13,8 +13,9 @@ import com.viniciusjanner.desafio.testing.MainCoroutineRule
 import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -41,13 +42,15 @@ class EventDetailViewModelTest {
 
     private val argsKey = "eventDetailArgs"
 
-    @Mock
-    private lateinit var savedStateHandle: SavedStateHandle
+    //@Mock
+    //private lateinit var savedStateHandle: SavedStateHandle
+
+    private var savedStateHandle = SavedStateHandle()
 
     private lateinit var viewModel: EventDetailViewModel
 
-//    @Before
-//    fun setUp() {
+    @Before
+    fun setUp() {
 //        viewModel = EventDetailViewModel(
 //            useCase,
 //            mainCoroutineRule.coroutinesDispatchers,
@@ -58,22 +61,23 @@ class EventDetailViewModelTest {
 //                set(argsKey, event.id)
 //            }
 //        }
-//    }
+//
+    }
 
     @Test
     fun `should notify uiStateObserver with Success from UiState when get event returns success`() =
-        //
-        // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
-        //
-        runBlocking {
+    //
+    // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
+    //
+        runTest {
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
                 savedStateHandle
-            ).apply {
-                savedStateHandle.apply { set(argsKey, event.id) }
-                state.observeForever(uiStateObserver)
-            }
+            )
+            savedStateHandle.apply { set(argsKey, event.id) }
+            viewModel.state.observeForever(uiStateObserver)
+
 
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
@@ -82,28 +86,27 @@ class EventDetailViewModelTest {
             viewModel.actionGetEvent(event.id)
 
             // Assert
-//            verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Success>())
+            verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Success>())
 
-//            val uiStateSuccess = viewModel.state.value as EventDetailViewModel.UiState.Success
-//            val eventSuccess = uiStateSuccess.event
+            val uiStateSuccess = viewModel.state.value as EventDetailViewModel.UiState.Success
+            val eventSuccess = uiStateSuccess.event
 
-//            Assert.assertEquals(event, eventSuccess)
+            Assert.assertEquals(event, eventSuccess)
         }
 
     @Test
     fun `should notify uiStateObserver with Error from UiState when get event returns an exception`() =
-        //
-        // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
-        //
-        runBlocking {
+    //
+    // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
+    //
+        runTest {
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
                 savedStateHandle
-            ).apply {
-                savedStateHandle.apply { set(argsKey, event.id) }
-                state.observeForever(uiStateObserver)
-            }
+            )
+            savedStateHandle.apply { set(argsKey, event.id) }
+            viewModel.state.observeForever(uiStateObserver)
 
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
@@ -112,6 +115,6 @@ class EventDetailViewModelTest {
             viewModel.actionGetEvent(event.id)
 
             // Assert
-//            verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Error>())
+            verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Error>())
         }
 }
