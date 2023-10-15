@@ -42,7 +42,8 @@ class EventDetailViewModelTest {
 
     private val argsKey = "eventDetailArgs"
 
-    private val savedStateHandle = SavedStateHandle()
+    @Mock
+    private lateinit var savedStateHandle: SavedStateHandle
 
     private lateinit var viewModel: EventDetailViewModel
 
