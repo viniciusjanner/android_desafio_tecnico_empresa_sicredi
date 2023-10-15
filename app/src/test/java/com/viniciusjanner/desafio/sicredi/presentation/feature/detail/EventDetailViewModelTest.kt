@@ -79,7 +79,7 @@ class EventDetailViewModelTest {
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
-                SavedStateHandle().apply { set(argsKey, event.id) }
+                SavedStateHandle()//.apply { set(argsKey, event.id) }
             ).apply {
                 state.observeForever(uiStateObserver)
             }
@@ -113,7 +113,7 @@ class EventDetailViewModelTest {
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
-                SavedStateHandle().apply { set(argsKey, event.id) }
+                SavedStateHandle()//.apply { set(argsKey, event.id) }
             ).apply {
                 state.observeForever(uiStateObserver)
             }
