@@ -14,7 +14,6 @@ import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -36,13 +35,16 @@ class EventDetailViewModelTest {
     @Mock
     private lateinit var useCase: EventDetailUseCase
 
-    @get:Rule
-    private val savedStateHandle = SavedStateHandle()
-
     @Mock
     private lateinit var uiStateObserver: Observer<EventDetailViewModel.UiState>
 
     private val event = EventFactory().create(EventFactory.EventFake.Event1)
+
+    private val argsKey = "eventDetailArgs"
+
+    private val savedStateHandle = SavedStateHandle().apply {
+        set(argsKey, event.id)
+    }
 
     private lateinit var viewModel: EventDetailViewModel
 
