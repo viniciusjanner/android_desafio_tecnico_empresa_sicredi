@@ -15,7 +15,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -98,7 +97,6 @@ class EventDetailViewModelTest {
             val eventSuccess = uiStateSuccess.event
 
             Assert.assertEquals(event, eventSuccess)
-            //Assert.assertEquals(1, 1)
         }
 
     @Test
@@ -120,14 +118,12 @@ class EventDetailViewModelTest {
             }
 
             // Arrange
-            //whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
+            whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
 
             // Act
-            //viewModel.actionGetEvent(event.id)
+            viewModel.actionGetEvent(event.id)
 
             // Assert
-            //verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Error>())
-
-            Assert.assertEquals(1, 1)
+            verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Error>())
         }
 }
