@@ -53,17 +53,16 @@ class EventDetailViewModelTest {
 
     @Before
     fun setUp() {
-//        viewModel = EventDetailViewModel(
-//            useCase,
-//            mainCoroutineRule.coroutinesDispatchers,
-//            savedStateHandle
-//        ).apply {
-//            state.observeForever(uiStateObserver)
+        viewModel = EventDetailViewModel(
+            useCase,
+            mainCoroutineRule.coroutinesDispatchers,
+            SavedStateHandle()
+        ).apply {
+            state.observeForever(uiStateObserver)
 //            savedStateHandle.apply {
 //                set(argsKey, event.id)
 //            }
-//        }
-//
+        }
     }
 
     @Test
@@ -76,13 +75,13 @@ class EventDetailViewModelTest {
             // Test
             delay(1000)
 
-            viewModel = EventDetailViewModel(
-                useCase,
-                mainCoroutineRule.coroutinesDispatchers,
-                SavedStateHandle()//.apply { set(argsKey, event.id) }
-            ).apply {
-                state.observeForever(uiStateObserver)
-            }
+//            viewModel = EventDetailViewModel(
+//                useCase,
+//                mainCoroutineRule.coroutinesDispatchers,
+//                SavedStateHandle()//.apply { set(argsKey, event.id) }
+//            ).apply {
+//                state.observeForever(uiStateObserver)
+//            }
 
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
@@ -109,13 +108,13 @@ class EventDetailViewModelTest {
             // Test
             delay(1000)
 
-            viewModel = EventDetailViewModel(
-                useCase,
-                mainCoroutineRule.coroutinesDispatchers,
-                SavedStateHandle()//.apply { set(argsKey, event.id) }
-            ).apply {
-                state.observeForever(uiStateObserver)
-            }
+//            viewModel = EventDetailViewModel(
+//                useCase,
+//                mainCoroutineRule.coroutinesDispatchers,
+//                SavedStateHandle()//.apply { set(argsKey, event.id) }
+//            ).apply {
+//                state.observeForever(uiStateObserver)
+//            }
 
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
