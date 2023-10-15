@@ -94,11 +94,11 @@ class EventDetailViewModelTest {
             // Assert
             verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Success>())
 
-            //val uiStateSuccess = viewModel.state.value as EventDetailViewModel.UiState.Success
-            //val eventSuccess = uiStateSuccess.event
+            val uiStateSuccess = viewModel.state.value as EventDetailViewModel.UiState.Success
+            val eventSuccess = uiStateSuccess.event
 
-            //Assert.assertEquals(event, eventSuccess)
-            Assert.assertEquals(1, 1)
+            Assert.assertEquals(event, eventSuccess)
+            //Assert.assertEquals(1, 1)
         }
 
     @Test
