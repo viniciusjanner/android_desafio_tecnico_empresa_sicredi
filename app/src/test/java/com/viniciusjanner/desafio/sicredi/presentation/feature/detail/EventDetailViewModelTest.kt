@@ -13,6 +13,7 @@ import com.viniciusjanner.desafio.testing.MainCoroutineRule
 import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -45,7 +46,7 @@ class EventDetailViewModelTest {
     //@Mock
     //private lateinit var savedStateHandle: SavedStateHandle
 
-    private var savedStateHandle = SavedStateHandle()
+    //private var savedStateHandle = SavedStateHandle()
 
     private lateinit var viewModel: EventDetailViewModel
 
@@ -65,19 +66,19 @@ class EventDetailViewModelTest {
     }
 
     @Test
-    fun `should notify uiStateObserver with Success from UiState when get event returns success`() =
+    fun deveNotificarUiStateObserverComSuccess() =
+    //fun `should notify uiStateObserver with Success from UiState when get event returns success`() =
     //
     // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
     //
-        runTest {
+        runBlocking {
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
-                savedStateHandle
-            )
-            savedStateHandle.apply { set(argsKey, event.id) }
-            viewModel.state.observeForever(uiStateObserver)
-
+                SavedStateHandle().apply { set(argsKey, event.id) }
+            ).apply {
+                state.observeForever(uiStateObserver)
+            }
 
             // Arrange
             //whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
@@ -95,18 +96,19 @@ class EventDetailViewModelTest {
         }
 
     @Test
-    fun `should notify uiStateObserver with Error from UiState when get event returns an exception`() =
+    fun deveNotificarUiStateObserverComError() =
+    //fun `should notify uiStateObserver with Error from UiState when get event returns an exception`() =
     //
     // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
     //
-        runTest {
+        runBlocking {
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
-                savedStateHandle
-            )
-            savedStateHandle.apply { set(argsKey, event.id) }
-            viewModel.state.observeForever(uiStateObserver)
+                SavedStateHandle().apply { set(argsKey, event.id) }
+            ).apply {
+                state.observeForever(uiStateObserver)
+            }
 
             // Arrange
             //whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
