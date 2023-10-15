@@ -12,6 +12,7 @@ import com.viniciusjanner.desafio.core.usecase.feature.detail.EventDetailUseCase
 import com.viniciusjanner.desafio.testing.MainCoroutineRule
 import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -72,6 +73,9 @@ class EventDetailViewModelTest {
     // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
     //
         runBlocking {
+            // Test
+            delay(1000)
+
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
@@ -103,6 +107,9 @@ class EventDetailViewModelTest {
     // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
     //
         runBlocking {
+            // Test
+            delay(1000)
+
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
