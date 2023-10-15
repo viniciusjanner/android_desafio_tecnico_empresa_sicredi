@@ -39,7 +39,7 @@ class EventDetailViewModelTest {
 
     private val event = EventFactory().create(EventFactory.EventFake.Event1)
 
-    // private val argsKey = "eventDetailArgs"
+    private val argsKey = "eventDetailArgs"
 
     @Mock
     private lateinit var savedStateHandle: SavedStateHandle
@@ -69,7 +69,7 @@ class EventDetailViewModelTest {
             viewModel = EventDetailViewModel(
                 useCase,
                 mainCoroutineRule.coroutinesDispatchers,
-                savedStateHandle
+                savedStateHandle.apply { set(argsKey, event.id) }
             ).apply {
                 state.observeForever(uiStateObserver)
 //                savedStateHandle.apply {
