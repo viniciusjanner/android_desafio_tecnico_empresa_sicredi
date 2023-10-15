@@ -13,6 +13,7 @@ import com.viniciusjanner.desafio.testing.MainCoroutineRule
 import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -35,6 +36,7 @@ class EventDetailViewModelTest {
     @Mock
     private lateinit var useCase: EventDetailUseCase
 
+    @get:Rule
     private val savedStateHandle = SavedStateHandle()
 
     @Mock
@@ -60,7 +62,7 @@ class EventDetailViewModelTest {
         //
         // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
         //
-        runTest {
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
 
@@ -81,7 +83,7 @@ class EventDetailViewModelTest {
         //
         // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
         //
-        runTest {
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
 
