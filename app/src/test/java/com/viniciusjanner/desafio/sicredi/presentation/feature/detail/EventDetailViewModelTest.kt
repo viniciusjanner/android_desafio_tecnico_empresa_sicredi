@@ -89,10 +89,10 @@ class EventDetailViewModelTest {
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
 
             // Act
-            //viewModel.actionGetEvent(event.id)
+            viewModel.actionGetEvent(event.id)
 
             // Assert
-            //verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Success>())
+            verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Success>())
 
             //val uiStateSuccess = viewModel.state.value as EventDetailViewModel.UiState.Success
             //val eventSuccess = uiStateSuccess.event
