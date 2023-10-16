@@ -59,7 +59,7 @@ class EventListViewModelTest {
         //
         // deve notificar uiStateObserver com Success de UiState quando obter event list retornando sucesso
         //
-        runBlocking {
+        runTest {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(eventList)))
 
@@ -80,7 +80,7 @@ class EventListViewModelTest {
         //
         // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
         //
-        runTest {
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
 
