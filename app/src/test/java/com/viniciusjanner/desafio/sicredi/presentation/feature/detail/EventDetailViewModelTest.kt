@@ -12,7 +12,6 @@ import com.viniciusjanner.desafio.core.usecase.feature.detail.EventDetailUseCase
 import com.viniciusjanner.desafio.testing.MainCoroutineRule
 import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -42,10 +41,7 @@ class EventDetailViewModelTest {
 
     private val event = EventFactory().create(EventFactory.EventFake.Event1)
 
-    private val argsKey = "eventDetailArgs"
-
-    //@Mock
-    //private lateinit var savedStateHandle: SavedStateHandle
+    //private val argsKey = "eventDetailArgs"
 
     //private var savedStateHandle = SavedStateHandle()
 
@@ -73,15 +69,7 @@ class EventDetailViewModelTest {
     //
         runBlocking {
             // Test
-            delay(1000)
-
-//            viewModel = EventDetailViewModel(
-//                useCase,
-//                mainCoroutineRule.coroutinesDispatchers,
-//                SavedStateHandle()//.apply { set(argsKey, event.id) }
-//            ).apply {
-//                state.observeForever(uiStateObserver)
-//            }
+            //delay(1000)
 
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
@@ -106,15 +94,7 @@ class EventDetailViewModelTest {
     //
         runBlocking {
             // Test
-            delay(1000)
-
-//            viewModel = EventDetailViewModel(
-//                useCase,
-//                mainCoroutineRule.coroutinesDispatchers,
-//                SavedStateHandle()//.apply { set(argsKey, event.id) }
-//            ).apply {
-//                state.observeForever(uiStateObserver)
-//            }
+            //delay(1000)
 
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
