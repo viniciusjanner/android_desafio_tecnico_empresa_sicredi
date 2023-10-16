@@ -41,7 +41,7 @@ class EventDetailViewModelTest {
 
     private val event = EventFactory().create(EventFactory.EventFake.Event1)
 
-    //private val argsKey = "eventDetailArgs"
+    private val argsKey = "eventDetailArgs"
 
     private var savedStateHandle = SavedStateHandle()
 
@@ -55,18 +55,15 @@ class EventDetailViewModelTest {
             savedStateHandle
         ).apply {
             state.observeForever(uiStateObserver)
-//            savedStateHandle.apply {
-//                set(argsKey, event.id)
-//            }
+            savedStateHandle.apply { set(argsKey, event.id) }
         }
     }
 
     @Test
-    fun deveNotificarUiStateObserverComSuccess() =
-    //fun `should notify uiStateObserver with Success from UiState when get event returns success`() =
+    fun `should notify uiStateObserver with Success from UiState when get event returns success`() =
     //
     // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
-    //
+        //
         runTest {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
@@ -84,11 +81,10 @@ class EventDetailViewModelTest {
         }
 
     @Test
-    fun deveNotificarUiStateObserverComError() =
-    //fun `should notify uiStateObserver with Error from UiState when get event returns an exception`() =
+    fun `should notify uiStateObserver with Error from UiState when get event returns an exception`() =
     //
     // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
-    //
+        //
         runTest {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
