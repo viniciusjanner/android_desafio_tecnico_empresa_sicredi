@@ -13,7 +13,6 @@ import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -59,7 +58,7 @@ class EventListViewModelTest {
         //
         // deve notificar uiStateObserver com Success de UiState quando obter event list retornando sucesso
         //
-        runTest {
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(eventList)))
 
