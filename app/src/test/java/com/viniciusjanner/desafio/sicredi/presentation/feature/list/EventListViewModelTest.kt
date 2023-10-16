@@ -11,9 +11,7 @@ import com.viniciusjanner.desafio.core.usecase.feature.list.EventListUseCase
 import com.viniciusjanner.desafio.testing.MainCoroutineRule
 import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -60,10 +58,10 @@ class EventListViewModelTest {
         //
         // deve notificar uiStateObserver com Success de UiState quando obter event list retornando sucesso
         //
-        runBlocking {
-            // Test
-            delay(1000)
-
+//        runBlocking {
+//            // Test
+//            delay(1000)
+        runTest {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(eventList)))
 
@@ -84,10 +82,10 @@ class EventListViewModelTest {
         //
         // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
         //
-        runBlocking {
-            // Test
-            delay(1000)
-
+//        runBlocking {
+//            // Test
+//            delay(1000)
+        runTest {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
 
