@@ -12,6 +12,7 @@ import com.viniciusjanner.desafio.testing.MainCoroutineRule
 import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -22,7 +23,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-@RunWith(MockitoJUnitRunner.Silent::class)
+@RunWith(MockitoJUnitRunner::class)
 class EventListViewModelTest {
 
     @get:Rule
@@ -58,7 +59,7 @@ class EventListViewModelTest {
         //
         // deve notificar uiStateObserver com Success de UiState quando obter event list retornando sucesso
         //
-        runTest {
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(eventList)))
 
