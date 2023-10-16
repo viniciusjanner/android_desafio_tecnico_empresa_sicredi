@@ -23,7 +23,6 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-//@RunWith(MockitoJUnitRunner::class)
 @RunWith(MockitoJUnitRunner.Silent::class)
 class EventDetailViewModelTest {
 
