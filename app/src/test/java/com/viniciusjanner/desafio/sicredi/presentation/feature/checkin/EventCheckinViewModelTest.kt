@@ -13,7 +13,7 @@ import com.viniciusjanner.desafio.testing.core.domain.model.EventCheckinResponse
 import com.viniciusjanner.desafio.testing.core.domain.model.EventCheckinSendFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -58,7 +58,7 @@ class EventCheckinViewModelTest {
         //
         // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
         //
-        runTest {
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(checkinResponse)))
 
@@ -79,7 +79,7 @@ class EventCheckinViewModelTest {
         //
         // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
         //
-        runTest {
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
 

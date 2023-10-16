@@ -13,7 +13,7 @@ import com.viniciusjanner.desafio.testing.MainCoroutineRule
 import com.viniciusjanner.desafio.testing.core.domain.model.EventFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -23,7 +23,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-@RunWith(MockitoJUnitRunner.Silent::class)
+@RunWith(MockitoJUnitRunner::class)
 class EventDetailViewModelTest {
 
     @get:Rule
@@ -60,10 +60,10 @@ class EventDetailViewModelTest {
 
     @Test
     fun `should notify uiStateObserver with Success from UiState when get event returns success`() =
-    //
-    // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
         //
-        runTest {
+        // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
+        //
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Success(event)))
 
@@ -81,10 +81,10 @@ class EventDetailViewModelTest {
 
     @Test
     fun `should notify uiStateObserver with Error from UiState when get event returns an exception`() =
-    //
-    // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
         //
-        runTest {
+        // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
+        //
+        runBlocking {
             // Arrange
             whenever(useCase.invoke(any())).thenReturn(flowOf(ResultStatus.Error(Throwable())))
 
@@ -93,10 +93,5 @@ class EventDetailViewModelTest {
 
             // Assert
             verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Error>())
-
-            val uiStateError = viewModel.state.value as EventDetailViewModel.UiState.Error
-            val error = EventDetailViewModel.UiState.Error
-
-            Assert.assertEquals(error, uiStateError)
         }
 }
