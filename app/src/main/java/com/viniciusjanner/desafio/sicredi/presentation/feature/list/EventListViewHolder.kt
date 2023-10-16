@@ -32,7 +32,7 @@ class EventListViewHolder(
 
         eventDateHour.text = data.date?.formatDateHour()
 
-        Utils.convertCoordinatesToAddressString(data.latitude, data.longitude, eventAddress.context) { addressString ->
+        Utils.convertCoordinatesToAddressString(data.latitude, data.longitude) { addressString ->
             eventAddress.text = addressString
         }
 

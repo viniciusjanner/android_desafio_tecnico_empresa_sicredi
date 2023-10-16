@@ -2,6 +2,7 @@ package com.viniciusjanner.desafio.sicredi.presentation.feature.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateHandle
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.isA
 import com.nhaarman.mockitokotlin2.verify
@@ -22,7 +23,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-@RunWith(MockitoJUnitRunner::class)
+@RunWith(MockitoJUnitRunner.Silent::class)
 class EventDetailViewModelTest {
 
     @get:Rule
@@ -39,6 +40,10 @@ class EventDetailViewModelTest {
 
     private val event = EventFactory().create(EventFactory.EventFake.Event1)
 
+    private val argsKey = "eventDetailArgs"
+
+    private var savedStateHandle = SavedStateHandle()
+
     private lateinit var viewModel: EventDetailViewModel
 
     @Before
@@ -46,15 +51,17 @@ class EventDetailViewModelTest {
         viewModel = EventDetailViewModel(
             useCase,
             mainCoroutineRule.coroutinesDispatchers,
+            savedStateHandle
         ).apply {
             state.observeForever(uiStateObserver)
+            savedStateHandle.apply { set(argsKey, event.id) }
         }
     }
 
     @Test
     fun `should notify uiStateObserver with Success from UiState when get event returns success`() =
-        //
-        // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
+    //
+    // deve notificar uiStateObserver com Success de UiState quando obter event retornando sucesso
         //
         runTest {
             // Arrange
@@ -74,8 +81,8 @@ class EventDetailViewModelTest {
 
     @Test
     fun `should notify uiStateObserver with Error from UiState when get event returns an exception`() =
-        //
-        // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
+    //
+    // deve notificar uiStateObserver com Error de UiState quando obter event retornando uma exceção
         //
         runTest {
             // Arrange
@@ -86,5 +93,10 @@ class EventDetailViewModelTest {
 
             // Assert
             verify(uiStateObserver).onChanged(isA<EventDetailViewModel.UiState.Error>())
+
+            val uiStateError = viewModel.state.value as EventDetailViewModel.UiState.Error
+            val error = EventDetailViewModel.UiState.Error
+
+            Assert.assertEquals(error, uiStateError)
         }
 }

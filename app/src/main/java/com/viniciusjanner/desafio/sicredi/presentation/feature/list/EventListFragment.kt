@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.viniciusjanner.desafio.core.domain.model.Event
-import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
-import com.viniciusjanner.desafio.sicredi.presentation.common.MarginItemDecoration
 import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterOf
 import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailArgs
+import com.viniciusjanner.desafio.sicredi.util.Utils
 import com.viniciusjanner.desafio.sicredi.util.extensions.hide
 import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromRightToLeft
 import com.viniciusjanner.desafio.sicredi.util.extensions.onSingleClick
+import com.viniciusjanner.desafio.sicredi.util.extensions.resetPositionScroll
 import com.viniciusjanner.desafio.sicredi.util.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,11 +49,9 @@ class EventListFragment : Fragment() {
         findNavController().navigateFromRightToLeft(directions)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+
         _binding = FragmentEventListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -62,59 +59,64 @@ class EventListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initEventsAdapter()
+        initViews()
         initObservers()
         initListeners()
     }
 
-    private fun initEventsAdapter() {
+    private fun initViews() {
         binding.recyclerEventList.run {
-            setHasFixedSize(true)
-            adapter = eventsAdapter
-            addItemDecoration(customItemDecoration())
+            this.setHasFixedSize(true)
+            this.adapter = eventsAdapter
+            Utils.getCustomItemDecoration()?.let { this.addItemDecoration(it) }
         }
     }
 
-    private fun customItemDecoration(): RecyclerView.ItemDecoration =
-        MarginItemDecoration(
-            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_top),
-            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_left),
-            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_right),
-            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_bottom),
-            resources.getDimensionPixelSize(R.dimen.item_cardview_with_elevation_margin_bottom_last),
-        )
-
     private fun initObservers() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
-            with(binding) {
-                viewFlipper.displayedChild =
-                    when (uiState) {
-                        EventListViewModel.UiState.Loading -> {
-                            includeViewLoading.shimmer.show()
-                            FLIPPER_CHILD_LOADING
-                        }
+            when (uiState) {
+                EventListViewModel.UiState.Loading -> updateUiToLoading()
 
-                        is EventListViewModel.UiState.Success -> {
-                            includeViewLoading.shimmer.hide()
-                            eventsAdapter.submitList(uiState.events)
-                            FLIPPER_CHILD_SUCCESS
-                        }
+                is EventListViewModel.UiState.Success -> updateUiToSuccess(uiState.events)
 
-                        EventListViewModel.UiState.Empty -> {
-                            includeViewLoading.shimmer.hide()
-                            eventsAdapter.submitList(emptyList())
-                            FLIPPER_CHILD_EMPTY
-                        }
+                EventListViewModel.UiState.Empty -> updateUiToEmpty()
 
-                        EventListViewModel.UiState.Error -> {
-                            includeViewLoading.shimmer.hide()
-                            FLIPPER_CHILD_ERROR
-                        }
-                    }
+                EventListViewModel.UiState.Error -> updateUiToError()
             }
         }
+    }
 
-        getEvents()
+    private fun updateUiToLoading() {
+        with(binding) {
+            includeViewLoading.run {
+                scroll?.resetPositionScroll()
+                horizontalScroll?.resetPositionScroll()
+                shimmer.show()
+            }
+            viewFlipper.displayedChild = FLIPPER_CHILD_LOADING
+        }
+    }
+
+    private fun updateUiToSuccess(events: List<Event>?) {
+        with(binding) {
+            includeViewLoading.shimmer.hide()
+            eventsAdapter.submitList(events)
+            viewFlipper.displayedChild = FLIPPER_CHILD_SUCCESS
+        }
+    }
+
+    private fun updateUiToEmpty() {
+        with(binding) {
+            includeViewLoading.shimmer.hide()
+            viewFlipper.displayedChild = FLIPPER_CHILD_EMPTY
+        }
+    }
+
+    private fun updateUiToError() {
+        with(binding) {
+            includeViewLoading.shimmer.hide()
+            viewFlipper.displayedChild = FLIPPER_CHILD_ERROR
+        }
     }
 
     private fun initListeners() {
@@ -133,6 +135,7 @@ class EventListFragment : Fragment() {
     }
 
     private fun getEvents() {
+        eventsAdapter.submitList(emptyList())
         viewModel.actionGetEvents()
     }
 

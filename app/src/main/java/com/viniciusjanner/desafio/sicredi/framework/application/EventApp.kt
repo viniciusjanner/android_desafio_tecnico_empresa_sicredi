@@ -11,6 +11,7 @@ class EventApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         try {
+            instance = this
             //
             // O Google Play instalará o OpenSSL mais recente
             //
@@ -21,5 +22,10 @@ class EventApp : MultiDexApplication() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    companion object {
+        lateinit var instance: EventApp
+            private set
     }
 }

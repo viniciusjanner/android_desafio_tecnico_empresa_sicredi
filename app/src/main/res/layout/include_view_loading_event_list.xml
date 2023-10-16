@@ -7,26 +7,66 @@
     app:shimmer_repeat_mode="restart"
     app:shimmer_shape="radial">
 
-    <!--
-        ShimmerFrameLayout extend de FrameLayout.
-        FrameLayout aceita apenas um "filho".
-    -->
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackgroundGrayLight"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <include layout="@layout/include_view_loading_item_event_list" />
+        <LinearLayout
+            android:id="@+id/containerScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackgroundList"
+            android:orientation="vertical">
 
-        <include layout="@layout/include_view_loading_item_event_list" />
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/portrait_item_list_layout_width"
+                android:layout_height="@dimen/portrait_item_list_layout_height"
+                android:layout_marginLeft="@dimen/portrait_item_list_margin_left"
+                android:layout_marginTop="@dimen/portrait_item_list_margin_top"
+                android:layout_marginRight="@dimen/portrait_item_list_margin_right"
+                android:layout_marginBottom="@dimen/portrait_item_list_margin_bottom" />
 
-        <include layout="@layout/include_view_loading_item_event_list" />
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/portrait_item_list_layout_width"
+                android:layout_height="@dimen/portrait_item_list_layout_height"
+                android:layout_marginLeft="@dimen/portrait_item_list_margin_left"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="@dimen/portrait_item_list_margin_right"
+                android:layout_marginBottom="@dimen/portrait_item_list_margin_bottom" />
 
-        <include layout="@layout/include_view_loading_item_event_list" />
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/portrait_item_list_layout_width"
+                android:layout_height="@dimen/portrait_item_list_layout_height"
+                android:layout_marginLeft="@dimen/portrait_item_list_margin_left"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="@dimen/portrait_item_list_margin_right"
+                android:layout_marginBottom="@dimen/portrait_item_list_margin_bottom" />
 
-    </LinearLayout>
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/portrait_item_list_layout_width"
+                android:layout_height="@dimen/portrait_item_list_layout_height"
+                android:layout_marginLeft="@dimen/portrait_item_list_margin_left"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="@dimen/portrait_item_list_margin_right"
+                android:layout_marginBottom="@dimen/portrait_item_list_margin_bottom" />
+
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/portrait_item_list_layout_width"
+                android:layout_height="@dimen/portrait_item_list_layout_height"
+                android:layout_marginLeft="@dimen/portrait_item_list_margin_left"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="@dimen/portrait_item_list_margin_right"
+                android:layout_marginBottom="@dimen/portrait_item_list_margin_bottom_last" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </com.facebook.shimmer.ShimmerFrameLayout>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/containerCheckin"
+    android:id="@+id/containerRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
@@ -13,7 +13,7 @@
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingTop="32dp"
-    tools:background="@color/colorBlack">
+    tools:background="@color/colorOrange">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/containerNestedScrollView"
+                android:id="@+id/containerCheckin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorBackgroundDefault"
@@ -55,23 +55,14 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilName"
                     style="@style/Theme.Widget.TextInputLayout.Default"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="48dp"
                     android:layout_marginTop="40dp"
-                    android:theme="@style/Theme.Widget.TextInputLayout.Default"
-                    app:errorEnabled="true">
+                    android:theme="@style/Theme.Widget.TextInputLayout.Default">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietName"
                         style="@style/Theme.Widget.TextInputEditText.Default"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:hint="@string/common_name"
-                        android:imeOptions="actionNext"
-                        android:maxLength="50"
-                        android:maxLines="1"
-                        android:singleLine="true"
                         android:theme="@style/Theme.Widget.TextInputEditText.Default" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -79,24 +70,16 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilEmail"
                     style="@style/Theme.Widget.TextInputLayout.Default"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="48dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="36dp"
-                    android:theme="@style/Theme.Widget.TextInputLayout.Default"
-                    app:errorEnabled="true">
+                    android:theme="@style/Theme.Widget.TextInputLayout.Default">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietEmail"
                         style="@style/Theme.Widget.TextInputEditText.Default"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:hint="@string/common_email"
                         android:imeOptions="actionDone"
-                        android:maxLength="50"
-                        android:maxLines="1"
-                        android:singleLine="true"
                         android:theme="@style/Theme.Widget.TextInputEditText.Default" />
 
                 </com.google.android.material.textfield.TextInputLayout>

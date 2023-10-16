@@ -118,11 +118,14 @@
     -->
     <style name="Theme.Widget.TextInputLayout.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <!--android:-->
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:textColorHint">@color/colorGray6</item><!--no focus-->
         <!--app:-->
         <item name="boxStrokeColor">@color/colorPrimaryDark</item><!--focus-->
         <item name="boxStrokeWidth">2dp</item><!--no focus-->
         <item name="boxStrokeWidthFocused">2dp</item><!--focus-->
+        <item name="errorEnabled">true</item>
         <item name="hintTextColor">@color/colorPrimaryDark</item><!--focus-->
     </style>
     <!--
@@ -132,6 +135,12 @@
     -->
     <style name="Theme.Widget.TextInputEditText.Default" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
         <!--android:-->
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:maxLength">50</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textColorHighlight">@color/colorGreen2</item><!--texto selecionado-->
         <item name="android:textCursorDrawable">@null</item><!--@null para utilizar mesma cor do textColor-->
