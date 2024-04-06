@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:shimmer_repeat_mode="restart"
+    app:shimmer_shape="radial">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/containerHorizontalScroll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackgroundList"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/landscape_item_list_layout_width"
+                android:layout_height="@dimen/landscape_item_list_layout_height"
+                android:layout_marginLeft="@dimen/landscape_item_list_margin_left"
+                android:layout_marginTop="@dimen/landscape_item_list_margin_top"
+                android:layout_marginRight="@dimen/landscape_item_list_margin_right"
+                android:layout_marginBottom="@dimen/landscape_item_list_margin_bottom" />
+
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/landscape_item_list_layout_width"
+                android:layout_height="@dimen/landscape_item_list_layout_height"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="@dimen/landscape_item_list_margin_top"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="@dimen/landscape_item_list_margin_bottom" />
+
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/landscape_item_list_layout_width"
+                android:layout_height="@dimen/landscape_item_list_layout_height"
+                android:layout_marginLeft="@dimen/landscape_item_list_margin_left"
+                android:layout_marginTop="@dimen/landscape_item_list_margin_top"
+                android:layout_marginRight="@dimen/landscape_item_list_margin_right"
+                android:layout_marginBottom="@dimen/landscape_item_list_margin_bottom" />
+
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/landscape_item_list_layout_width"
+                android:layout_height="@dimen/landscape_item_list_layout_height"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="@dimen/landscape_item_list_margin_top"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="@dimen/landscape_item_list_margin_bottom" />
+
+            <include
+                layout="@layout/include_view_loading_item_event_list"
+                android:layout_width="@dimen/landscape_item_list_layout_width"
+                android:layout_height="@dimen/landscape_item_list_layout_height"
+                android:layout_marginLeft="@dimen/landscape_item_list_margin_left"
+                android:layout_marginTop="@dimen/landscape_item_list_margin_top"
+                android:layout_marginRight="@dimen/landscape_item_list_margin_right_last"
+                android:layout_marginBottom="@dimen/landscape_item_list_margin_bottom" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

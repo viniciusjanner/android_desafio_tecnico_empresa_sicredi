@@ -12,3 +12,17 @@ data class Event(
     val title: String?,
     override val key: Long = id.toLong(),
 ) : ItemDiff
+
+fun Event.toEventModel(): Event {
+    return Event(
+        id = this.id,
+        people = this.people,
+        date = this.date,
+        description = this.description,
+        image = this.image,
+        longitude = this.longitude,
+        latitude = this.latitude,
+        price = this.price,
+        title = this.title,
+    )
+}
