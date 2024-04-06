@@ -22,4 +22,42 @@ class EventDataSourceRetrofit @Inject constructor(
 
     override suspend fun postEventCheckin(checkIn: EventCheckinSend): EventCheckinResponse =
         eventApi.postEventCheckin(checkIn)
+
+//
+// TODO: Vinicius Janner
+//  Mock para quando a API sair do ar e deixar de retornar os dados.
+//
+//
+//    override suspend fun getEvents(): List<Event> {
+//        delay(2500)
+//        return listOf(
+//            EventFactory().create(EventFactory.EventFake.Event4),
+//            EventFactory().create(EventFactory.EventFake.Event1),
+//            EventFactory().create(EventFactory.EventFake.Event5),
+//
+//            EventFactory().create(EventFactory.EventFake.Event4),
+//            EventFactory().create(EventFactory.EventFake.Event1),
+//            EventFactory().create(EventFactory.EventFake.Event5),
+//        )
+//    }
+//
+//    override suspend fun getEvent(eventId: String): Event {
+//        delay(2500)
+//        return when (eventId) {
+//            "1" -> EventFactory().create(EventFactory.EventFake.Event1)
+//            "2" -> EventFactory().create(EventFactory.EventFake.Event2)
+//            "3" -> EventFactory().create(EventFactory.EventFake.Event3)
+//            "4" -> EventFactory().create(EventFactory.EventFake.Event4)
+//            "5" -> EventFactory().create(EventFactory.EventFake.Event5)
+//            else -> EventFactory().create(EventFactory.EventFake.Event5)
+//        }
+//    }
+//
+//    override suspend fun postEventCheckin(checkIn: EventCheckinSend): EventCheckinResponse {
+//        delay(2500)
+//        return EventCheckinResponse(
+//            code = 200
+//        )
+//    }
+//
 }
