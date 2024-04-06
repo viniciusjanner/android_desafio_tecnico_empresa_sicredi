@@ -13,6 +13,7 @@ plugins {
 android {
     namespace = Config.namespace
     compileSdk = Config.compileSdk
+    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = Config.namespace
