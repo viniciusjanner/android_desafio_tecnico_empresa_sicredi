@@ -66,8 +66,8 @@ dependencies {
     testImplementation(project(":testing"))
 
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("com.google.android.gms:play-services-basement:18.2.0")
-    implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.google.android.gms:play-services-basement:18.3.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     // ----------------------------------------------------------------------------------------------
     // Develop
