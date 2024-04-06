@@ -8,8 +8,9 @@ interface ImageLoader {
 
     fun load(
         imageView: ImageView,
-        imageUrl: String,
+        imageUrl: String?,
         @DrawableRes placeholder: Int = R.drawable.ic_placeholder_image,
         @DrawableRes fallback: Int = R.drawable.ic_placeholder_error_loading,
+        @DrawableRes error: Int = R.drawable.ic_placeholder_error_loading,
     )
 }

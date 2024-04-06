@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/includeViewSuccess"
+    style="@style/Theme.Widget.Container.Base">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/messageResults"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:lineSpacingExtra="8dp"
-        android:text="@string/checkin_success"
-        android:textAlignment="center"
-        android:textSize="24sp" />
+        style="@style/Theme.Widget.TextView.IncludeView.Success"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonClose"
-        android:layout_width="200dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="36dp"
-        android:maxWidth="200dp"
-        android:maxHeight="56dp"
-        android:text="@string/understood"
-        android:textColor="@color/colorWhite"
-        android:theme="@style/Base.Theme" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/buttonAction"
+        style="@style/Theme.Widget.TextView.Flat.Active"
+        android:text="@string/common_close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

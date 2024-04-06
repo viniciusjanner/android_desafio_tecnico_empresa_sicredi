@@ -7,6 +7,7 @@ import com.viniciusjanner.desafio.core.domain.model.ItemDiff
 inline fun <T : ItemDiff, VH : GenericViewHolder<T>> getGenericAdapterOf(
     crossinline createViewHolder: (ViewGroup) -> VH,
 ): ListAdapter<T, VH> {
+
     val diff = GenericDiffCallback<T>()
 
     return object : ListAdapter<T, VH>(diff) {

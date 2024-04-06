@@ -1,29 +1,27 @@
 package com.viniciusjanner.desafio.sicredi.presentation.feature.detail
 
-import android.content.Context
-import android.content.Intent
-import android.location.Geocoder
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.sicredi.R
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventDetailBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
-import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinFragment
-import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinViewArg
+import com.viniciusjanner.desafio.sicredi.presentation.feature.checkin.EventCheckinArgs
+import com.viniciusjanner.desafio.sicredi.util.Utils
 import com.viniciusjanner.desafio.sicredi.util.extensions.formatDateHour
-import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoney
+import com.viniciusjanner.desafio.sicredi.util.extensions.formatMoneyBrazil
+import com.viniciusjanner.desafio.sicredi.util.extensions.hide
+import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromBottomToTop
+import com.viniciusjanner.desafio.sicredi.util.extensions.onSingleClick
+import com.viniciusjanner.desafio.sicredi.util.extensions.resetPositionScroll
+import com.viniciusjanner.desafio.sicredi.util.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,11 +37,9 @@ class EventDetailFragment : Fragment() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+
         _binding = FragmentEventDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -51,177 +47,159 @@ class EventDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initObserverUI()
+        setNavArgs()
+        initObservers()
         initListeners()
-        observeCheckinData()
     }
 
-    private fun initObserverUI() {
-        viewModel.state.observe(viewLifecycleOwner) { uiState ->
-            // ViewFlipper
-            binding.flipperEventDetail.displayedChild =
-                when (uiState) {
-                    EventDetailViewModel.UiState.Loading -> {
-                        FLIPPER_CHILD_LOADING
-                    }
-
-                    is EventDetailViewModel.UiState.Success -> {
-                        val event = uiState.event
-
-                        event.image?.let {
-                            imageLoader.load(binding.eventImage, it)
-                        }
-                        binding.eventTitle.text = event.title
-                        binding.eventDateHour.text = event.date?.formatDateHour()
-                        binding.eventAddress.text = coordinatesToAddress(event.latitude, event.longitude)
-                        binding.eventPrice.text = event.price?.formatMoney()
-                        binding.eventSubtitle.text = event.description
-
-                        FLIPPER_CHILD_SUCCESS
-                    }
-
-                    EventDetailViewModel.UiState.Error -> {
-                        FLIPPER_CHILD_ERROR
-                    }
-                }
+    @Suppress("unnecessary_safe_call")
+    private fun setNavArgs() {
+        args?.eventDetailArgs?.let {
+            viewModel.setSavedStateHandle(it)
         }
+    }
 
-        getEvent()
+    private fun initObservers() {
+        viewModel.state.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                EventDetailViewModel.UiState.Loading -> updateUiToLoading()
+
+                is EventDetailViewModel.UiState.Success -> updateUiToSuccess(uiState.event)
+
+                EventDetailViewModel.UiState.Error -> updateUiToError()
+            }
+        }
+    }
+
+    private fun updateUiToLoading() {
+        with(binding) {
+            includeViewLoading.run {
+                nestedScroll.resetPositionScroll()
+                shimmer.show()
+            }
+            viewFlipper.displayedChild = FLIPPER_CHILD_LOADING
+        }
+    }
+
+    private fun updateUiToSuccess(event: Event) {
+        with(binding) {
+            populateDetailsEvent(event)
+            includeViewLoading.shimmer.hide()
+            viewFlipper.displayedChild = FLIPPER_CHILD_SUCCESS
+        }
+    }
+
+    private fun updateUiToError() {
+        with(binding) {
+            includeViewLoading.shimmer.hide()
+            viewFlipper.displayedChild = FLIPPER_CHILD_ERROR
+        }
+    }
+
+    private fun populateDetailsEvent(event: Event) {
+        with(binding) {
+            event.image?.let {
+                imageLoader.load(eventImage, it)
+            }
+
+            eventTitle.text = event.title
+
+            eventDateHour.text = event.date?.formatDateHour()
+
+            val peopleNumbers: Int = (event.people?.size ?: 0)
+            eventPeople.text = getString(R.string.screen_event_detail_people_param, peopleNumbers.toString())
+
+            eventPrice.text = event.price?.formatMoneyBrazil()
+
+            Utils.convertCoordinatesToAddressString(event.latitude!!, event.longitude!!) { addressString ->
+                eventAddress.text = addressString
+            }
+
+            eventDescription.text = event.description
+        }
     }
 
     private fun initListeners() {
-        binding.eventMap.setOnClickListener {
-            openLocalization()
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.hide()
+            getEvent()
         }
 
-        binding.buttonShare.setOnClickListener {
-            openSharing()
+        binding.eventMap.onSingleClick {
+            openAddressInMap()
         }
 
-        binding.buttonCheckin.setOnClickListener {
-            sendCheckin()
+        binding.buttonShare.onSingleClick {
+            openMessageSharing()
         }
 
-        binding.includeViewError.buttonRetry.setOnClickListener {
+        binding.buttonCheckin.onSingleClick {
+            navigateToEventCheckin()
+        }
+
+        binding.includeViewError.buttonAction.onSingleClick {
             getEvent()
         }
     }
 
+    @Suppress("unnecessary_safe_call")
     private fun getEvent() {
-        val eventId = args.eventDetailViewArg.eventId
-        viewModel.actionGetEvent(eventId)
+        clearDetailsEvent()
+
+        val eventId: String? = args?.eventDetailArgs?.eventId
+        eventId?.let {
+            viewModel.actionGetEvent(it)
+        }
     }
 
-    private fun sendCheckin() {
-        val directions = EventDetailFragmentDirections
-            .actionEventDetailFragmentToEventCheckinFragment(
-                EventCheckinViewArg(
-                    eventId = args.eventDetailViewArg.eventId,
+    private fun clearDetailsEvent() {
+        with(binding) {
+            eventImage.setImageDrawable(null)
+
+            eventTitle.text = null
+
+            eventDateHour.text = null
+
+            eventPeople.text = null
+
+            eventPrice.text = null
+
+            eventAddress.text = null
+
+            eventDescription.text = null
+        }
+    }
+
+    private fun openAddressInMap() {
+        val address: String = binding.eventAddress.text.toString()
+        Utils.openAppMap(address)
+    }
+
+    private fun openMessageSharing() {
+        val messageSharing =
+            with(binding) {
+                getString(
+                    R.string.screen_event_detail_message_sharing,
+                    eventTitle.text,
+                    eventDateHour.text,
+                    eventAddress.text,
+                    eventPrice.text,
+                )
+            }
+        Utils.openAppSharing(messageSharing)
+    }
+
+    @Suppress("unnecessary_safe_call")
+    private fun navigateToEventCheckin() {
+        val eventId: String? = args?.eventDetailArgs?.eventId
+        eventId?.let {
+            val directions = EventDetailFragmentDirections.actionEventDetailFragmentToEventCheckinFragment(
+                EventCheckinArgs(
+                    eventId = eventId,
                 )
             )
-        findNavController().navigate(directions)
-    }
-
-    private fun openSharing() {
-        val eventText = args.eventDetailViewArg.toShareEvent()
-
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, eventText)
-            type = "text/plain"
+            findNavController().navigateFromBottomToTop(directions)
         }
-
-        val shareIntent = Intent.createChooser(sendIntent, null)
-        startActivity(shareIntent)
-    }
-
-    private fun openLocalization() {
-        val latitude = args.eventDetailViewArg.eventLatitude
-        val longitude = args.eventDetailViewArg.eventLongitude
-        val address = coordinatesToAddress(latitude, longitude)
-
-        if (address.isNotEmpty()) {
-            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(address)}")
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            startActivity(mapIntent)
-        }
-    }
-
-    private fun coordinatesToAddress(latitude: Double?, longitude: Double?, context: Context = requireContext()): String {
-        val geocoder = Geocoder(context, Locale.getDefault())
-        try {
-            if (latitude != 0.0 && longitude != 0.0) {
-                val addressList = geocoder.getFromLocation(latitude!!, longitude!!, 1)
-
-                if (addressList != null && addressList.isNotEmpty()) {
-                    val address = addressList[0]
-                    val addressFull = StringBuilder()
-
-                    // Adicione o nome da rua, se disponível
-                    address.thoroughfare?.let { addressFull.append(it) }
-
-                    // Adicione a cidade, se disponível
-                    address.locality?.let {
-                        if (addressFull.isNotEmpty()) addressFull.append(", ")
-                        addressFull.append(it)
-                    }
-
-                    // Adicione o estado, se disponível
-                    address.adminArea?.let {
-                        if (addressFull.isNotEmpty()) addressFull.append(", ")
-                        addressFull.append(it)
-                    }
-
-                    // Adicione o país, se disponível
-                    address.countryName?.let {
-                        if (addressFull.isNotEmpty()) addressFull.append(", ")
-                        addressFull.append(it)
-                    }
-
-                    // Adicione o CEP, se disponível
-                    address.postalCode?.let {
-                        if (addressFull.isNotEmpty()) addressFull.append(", ")
-                        addressFull.append(it)
-                    }
-
-                    return addressFull.toString()
-                }
-            } else {
-                // Endereço não encontrado
-                return ""
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        // Endereço não encontrado
-        return ""
-    }
-
-    private fun observeCheckinData() {
-        val navBackStackEntry = findNavController().getBackStackEntry(R.id.EventDetailFragment)
-
-        val observer = LifecycleEventObserver { _, event ->
-            val isCheckinApplied =
-                navBackStackEntry.savedStateHandle.contains(
-                    EventCheckinFragment.KEY_APPLIED_BASK_STACK
-                )
-
-            if (event == Lifecycle.Event.ON_RESUME && isCheckinApplied) {
-                navBackStackEntry.savedStateHandle.remove<Boolean>(
-                    EventCheckinFragment.KEY_APPLIED_BASK_STACK
-                )
-            }
-        }
-
-        navBackStackEntry.lifecycle.addObserver(observer)
-
-        viewLifecycleOwner.lifecycle.addObserver(
-            LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_DESTROY) {
-                    navBackStackEntry.lifecycle.removeObserver(observer)
-                }
-            },
-        )
     }
 
     override fun onDestroyView() {
@@ -230,8 +208,8 @@ class EventDetailFragment : Fragment() {
     }
 
     companion object {
-        private const val FLIPPER_CHILD_LOADING = 0
-        private const val FLIPPER_CHILD_SUCCESS = 1
+        private const val FLIPPER_CHILD_LOADING = 1
+        private const val FLIPPER_CHILD_SUCCESS = 0
         private const val FLIPPER_CHILD_ERROR = 2
     }
 }

@@ -4,14 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.viniciusjanner.desafio.core.domain.model.Event
 import com.viniciusjanner.desafio.sicredi.databinding.FragmentEventListBinding
 import com.viniciusjanner.desafio.sicredi.framework.imageloader.ImageLoader
 import com.viniciusjanner.desafio.sicredi.presentation.common.getGenericAdapterOf
-import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailViewArg
+import com.viniciusjanner.desafio.sicredi.presentation.feature.detail.EventDetailArgs
+import com.viniciusjanner.desafio.sicredi.util.Utils
+import com.viniciusjanner.desafio.sicredi.util.extensions.hide
+import com.viniciusjanner.desafio.sicredi.util.extensions.navigateFromRightToLeft
+import com.viniciusjanner.desafio.sicredi.util.extensions.onSingleClick
+import com.viniciusjanner.desafio.sicredi.util.extensions.resetPositionScroll
+import com.viniciusjanner.desafio.sicredi.util.extensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,30 +33,25 @@ class EventListFragment : Fragment() {
     lateinit var imageLoader: ImageLoader
 
     private val eventsAdapter by lazy {
-        getGenericAdapterOf {
-            EventListViewHolder.create(it, imageLoader) { eventItem, _ ->
-                val directions = EventListFragmentDirections
-                    .actionEventListFragmentToEventDetailFragment(
-                        EventDetailViewArg(
-                            eventId = eventItem.id,
-                            eventImageUrl = eventItem.image ?: "",
-                            eventDate = eventItem.date,
-                            eventPrice = eventItem.price,
-                            eventTitle = eventItem.title,
-                            eventLatitude = eventItem.latitude,
-                            eventLongitude = eventItem.longitude,
-                        )
-                    )
-                findNavController().navigate(directions)
+        getGenericAdapterOf { viewGroup ->
+            EventListViewHolder.create(viewGroup, imageLoader) { event, _ ->
+                navigateToEventDetail(event)
             }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    private fun navigateToEventDetail(event: Event) {
+        val directions = EventListFragmentDirections.actionEventListFragmentToEventDetailFragment(
+            EventDetailArgs(
+                eventId = event.id,
+            )
+        )
+        findNavController().navigateFromRightToLeft(directions)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+
         _binding = FragmentEventListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,70 +59,84 @@ class EventListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initEventsAdapter()
+        initViews()
         initObservers()
         initListeners()
     }
 
-    private fun initEventsAdapter() {
+    private fun initViews() {
         binding.recyclerEventList.run {
-            setHasFixedSize(true)
-            adapter = eventsAdapter
+            this.setHasFixedSize(true)
+            this.adapter = eventsAdapter
+            Utils.getCustomItemDecoration()?.let { this.addItemDecoration(it) }
         }
     }
 
     private fun initObservers() {
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
-            // ViewFlipper
-            binding.flipperEvents.displayedChild =
-                    // State
-                when (uiState) {
-                    EventListViewModel.UiState.Loading -> {
-                        setShimmerVisibility(true)
-                        FLIPPER_CHILD_LOADING
-                    }
+            when (uiState) {
+                EventListViewModel.UiState.Loading -> updateUiToLoading()
 
-                    is EventListViewModel.UiState.Success -> {
-                        setShimmerVisibility(false)
-                        eventsAdapter.submitList(uiState.events)
-                        FLIPPER_CHILD_SUCCESS
-                    }
+                is EventListViewModel.UiState.Success -> updateUiToSuccess(uiState.events)
 
-                    EventListViewModel.UiState.Empty -> {
-                        setShimmerVisibility(false)
-                        eventsAdapter.submitList(emptyList())
-                        FLIPPER_CHILD_EMPTY
-                    }
+                EventListViewModel.UiState.Empty -> updateUiToEmpty()
 
-                    EventListViewModel.UiState.Error -> {
-                        setShimmerVisibility(false)
-                        FLIPPER_CHILD_ERROR
-                    }
-                }
+                EventListViewModel.UiState.Error -> updateUiToError()
+            }
         }
+    }
 
-        getEvents()
+    private fun updateUiToLoading() {
+        with(binding) {
+            includeViewLoading.run {
+                scroll?.resetPositionScroll()
+                horizontalScroll?.resetPositionScroll()
+                shimmer.show()
+            }
+            viewFlipper.displayedChild = FLIPPER_CHILD_LOADING
+        }
+    }
+
+    private fun updateUiToSuccess(events: List<Event>?) {
+        with(binding) {
+            includeViewLoading.shimmer.hide()
+            eventsAdapter.submitList(events)
+            viewFlipper.displayedChild = FLIPPER_CHILD_SUCCESS
+        }
+    }
+
+    private fun updateUiToEmpty() {
+        with(binding) {
+            includeViewLoading.shimmer.hide()
+            viewFlipper.displayedChild = FLIPPER_CHILD_EMPTY
+        }
+    }
+
+    private fun updateUiToError() {
+        with(binding) {
+            includeViewLoading.shimmer.hide()
+            viewFlipper.displayedChild = FLIPPER_CHILD_ERROR
+        }
     }
 
     private fun initListeners() {
-        binding.includeViewError.buttonRetry.setOnClickListener {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.hide()
+            getEvents()
+        }
+
+        binding.includeViewEmpty.buttonAction.onSingleClick {
+            getEvents()
+        }
+
+        binding.includeViewError.buttonAction.onSingleClick {
             getEvents()
         }
     }
 
     private fun getEvents() {
+        eventsAdapter.submitList(emptyList())
         viewModel.actionGetEvents()
-    }
-
-    private fun setShimmerVisibility(visibility: Boolean) {
-        binding.includeViewLoading.shimmerEvents.run {
-            this.isVisible = visibility
-            if (visibility) {
-                startShimmer()
-            } else {
-                stopShimmer()
-            }
-        }
     }
 
     override fun onDestroyView() {
