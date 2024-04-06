@@ -12,17 +12,17 @@ object Dependencies {
 
             val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 
-            val core = "androidx.core:core-ktx:1.10.1"
-            val coreSplashScreen = "androidx.core:core-splashscreen:1.0.0-alpha01"
+            val core = "androidx.core:core-ktx:1.12.0"
+            val coreSplashScreen = "androidx.core:core-splashscreen:1.0.1"
 
-            const val versionLifecycle = "2.6.1"
+            const val versionLifecycle = "2.7.0"
             val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:$versionLifecycle"
             val lifecycleRunTime = "androidx.lifecycle:lifecycle-runtime-ktx:$versionLifecycle"
             val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versionLifecycle"
 
             val multidex = "androidx.multidex:multidex:2.0.1"
 
-            const val versionNavigation = "2.7.2"
+            const val versionNavigation = "2.7.7"
             val navigationFragment = "androidx.navigation:navigation-fragment-ktx:$versionNavigation"
             val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:$versionNavigation"
             val navigationUi = "androidx.navigation:navigation-ui-ktx:$versionNavigation"
@@ -31,11 +31,11 @@ object Dependencies {
         }
 
         object Google {
-            val androidMaterial = "com.google.android.material:material:1.9.0"
+            val androidMaterial = "com.google.android.material:material:1.11.0"
 
             val codeGson = "com.google.code.gson:gson:2.10.1"
 
-            const val versionDaggerHilt = "2.47"
+            const val versionDaggerHilt = "2.51.1"
             val daggerHilt = "com.google.dagger:hilt-android:$versionDaggerHilt"
             val daggerHiltCompiler = "com.google.dagger:hilt-android-compiler:$versionDaggerHilt"
         }
@@ -45,7 +45,7 @@ object Dependencies {
         }
 
         object JetBrains {
-            const val versionCoroutines = "1.7.3"
+            const val versionCoroutines = "1.8.0"
             val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versionCoroutines"
             val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versionCoroutines"
         }
@@ -61,12 +61,12 @@ object Dependencies {
         }
 
         object Squareup {
-            const val versionOkhttp = "3.12.12" // Support API 19
+            const val versionOkhttp = "4.12.0" // Support API 19
             val okhttp = "com.squareup.okhttp3:okhttp:$versionOkhttp"
             val okhttpBom = "com.squareup.okhttp3:okhttp-bom:$versionOkhttp"
             val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$versionOkhttp"
 
-            const val versionRetrofit = "2.9.0"
+            const val versionRetrofit = "2.11.0"
             val retrofit = "com.squareup.retrofit2:retrofit:$versionRetrofit"
             val retrofitConverter = "com.squareup.retrofit2:converter-gson:$versionRetrofit"
         }
@@ -87,7 +87,7 @@ object Dependencies {
             }
 
             object JetBrains {
-                const val versionCoroutines = "1.7.3"
+                const val versionCoroutines = "1.8.0"
                 const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versionCoroutines"
                 const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versionCoroutines"
             }
@@ -97,8 +97,8 @@ object Dependencies {
             }
 
             object Others {
-                const val mockito = "org.mockito:mockito-core:4.5.1"
-                const val mockk = "io.mockk:mockk:1.13.7"
+                const val mockito = "org.mockito:mockito-core:5.11.0"
+                const val mockk = "io.mockk:mockk:1.13.10"
                 const val nhaarmanMockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
             }
         }
