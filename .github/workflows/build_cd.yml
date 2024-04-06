@@ -3,10 +3,10 @@ name: Build CD
 on:
   workflow_dispatch:
 
-#  push:
-#    branches: [ "staging" ]
-#    tags:
-#      - 'v*.*.*.*'
+  #  push:
+  #    branches: [ "staging" ]
+  #    tags:
+  #      - 'v*.*.*.*'
 
   pull_request:
     branches: [ "staging" ]
@@ -66,6 +66,8 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
 
       - name: AAB - Upload Artifact
         uses: actions/upload-artifact@v2
