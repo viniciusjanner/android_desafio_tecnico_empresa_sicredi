@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/colorOrange">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.20" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <LinearLayout
+        android:id="@+id/containerAux1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_bottomsheet"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVerticalEnd"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVerticalStart"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon"
+            android:layout_width="50dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_horizontal"
+            app:tint="@color/colorGray5" />
+
+        <ViewFlipper
+            android:id="@+id/viewFlipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/containerCheckin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackgroundDefault"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:paddingTop="28dp">
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/nestedScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fillViewport="true"
+                    android:fitsSystemWindows="true">
+
+                    <LinearLayout
+                        android:id="@+id/containerNestedScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="60dp"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/title"
+                            style="@style/Theme.Widget.TextView.Event.Title"
+                            android:text="@string/screen_event_checkin_title_header"
+                            android:textAlignment="center" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilName"
+                            style="@style/Theme.Widget.TextInputLayout.Default"
+                            android:layout_marginTop="20dp"
+                            android:theme="@style/Theme.Widget.TextInputLayout.Default"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/tietName"
+                                style="@style/Theme.Widget.TextInputEditText.Default"
+                                android:hint="@string/common_name"
+                                android:imeOptions="actionNext"
+                                android:maxLength="50"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:theme="@style/Theme.Widget.TextInputEditText.Default" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilEmail"
+                            style="@style/Theme.Widget.TextInputLayout.Default"
+                            android:layout_marginBottom="16dp"
+                            android:theme="@style/Theme.Widget.TextInputLayout.Default"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/tietEmail"
+                                style="@style/Theme.Widget.TextInputEditText.Default"
+                                android:hint="@string/common_email"
+                                android:imeOptions="actionDone"
+                                android:maxLength="50"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:theme="@style/Theme.Widget.TextInputEditText.Default" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/buttonAction"
+                    style="@style/Theme.Widget.TextView.Flat.Active"
+                    android:text="@string/common_checkin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/includeViewLoading"
+                layout="@layout/include_view_loading" />
+
+            <include
+                android:id="@+id/includeViewSuccess"
+                layout="@layout/include_view_success" />
+
+            <include
+                android:id="@+id/includeViewError"
+                layout="@layout/include_view_error" />
+
+        </ViewFlipper>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
