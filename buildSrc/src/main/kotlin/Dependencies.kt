@@ -1,8 +1,8 @@
 object Dependencies {
 
     object Version {
-        const val versionGradle = "8.1.1"
-        const val versionKotlin = "1.9.0"//"1.8.22"
+        const val versionGradle = "8.3.1" // "8.1.1"
+        const val versionKotlin = "1.9.0" // "1.8.22"
     }
 
     object Develop {
